@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Link, Typography, Box, CardMedia, CardContent, Grid } from '@mui/material';
+import { Navigate } from 'react-router-dom';
 import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle1, textStyle2} from '../theme';
 import { LoginForm } from '../components/LoginForm';
 import { SignupForm } from '../components/SignupForm';
@@ -8,12 +9,15 @@ import palette from '../theme'
 
 function Login() {
   const [status, setStatus] = useState('LOGIN')
-
+  
   function handleClick(e) {
     e.preventDefault()
     status !== 'SIGNUP'? setStatus('SIGNUP') : setStatus('LOGIN')
   }
-
+  
+  if (localStorage.getItem('authenticated')) {
+    return <Navigate to="/dashboard"/>
+  }
   return (
     <Grid container sx={defaultStyle}>
       <Grid item xs={5} md={8} sx={backgroundStyle}/> 

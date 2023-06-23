@@ -24,7 +24,6 @@ function showAlert() {
 }
 
 function Dashboard() {
-  const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("authenticated") || false);
 
   function handleLogout() {
@@ -37,7 +36,7 @@ function Dashboard() {
   }
   return (
     <Box display={"flex"}>
-      <Box className="navLeft" flex={1} height={'100vh'} bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}>
+      <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}>
         <Box display="flex" mt="1em" justifyContent={"center"}>
           <CardMedia component="img" src="/icon.png" sx={{width:"45px"}}/>
           <Typography sx={{
@@ -67,7 +66,7 @@ function Dashboard() {
           </NavItem>
         </List>
       </Box>
-      <Box flex={5}>
+      <Box flex={5} bgcolor="#F4F5F6">
         <Box className="navTop" bgcolor="#FCFCFD" sx={{
           display: "flex",
           alignItems: "center",
@@ -79,7 +78,7 @@ function Dashboard() {
           <MyAvatar></MyAvatar>
           <Button onClick={handleLogout}>Logout</Button>
         </Box>
-        <Box className="contentContainer" padding="1.7em" bgcolor="#F4F5F6" sx={{heihgt: "92.2vh"}}>
+        <Box className="contentContainer" padding="1.7em" >
           {/* <Overview/> */}
           <PostManager/>
           {/* <Location/> */}

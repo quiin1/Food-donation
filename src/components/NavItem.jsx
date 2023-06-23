@@ -7,15 +7,10 @@ const NavItem = (props) => {
     <ListItem disablePadding sx={{
         padding: "8px 16px",
         "&:hover": {
-            backgroundColor: "#D5EEDB",
-            color: "#2BA84A",
-            ".MuiListItemIcon-root": {
-                color: "#2BA84A"
-            }
-        },
-        "&:focus": {
-            backgroundColor: "#D5EEDB",
-            color: "#2BA84A",
+            ".MuiButtonBase-root": {
+                color: "#2BA84A",
+                backgroundColor: "#D5EEDB"
+            },
             ".MuiListItemIcon-root": {
                 color: "#2BA84A"
             }
