@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useEffect, useState } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom"
+import { RequireAuth } from "react-auth-kit"
+import { Navigate } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material';
+import Login from "./pages/Login";
+import Dashboard from './pages/Dashboard';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'SF-Pro', sans-serif",
+    button: {
+      textTransform: "none"
+    }
+  }
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

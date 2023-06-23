@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { ThemeProvider } from '@mui/material';
+import theme from './theme.js';
+import { AuthProvider } from 'react-auth-kit'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import rootReducer from './redux'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = configureStore({reducer: rootReducer});
 root.render(
   <React.StrictMode>
-    <App />
+      <Provider store = {store}>
+        <AuthProvider
+        >
+          <App />
+        </AuthProvider>
+      </Provider>
   </React.StrictMode>
 );
 
