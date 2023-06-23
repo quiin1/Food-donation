@@ -11,7 +11,7 @@ export const LoginForm = (props) => {
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [authenticated, setauthenticated] = useState(
+    const [authenticated, setAuthenticated] = useState(
         localStorage.getItem(localStorage.getItem("authenticated") || false)
     );
     const data = JSON.parse(localStorage.getItem('accounts'))
@@ -90,7 +90,7 @@ export const LoginForm = (props) => {
     }
 
     if (isSuccess) {
-        return <Navigate to={"/dashboard"}/>
+        return <Navigate to="/dashboard"/>
     }
 
     return (
