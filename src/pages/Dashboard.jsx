@@ -29,13 +29,11 @@ function Dashboard() {
 
   function handleLogout() {
     localStorage.removeItem("authenticated");
-    return <Navigate to={"/login"}/>
+    setAuthenticated(false);
   }
 
   if(!authenticated){
-    navigate("/login");
     return <Navigate to="/login" />
-    
   }
   return (
     <Box display={"flex"}>
@@ -79,7 +77,7 @@ function Dashboard() {
         }}>
           <SearchBar></SearchBar>
           <MyAvatar></MyAvatar>
-          {/* <Button onClick={handleLogout}></Button> */}
+          <Button onClick={handleLogout}>Logout</Button>
         </Box>
         <Box className="contentContainer" padding="1.7em" bgcolor="#F4F5F6" sx={{heihgt: "92.2vh"}}>
           {/* <Overview/> */}
