@@ -3,10 +3,6 @@ import { Box, Typography, Pagination } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
 import { PostButton } from './MUIComponents'
 import Overview from './Overview';
-import PostManager from './PostManager'
-import Location from './Location';
-import Reward from './Reward';
-import PaymentRecord from './PaymentRecord';
 import IconEye from '../assets/fi-sr-eye.svg'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
@@ -19,6 +15,7 @@ const Content = (props) => {
         {
             state: 'Post manager',
             title: 'Post Management',
+            action: '+ New post',
             columns: [
                 { 
                     field: 'id', 
@@ -124,6 +121,7 @@ const Content = (props) => {
         {
             state: 'Location',
             title: 'Location Management',
+            action: '+ New location',
             columns: [
                 { 
                     field: 'id', 
@@ -182,14 +180,33 @@ const Content = (props) => {
             ],
             rows: [
                 { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
             ]
         },
         {
             state: 'Reward',
             title: 'Reward Management',
+            action: '+ New voucher',
             columns: [
                 { 
-                    field: 'voucherCode', 
+                    field: 'id', 
                     headerName: 'VOUCHER CODE', 
                     width: 150,
                     renderCell: (params) => {
@@ -201,7 +218,7 @@ const Content = (props) => {
                 { 
                     field: 'voucherInfo', 
                     headerName: 'VOUCHER INFORMATION', 
-                    width: 400,
+                    width: 300,
                     renderCell: (params) => {
                         return (
                             <Box sx={{
@@ -210,13 +227,13 @@ const Content = (props) => {
                                 gap: '1em'
                             }}>
                                 <img src={params.value.img}/>
-                                {params.value.address}
+                                {params.value.voucherInfo}
                             </Box>
                         )
                     }
                 },
-                { field: 'expiredDate', headerName: 'EXPIRED DATE', width: 160 },
-                { field: 'activedDate', headerName: 'ADDED DATE', width: 160 },
+                { field: 'expiredDate', headerName: 'EXPIRED DATE', width: 180 },
+                { field: 'activedDate', headerName: 'ACTIVED DATE', width: 180 },
                 { 
                     field: 'status', 
                     headerName: 'STATUS', 
@@ -244,17 +261,103 @@ const Content = (props) => {
                 }
             ],
             rows: [
-
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+                { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
             ]
         },
         {
             state: 'Payment record',
             title: 'Payment Record',
+            action: '+ New payment record',
             columns: [
-
+                { 
+                    field: 'id', 
+                    headerName: 'LOG ID', 
+                    width: 150,
+                    renderCell: (params) => {
+                        return (
+                            <Box color="#2BA84A">{params.value}</Box>
+                        )
+                    }
+                },
+                { 
+                    field: 'event', 
+                    headerName: 'EVENT', 
+                    width: 300,
+                    renderCell: (params) => {
+                        return (
+                            <Box sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '1em',
+                            }}>
+                                <div 
+                                    style={{
+                                        padding: "6px 5px 0 6px",
+                                        borderRadius: "50%", 
+                                        border: "1px solid #2BA84A"
+                                }}>
+                                    <img 
+                                        style={{
+                                            width: "19.636px",
+                                        }}
+                                        src={params.value.img} />
+                                </div>
+                                {params.value.event}
+                            </Box>
+                        )
+                    }
+                },
+                { 
+                    field: 'moneyUsed', 
+                    headerName: 'MONEY USED',
+                    type: 'number',
+                    width: 150,
+                    renderCell: (params) => {
+                        return (
+                            <>${params.value}</>
+                        )
+                    }
+                },
+                { field: 'usedDate', headerName: 'USED DATE', width: 220 },
+                { 
+                    field: 'status', 
+                    headerName: 'STATUS', 
+                    width: 200,
+                    renderCell: (params) => {
+                        return (
+                            <Box sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'space-between'
+                            }}>
+                                <Box
+                                    bgcolor="#D5EEDB"
+                                    padding="8px 16px"
+                                    color="#30993B"
+                                    borderRadius="20px"
+                                    mr="2em"
+                                >
+                                    {params.value}
+                                </Box>
+                                <MoreHorizIcon/>
+                            </Box>
+                        )
+                    }
+                }
             ],
             rows: [
-
+                { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
+                { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
+                { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
+                { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
             ]
         },
     ]
@@ -273,7 +376,7 @@ const Content = (props) => {
                     }}>
                         {data[pageIndex].title}
                     </Typography>
-                    <PostButton>+ New post</PostButton>
+                    <PostButton>{data[pageIndex].action}</PostButton>
                 </Box>
                 <Box mt="1.3em" bgcolor="white">
                     <DataGrid
