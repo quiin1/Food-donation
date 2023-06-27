@@ -1,11 +1,9 @@
-import { React, useEffect, useState } from 'react';
+import { React } from 'react';
 import {
   BrowserRouter,
   Routes,
   Route
 } from "react-router-dom"
-import { RequireAuth } from "react-auth-kit"
-import { Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import Login from "./pages/Login";
 import Dashboard from './pages/Dashboard';

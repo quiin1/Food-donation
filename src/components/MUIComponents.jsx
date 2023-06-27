@@ -27,6 +27,9 @@ export const CardButton = styled(Button)({
     padding: '7px 0',
     borderRadius: '4px',
     backgroundColor: '#2BA84A',
+    '&:hover': {
+      backgroundColor: 'green',
+    },
   });
 
 export const PostButton = styled(Button)({
@@ -39,4 +42,7 @@ export const PostButton = styled(Button)({
     padding: '7px 3em',
     borderRadius: '4px',
     backgroundColor: '#2BA84A',
+    '&:hover': {
+      backgroundColor: 'green',
+    },
   });

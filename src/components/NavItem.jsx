@@ -1,22 +1,29 @@
 import React from 'react'
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import theme from '../theme'
 
 const NavItem = (props) => {
   return (
-    <ListItem disablePadding sx={{
-        padding: "8px 16px",
-        "&:hover": {
-            ".MuiButtonBase-root": {
+    <ListItem 
+        disablePadding 
+        onClick={props.onClick} 
+        sx={{
+            padding: "8px 16px",
+            ".chosen": {
                 color: "#2BA84A",
                 backgroundColor: "#D5EEDB"
             },
-            ".MuiListItemIcon-root": {
-                color: "#2BA84A"
-            }
-        }
-    }}>
-        <ListItemButton >
+            "&:hover": {
+                ".MuiButtonBase-root": {
+                    color: "#2BA84A",
+                    backgroundColor: "#D5EEDB"
+                },
+                ".MuiListItemIcon-root": {
+                    color: "#2BA84A"
+                }
+            } 
+        }}
+    >
+        <ListItemButton className={props.className} >
             <ListItemIcon>
                 {props.children}
             </ListItemIcon>
