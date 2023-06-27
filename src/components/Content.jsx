@@ -5,6 +5,7 @@ import { PostButton } from './MUIComponents'
 import Overview from './Overview';
 import IconEye from '../assets/fi-sr-eye.svg'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ActionForm from './ActionForm';
 
 const Content = (props) => {
     let pageIndex = -1, postsNum
@@ -367,6 +368,7 @@ const Content = (props) => {
         postsNum = data[pageIndex].rows.length
         return (
             <Box>
+                <ActionForm/>
                 <Box display="flex" justifyContent="space-between">
                     <Typography sx={{
                         color: "#2E2C34", 

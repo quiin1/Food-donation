@@ -48,6 +48,8 @@ function Dashboard() {
 
   function handleLogout() {
     localStorage.removeItem("authenticated");
+    localStorage.removeItem("state");
+    setState(null);
     setAuthenticated(false);
   }
 
