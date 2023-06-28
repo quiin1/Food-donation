@@ -415,7 +415,7 @@ const Content = (props) => {
         console.log("open",open)
     }
 
-    if (!pageIndex) return <Overview/>
+    if (!pageIndex) return <Overview data={props.data}/>
     else {
         postsNum = data[pageIndex].rows.length
         return (

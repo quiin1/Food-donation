@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Alert, AlertTitle, CardMedia, Typography, Button, List, Grid } from "@mui/material"
 import { Navigate } from 'react-router-dom';
 import { palette } from '../theme'
@@ -26,23 +26,23 @@ function Dashboard() {
   const listNavItems = [
     {
       title: "Overview",
-      img: "/Vector.png",
+      img: "/dashboard.svg",
     },
     {
       title: "Post manager",
-      img: "/fi-sr-document-signed.png",
+      img: "/fi-sr-document-signed.svg",
     },
     {
       title: "Location",
-      img: "/fi-sr-location-alt.png",
+      img: "/fi-sr-location-alt.svg",
     },
     {
       title: "Reward",
-      img: "/Vector (1).png",
+      img: "/fi-sr-hand-holding-heart.svg",
     },
     {
       title: "Payment record",
-      img: "/fi-sr-money.png",
+      img: "/fi-sr-money.svg",
     }
   ]
 
@@ -71,15 +71,14 @@ function Dashboard() {
         <List sx={{
           margin: "2em 0"
         }}>
-          {listNavItems.map((item, index) => {
-            return(
+          {listNavItems.map((item, index) => (
               <NavItem id={index} key={index} title={item.title} 
                 onClick={() => {setState(item.title); localStorage.setItem('state', item.title)}}
                 className={state === item.title ? "chosen" : ""}
               >
                 <CardMedia sx={{width: "22px"}} component="img" src={item.img}/>
               </NavItem>
-          )})}
+          ))}
         </List>
       </Box>
       <Box flex={5} bgcolor="#F4F5F6">
@@ -94,7 +93,7 @@ function Dashboard() {
           <MyAvatar handleLogout={handleLogout}/>
         </Box>
         <Box className="contentContainer" padding="1.7em" >
-          <Content state={state}/>
+          <Content state={state} data={listNavItems}/>
         </Box>
       </Box>
     </Box>

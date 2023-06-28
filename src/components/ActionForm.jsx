@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Slide, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography, FormControl, Input, InputLabel, OutlinedInput} from '@mui/material';
-import { ActionButton, ActionInputLabelStyled, ActionInputStyled, ActionSubTitleStyled, ActionTitleStyled } from './MUIComponents';
-import TextEditor from './TextEditor';
+import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from './MUIComponents';
 import ProductInfoCards from './ProductInformation';
 import ActionInfoInputs from './ActionInfoInputs';
 

@@ -1,12 +1,38 @@
 import React from 'react'
-import { Box, Typography, Divider} from '@mui/material'
+import { Box, Typography, Divider, Grid } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 import ViewComfyIcon from '@mui/icons-material/ViewComfy';
 import DescriptionIcon from '@mui/icons-material/Description';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import MyCard from '../components/MyCard';
 
-const Overview = () => {
+const Overview = (props) => {
+    const data = [
+        {
+            title: "Add a new post",
+            content: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
+            btnName: "New post",
+            img: props.data[1].img
+        },
+        {
+            title: "Add a new location to the application map",
+            content: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
+            btnName: "Add location",
+            img: props.data[2].img
+        },
+        {
+            title: "Add new rewards and vouchers",
+            content: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
+            btnName: "Add reward",
+            img: props.data[3].img
+        },
+        {
+            title: "Update the amount of used money for donations",
+            content: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. ",
+            btnName: "Add new payment record",
+            img: props.data[4].img
+        },
+    ]
   return (
     <Box>
         <Typography sx={{
@@ -24,36 +50,17 @@ const Overview = () => {
             <Typography>South Austraa(SA), 5583</Typography>
         </Box>
         <Divider/>
-        <Box display="flex" flexWrap="wrap" gap="2em" mt="2em" >
-            <MyCard 
-                title="Add a new post"
-                content="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. "
-                btnName="New post"
+        <Grid container spacing={2} mt="1.2em">
+            {data.map(item => (
+                <MyCard 
+                    title={item.title}
+                    content={item.content}
+                    btnName={item.btnName}
                 >
-                <ViewComfyIcon/>
-            </MyCard>
-            <MyCard 
-                title="Add a new location to the application map"
-                content="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. "
-                btnName="Add location"
-            >
-                <DescriptionIcon/>
-            </MyCard>
-            <MyCard 
-                title="Add new rewards and vouchers"
-                content="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. "
-                btnName="Add reward"
-            >
-                <PlaceIcon/>
-            </MyCard>
-            <MyCard 
-                title="Update the amount of used money for donations"
-                content="Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. "
-                btnName="Add new payment record"
-            >
-                <VolunteerActivismIcon/>
-            </MyCard>
-        </Box>
+                    <img style={{width:"2em", filter: "invert(58%) sepia(22%) saturate(1478%) hue-rotate(82deg) brightness(87%) contrast(85%)"}} src={item.img}/>
+                </MyCard>
+            ))}
+        </Grid>
     </Box>
   )
 }

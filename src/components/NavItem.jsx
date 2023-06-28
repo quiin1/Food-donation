@@ -10,15 +10,18 @@ const NavItem = (props) => {
             padding: "8px 16px",
             ".chosen": {
                 color: "#2BA84A",
-                backgroundColor: "#D5EEDB"
+                backgroundColor: "#D5EEDB",
+                ".MuiListItemIcon-root": {
+                    filter: "invert(58%) sepia(22%) saturate(1478%) hue-rotate(82deg) brightness(87%) contrast(85%)"
+                }
             },
             "&:hover": {
                 ".MuiButtonBase-root": {
                     color: "#2BA84A",
-                    backgroundColor: "#D5EEDB"
+                    backgroundColor: "#D5EEDB",
                 },
                 ".MuiListItemIcon-root": {
-                    color: "#2BA84A"
+                    filter: "invert(58%) sepia(22%) saturate(1478%) hue-rotate(82deg) brightness(87%) contrast(85%)"
                 }
             } 
         }}
