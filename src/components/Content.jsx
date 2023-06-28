@@ -121,8 +121,13 @@ const Content = (props) => {
             actionForm: {
                 title: 'Add new post',
                 subtitles: ['Post Information', 'Media'],
-                inputLabels: ['Title', 'Raising', 'Location', 'Address', 'Description'],
-                inputTypes: ['text', 'money', 'select-2column', 'select-2column', 'description'],
+                inputs: [
+                    {label: 'Title', type: 'text', width: '100%'}, 
+                    {label: 'Raising', type: 'money', width: '100%'}, 
+                    {label: 'Location', type: 'select', width: '50%', optionList: []}, 
+                    {label: 'Address', type: 'select', width: '50%', optionList: []}, 
+                    {label: 'Discription', type: 'description', width: '100%'}
+                ], 
                 button: 'Create new post'
             }
         },
@@ -210,8 +215,11 @@ const Content = (props) => {
             actionForm: {
                 title: 'Add new location',
                 subtitles: ['Location Information', 'Media'],
-                inputLabels: ['Location', 'Address', 'Description'],
-                inputTypes: ['select-fullwidth', 'text', 'description'],
+                inputs: [
+                    {label: 'Location', type: 'select', width: '100%', optionList: []}, 
+                    {label: 'Address', type: 'text', width: '100%'}, 
+                    {label: 'Description', type: 'description', width: '100%'}
+                ], 
                 button: 'Create new location'
             }
         },
@@ -289,8 +297,12 @@ const Content = (props) => {
             actionForm: {
                 title: 'Add new voucher',
                 subtitles: ['Voucher Information', 'Media'],
-                inputLabels: ['Voucher name', 'Expired Date', 'Voucher Code', 'Description'],
-                inputTypes: ['text', 'number-2column', 'number-2column', 'description'],
+                inputs: [
+                    {label: 'Voucher name', type: 'text', width: '100%'}, 
+                    {label: 'Expired Date', type: 'date', width: '50%'}, 
+                    {label: 'Voucher Code', type: 'number', width: '50%'}, 
+                    {label: 'Description', type: 'description', width: '100%'}
+                ],
                 button: 'Create new voucher'
             }
         },
@@ -384,8 +396,13 @@ const Content = (props) => {
             actionForm: {
                 title: 'Add new payment record',
                 subtitles: ['Payment record information', 'Media'],
-                inputLabels: ['Title', 'Money Used', 'Location', 'Address', 'Description'],
-                inputTypes: ['text', 'money', 'select', 'select', 'description'],
+                inputs: [
+                    {label: 'Title', type: 'text', width: '100%'}, 
+                    {label: 'Money Used', type: 'money', width: '100%'}, 
+                    {label: 'Location', type: 'select', width: '50%', optionList: []}, 
+                    {label: 'Address', type: 'select', width: '50%', optionList: []}, 
+                    {label: 'Description', type: 'description', width: '100%'}
+                ], 
                 button: 'Create new post'
             }
         },
