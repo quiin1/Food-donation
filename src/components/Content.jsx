@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Typography, Pagination } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
 import { PostButton } from './MUIComponents'
@@ -117,7 +117,14 @@ const Content = (props) => {
                 { id: 9256821912, title: {img: '/1.png', title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
                 { id: 9256821912, title: {img: '/1.png', title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
                 { id: 9256821912, title: {img: '/1.png', title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
-            ]
+            ],
+            actionForm: {
+                title: 'Add new post',
+                subtitles: ['Post Information', 'Media'],
+                inputLabels: ['Title', 'Raising', 'Location', 'Address', 'Description'],
+                inputTypes: ['text', 'money', 'select-2column', 'select-2column', 'description'],
+                button: 'Create new post'
+            }
         },
         {
             state: 'Location',
@@ -199,7 +206,14 @@ const Content = (props) => {
                 { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
                 { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
                 { id: 9256821912, address: {img: "/2.png", address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
-            ]
+            ],
+            actionForm: {
+                title: 'Add new location',
+                subtitles: ['Location Information', 'Media'],
+                inputLabels: ['Location', 'Address', 'Description'],
+                inputTypes: ['select-fullwidth', 'text', 'description'],
+                button: 'Create new location'
+            }
         },
         {
             state: 'Reward',
@@ -271,7 +285,14 @@ const Content = (props) => {
                 { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
                 { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
                 { id: 9256821912, voucherInfo: {img: "/3.svg", voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
-            ]
+            ],
+            actionForm: {
+                title: 'Add new voucher',
+                subtitles: ['Voucher Information', 'Media'],
+                inputLabels: ['Voucher name', 'Expired Date', 'Voucher Code', 'Description'],
+                inputTypes: ['text', 'number-2column', 'number-2column', 'description'],
+                button: 'Create new voucher'
+            }
         },
         {
             state: 'Payment record',
@@ -359,16 +380,30 @@ const Content = (props) => {
                 { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
                 { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
                 { id: 9256821912, event: {img: "/4.svg", event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid' },
-            ]
+            ],
+            actionForm: {
+                title: 'Add new payment record',
+                subtitles: ['Payment record information', 'Media'],
+                inputLabels: ['Title', 'Money Used', 'Location', 'Address', 'Description'],
+                inputTypes: ['text', 'money', 'select', 'select', 'description'],
+                button: 'Create new post'
+            }
         },
     ]
     pageIndex = data.findIndex((item) => item.state === props.state)
+    
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => { 
+        setOpen(true)
+        console.log("open",open)
+    }
+
     if (!pageIndex) return <Overview/>
     else {
         postsNum = data[pageIndex].rows.length
         return (
             <Box>
-                <ActionForm/>
+                <ActionForm open={open} setOpen={setOpen} data={data[pageIndex].actionForm} i={pageIndex}/>
                 <Box display="flex" justifyContent="space-between">
                     <Typography sx={{
                         color: "#2E2C34", 
@@ -378,7 +413,7 @@ const Content = (props) => {
                     }}>
                         {data[pageIndex].title}
                     </Typography>
-                    <PostButton>{data[pageIndex].action}</PostButton>
+                    <PostButton onClick={handleOpen}>{data[pageIndex].action}</PostButton>
                 </Box>
                 <Box mt="1.3em" bgcolor="white">
                     <DataGrid

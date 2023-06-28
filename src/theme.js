@@ -41,6 +41,12 @@ export const textStyle3 = {
   fontWeight: '600',
   fontSize: '.35em',
 }
+export const textStyle4 = {
+  fontFamily: 'Inter',
+  fontWeight: '600',
+  fontSize: '.8em',
+  color: "#2E2C34"
+}
 
 export const backgroundStyle = {
   height: '100vh',
