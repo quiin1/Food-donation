@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@font-face {
-  font-family: 'SF Pro';
-  src: url("/fonts/SFProDisplay-Regular.ttf") format('truetype');
-  /* Nếu bạn có các phiên bản khác nhau của font, hãy thêm các khai báo src khác ở đây */
-}
 @import "~quill/dist/quill.core.css";
 
 * {
