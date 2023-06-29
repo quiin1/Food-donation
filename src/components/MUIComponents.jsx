@@ -50,8 +50,7 @@ export const PostButton = styled(Button)({
 export const ActionButton = styled(Button)({
   textTransform: 'none',
   width: '100%',
-  fontFamily: 'Inter',
-  // fontFamily: 'Manrope',
+  fontFamily: 'Manrope',
   fontWeight: 600,
   fontSize: '.7em',
   // font-size: 14px;

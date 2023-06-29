@@ -13,11 +13,9 @@ function TextEditor() {
         theme: 'snow',
         modules: {
           toolbar: [
-            [{ header: [1, 2, 3, 4, 5, 6] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline', 'strike'],
-            // [{ indent: '-1' }, { indent: '+1' }],
-            // [{ align: [] }], // Text alignment option
-            ['link',"blockquote", "code-block", 'image'],
+            ['link', "blockquote", "code-block", 'image'],
             [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
           ],
         },

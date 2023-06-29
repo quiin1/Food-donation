@@ -37,6 +37,9 @@ const ActionInfoInputs = ({data}) => {
                                 ),
                                 'description': (
                                     <FormControl sx={{
+                                        "*": {
+                                            fontFamily: 'Manrope'
+                                        },
                                         ".ql-toolbar": {
                                             borderRadius: "4px 4px 0 0",
                                             border: "1px solid #EBEAED",
@@ -60,10 +63,10 @@ const ActionInfoInputs = ({data}) => {
         )
     }
     return (
-        <>
+        <Box sx={{fontFamily: 'Manrope'}}>
             <Typography sx={ActionSubTitleStyled}>{data.subtitles[0]}</Typography>
             <Grid container spacing={2}>{rows}</Grid>
-        </>
+        </Box>
     )
 }
 

@@ -94,11 +94,11 @@ export const LoginForm = (props) => {
     }
 
     return (
-        <Box mt='1em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
+        <Box mt='.7em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
             {/* <MyInput label='Username' value={username} placeholder='Enter your user name' type='text' handleChangeFunction={handleChangeUserName}/>
             <MyInput label='Password' value={password} placeholder='Enter your password' type='password' handleChangeFunction={handleChangePassword}/> */}
             <Box>
-                <InputLabel sx={{fontFamily: "SF-Pro", color: "#353945"}}>Username</InputLabel>
+                <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Username</InputLabel>
                 <OutlinedInput
                     required
                     hiddenLabel
@@ -122,7 +122,7 @@ export const LoginForm = (props) => {
                 />
             </Box>
             <Box>
-                <InputLabel sx={{fontFamily: "SF-Pro", color: "#353945"}}>Password</InputLabel>
+                <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Password</InputLabel>
                 <OutlinedInput
                     required
                     hiddenLabel

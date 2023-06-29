@@ -46,9 +46,9 @@ export const SignupForm = (props) => {
     }
 
     return (
-        <Box mt='1em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
+        <Box mt='.5em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
             <Box>
-                <InputLabel sx={{fontFamily: "SF-Pro", color: "#353945"}}>Username</InputLabel>
+                <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Username</InputLabel>
                 <OutlinedInput
                     required
                     hiddenLabel
@@ -72,7 +72,7 @@ export const SignupForm = (props) => {
                 />
             </Box>
             <Box>
-                <InputLabel sx={{fontFamily: "SF-Pro", color: "#353945"}}>Password</InputLabel>
+                <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Password</InputLabel>
                 <OutlinedInput
                     required
                     hiddenLabel
@@ -97,7 +97,7 @@ export const SignupForm = (props) => {
                 />
             </Box>
             <Box>
-                <InputLabel sx={{fontFamily: "SF-Pro", color: "#353945"}}>Confirm your password</InputLabel>
+                <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Confirm your password</InputLabel>
                 <OutlinedInput
                     required
                     hiddenLabel
