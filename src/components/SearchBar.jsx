@@ -25,7 +25,7 @@ const SearchBar = (props) => {
           placeholder="Search a campaign"
           startAdornment={
             <InputAdornment position="start">
-              <CardMedia component="img" src="/fi-rr-search.png"/>
+              <CardMedia component="img" src="/fi-rr-search.svg"/>
             </InputAdornment>
           }
         />

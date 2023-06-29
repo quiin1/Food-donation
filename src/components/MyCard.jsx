@@ -4,22 +4,31 @@ import { CardButton } from '../components/MUIComponents'
 
 const MyCard = (props) => {
   return (
-    <Grid item xs={12} md={6}>
-        <Card>
+    <Grid item xs={12} md={6} sx={{"*": {padding:"0 !important"}}}>
+        <Card sx={{
+            borderRadius: "4px",
+            border: "1px solid #EBEAED",
+            background: "#FFF",
+            padding: "24px 24px 15px 24px !important"
+        }}>
             <CardContent>
-                <div sx={{color: "#2BA84A", width: "3em"}}>{props.children}</div>
+                <div style={{marginBottom:"16px"}}>{props.children}</div>
                 <Typography sx={{
                     fontFamily: 'SF Pro',
                     color: '#141416',
                     fontWeight: 600,
                     fontSize: 20,
-                }}>{props.title}</Typography>
+                }}>
+                    {props.title}
+                </Typography>
                 <Typography sx={{
                     fontWeight: '400',
                     fontSize: '.8em',
-                }}>{props.content}</Typography>
+                }}>
+                    {props.content}
+                </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions sx={{mt:"22px"}}>
                 <CardButton>{props.btnName}</CardButton>
             </CardActions>
         </Card>
