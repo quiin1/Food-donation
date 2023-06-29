@@ -62,6 +62,7 @@ export const ActionButton = styled(Button)({
   '&:hover': {
     backgroundColor: 'green',
   },
+  padding: '8px !important',
 });
 
 export const ActionTitleStyled = ({

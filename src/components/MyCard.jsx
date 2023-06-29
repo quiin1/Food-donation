@@ -29,7 +29,7 @@ const MyCard = (props) => {
                 </Typography>
             </CardContent>
             <CardActions sx={{mt:"22px"}}>
-                <CardButton>{props.btnName}</CardButton>
+                <CardButton onClick={props.handleOpen}>{props.btnName}</CardButton>
             </CardActions>
         </Card>
     </Grid>

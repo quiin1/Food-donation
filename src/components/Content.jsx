@@ -128,7 +128,12 @@ const Content = (props) => {
                     {label: 'Address', type: 'select', width: '50%', optionList: []}, 
                     {label: 'Discription', type: 'description', width: '100%'}
                 ], 
-                button: 'Create new post'
+                button: 'Create new post',
+                success: {
+                    title: 'Create successfully',
+                    content: 'Your post created successfully',
+                    button: 'Back to post management'
+                }
             }
         },
         {
@@ -220,7 +225,12 @@ const Content = (props) => {
                     {label: 'Address', type: 'text', width: '100%'}, 
                     {label: 'Description', type: 'description', width: '100%'}
                 ], 
-                button: 'Create new location'
+                button: 'Create new location',
+                success: {
+                    title: 'Create successfully',
+                    content: 'Your post created successfully',
+                    button: 'Back to location management'
+                }
             }
         },
         {
@@ -303,7 +313,12 @@ const Content = (props) => {
                     {label: 'Voucher Code', type: 'number', width: '50%'}, 
                     {label: 'Description', type: 'description', width: '100%'}
                 ],
-                button: 'Create new voucher'
+                button: 'Create new voucher',
+                success: {
+                    title: 'Create successfully',
+                    content: 'Your post created successfully',
+                    button: 'Back to reward management'
+                }
             }
         },
         {
@@ -403,7 +418,12 @@ const Content = (props) => {
                     {label: 'Address', type: 'select', width: '50%', optionList: []}, 
                     {label: 'Description', type: 'description', width: '100%'}
                 ], 
-                button: 'Create new post'
+                button: 'Create new post',
+                success: {
+                    title: 'Create successfully',
+                    content: 'Your payment created successfully',
+                    button: 'Back to payment record'
+                }
             }
         },
     ]
@@ -412,7 +432,6 @@ const Content = (props) => {
     const [open, setOpen] = useState(false)
     const handleOpen = () => { 
         setOpen(true)
-        console.log("open",open)
     }
 
     if (!pageIndex) return <Overview data={props.data}/>

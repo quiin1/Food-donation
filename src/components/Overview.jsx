@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Typography, Divider, Grid } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
-import ViewComfyIcon from '@mui/icons-material/ViewComfy';
-import DescriptionIcon from '@mui/icons-material/Description';
-import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import MyCard from '../components/MyCard';
+import ActionForm from './ActionForm';
 
 const Overview = (props) => {
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => { 
+        setOpen(true)
+    }
     const data = [
         {
             title: "Add a new post",
@@ -35,6 +37,7 @@ const Overview = (props) => {
     ]
   return (
     <Box>
+        {/* <ActionForm open={open} setOpen={setOpen} data={data[pageIndex].actionForm} i={pageIndex}/> */}
         <Typography sx={{
             color: "#141416",
             fontWeight: "600",
@@ -56,6 +59,7 @@ const Overview = (props) => {
                     title={item.title}
                     content={item.content}
                     btnName={item.btnName}
+                    handleOpen={handleOpen}
                 >
                     <img style={{width:"2em", filter: "invert(58%) sepia(22%) saturate(1478%) hue-rotate(82deg) brightness(87%) contrast(85%)"}} src={item.img}/>
                 </MyCard>
