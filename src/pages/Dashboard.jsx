@@ -1,56 +1,33 @@
 import React, { useState } from 'react'
-import { Box, Alert, AlertTitle, CardMedia, Typography, Button, List, Grid } from "@mui/material"
+import { Box, CardMedia, Typography, List } from "@mui/material"
 import { Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { palette } from '../theme'
 import NavItem from '../components/NavItem'
 import SearchBar from '../components/SearchBar';
 import MyAvatar from '../components/MyAvatar';
 import Content from '../components/Content';
-
-function showAlert() {
-  setTimeout(() => {
-
-  })
-  return (
-    <Alert severity="success">
-      <AlertTitle>Success</AlertTitle>
-      This is a success alert — <strong>check it out!</strong>
-    </Alert>
-  )
-}
+import { LOGOUT, listNavItems } from '../constants/dashboard';
+import dashboardSlice from '../redux/dashboardSlice';
 
 function Dashboard() {
+  const dispatch = useDispatch()
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("authenticated") || false);
-  const [state, setState] = useState(localStorage.getItem("state") || "Overview");
-  console.log(state)
-  const listNavItems = [
-    {
-      title: "Overview",
-      img: "/dashboard.svg",
-    },
-    {
-      title: "Post manager",
-      img: "/fi-sr-document-signed.svg",
-    },
-    {
-      title: "Location",
-      img: "/fi-sr-location-alt.svg",
-    },
-    {
-      title: "Reward",
-      img: "/fi-sr-hand-holding-heart.svg",
-    },
-    {
-      title: "Payment record",
-      img: "/fi-sr-money.svg",
-    }
-  ]
+  const [subpage, setSubpage] = useState(localStorage.getItem("state") || "Overview");
 
   function handleLogout() {
+    dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
+    dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
     localStorage.removeItem("authenticated");
     localStorage.removeItem("state");
-    setState(null);
+    setSubpage(null);
     setAuthenticated(false);
+  }
+
+  function handleChangeSubpage(title) {
+    setSubpage(title);
+    dispatch(dashboardSlice.actions.changeSubpage(title));
+    localStorage.setItem('state', title)
   }
 
   if (!authenticated) {
@@ -73,8 +50,8 @@ function Dashboard() {
         }}>
           {listNavItems.map((item, index) => (
               <NavItem id={index} key={index} title={item.title} 
-                onClick={() => {setState(item.title); localStorage.setItem('state', item.title)}}
-                className={state === item.title ? "chosen" : ""}
+                onClick={() => handleChangeSubpage(item.title)}
+                className={subpage === item.title ? "chosen" : ""}
               >
                 <CardMedia sx={{width: "22px"}} component="img" src={item.img}/>
               </NavItem>
@@ -93,7 +70,7 @@ function Dashboard() {
           <MyAvatar handleLogout={handleLogout}/>
         </Box>
         <Box className="contentContainer" padding="1.7em" >
-          <Content state={state} data={listNavItems}/>
+          <Content state={subpage} data={listNavItems}/>
         </Box>
       </Box>
     </Box>

@@ -3,17 +3,18 @@ import { Box, TextField, Link, Typography, InputLabel, OutlinedInput } from '@mu
 import { Navigate, useNavigate } from "react-router-dom"
 import { SignInButton } from './MUIComponents'
 import { textStyle3, palette } from '../theme'
+import { useDispatch } from 'react-redux'
+import dashboardSlice from '../redux/dashboardSlice'
+import { LOGIN } from '../constants/login'
 
 
-export const LoginForm = (props) => {
+export const LoginForm = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const [authenticated, setAuthenticated] = useState(
-        localStorage.getItem(localStorage.getItem("authenticated") || false)
-    );
     const data = JSON.parse(localStorage.getItem('accounts'))
 
     useEffect(() => {
@@ -33,54 +34,16 @@ export const LoginForm = (props) => {
         }
     }, [])
 
-    function handleChangeUserName(e) {
-        e.preventDefault();
-        setUserName(e.target.value)
-        console.log(e.target.value)
-    }
-    function handleChangePassword(e) {
-        e.preventDefault();
-        setPassword(e.target.value)
-    }
-    function MyInput(props) {
-        return (
-            <Box>
-                <InputLabel>{props.label}</InputLabel>
-                <OutlinedInput
-                    autoFocus = {props.autoFocus}
-                    required
-                    hiddenLabel
-                    id="outlined-password-input"
-                    variant="filled"
-                    size="small"
-                    type={props.type}
-                    value={props.value}
-                    placeholder={props.placeholder}
-                    onChange={e => props.handleChangeFunction(e)}
-                    onKeyPress={e => {
-                        if (e.key === "Enter") postLogIn(e)
-                    }}
-                    sx={{
-                        mt: ".1em",
-                        width: "95%",
-                        backgroundColor: "#F4F5F6",
-                        ".MuiOutlinedInput-notchedOutline": {
-                            border: "none",
-                        }
-                    }}
-                />
-            </Box>
-        )
-    }
-
     function postLogIn(e) {
         e.preventDefault();
         console.log(username, password);
         console.log(data);
         if (data.some(account => account.username === username && account.password === password)) {
-            console.log("Successfully logged in");
+            // console.log("Successfully logged in");
             setIsSuccess(true)
             setIsError(false)
+            dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN))
+            dispatch(dashboardSlice.actions.changeSubpage(LOGIN))
             localStorage.setItem("authenticated", true)
             navigate("/dashboard")
         }
@@ -95,8 +58,6 @@ export const LoginForm = (props) => {
 
     return (
         <Box mt='.7em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
-            {/* <MyInput label='Username' value={username} placeholder='Enter your user name' type='text' handleChangeFunction={handleChangeUserName}/>
-            <MyInput label='Password' value={password} placeholder='Enter your password' type='password' handleChangeFunction={handleChangePassword}/> */}
             <Box>
                 <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Username</InputLabel>
                 <OutlinedInput
@@ -148,12 +109,6 @@ export const LoginForm = (props) => {
             {isError && <Typography color="red" sx={textStyle3}>The username or password provider were incorrect.</Typography>}
             <Box mt={'.5em'}>
                 <SignInButton onClick={e => postLogIn(e)}>Next</SignInButton>
-                {/* <Box 
-                    sx={{display: 'flex', gap: '3px', alignItems: 'center', justifyContent: 'center', mt: '.25em'}}
-                >
-                    <Link href="/signup" underline="none" sx={textStyle3} color={palette.green} fontWeight={'10000'}>Click here</Link>
-                    <Typography sx={textStyle3} color={palette.black}>to Sign up if you don’t have an account</Typography>
-                </Box> */}
             </Box> 
         </Box>
     )

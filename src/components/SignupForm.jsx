@@ -1,11 +1,11 @@
 import { React, useState } from 'react'
-import { Box, OutlinedInput, Link, Typography, InputLabel } from '@mui/material'
+import { Box, OutlinedInput, Typography, InputLabel } from '@mui/material'
 import { Navigate } from "react-router-dom"
 import { SignInButton } from './MUIComponents'
-import { textStyle3, palette } from '../theme'
+import { textStyle3 } from '../theme'
 
 
-export const SignupForm = (props) => {
+export const SignupForm = () => {
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState("");
     const [isSuccess, setIsSuccess] = useState(false);

@@ -1,18 +1,22 @@
 import { React, useState } from 'react'
 import { Link, Typography, Box, CardMedia, CardContent, Grid } from '@mui/material';
 import { Navigate } from 'react-router-dom';
-import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle1, textStyle2} from '../theme';
+import { useDispatch } from 'react-redux';
+import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle3, palette } from '../theme';
 import { LoginForm } from '../components/LoginForm';
 import { SignupForm } from '../components/SignupForm';
-import { textStyle3 } from '../theme';
-import palette from '../theme'
+import loginSlice from '../redux/loginSlice';
+import * as login from '../constants/login'
 
 function Login() {
-  const [status, setStatus] = useState('LOGIN')
+  const dispatch = useDispatch()
+  const [status, setStatus] = useState(login.LOGIN)
   
-  function handleClick(e) {
+  function handleStatusChange(e) {
     e.preventDefault()
-    status !== 'SIGNUP'? setStatus('SIGNUP') : setStatus('LOGIN')
+    const nextStatus = status === login.LOGIN ? login.SIGNUP : login.LOGIN
+    dispatch(loginSlice.actions.changeStatus(nextStatus))
+    setStatus(nextStatus)
   }
   
   if (localStorage.getItem('authenticated')) {
@@ -29,12 +33,15 @@ function Login() {
             </Typography>
             <CardMedia component="img" image='/humanitarian-day1.png' />
           </Box>
+
           <CardContent>
-            {status === 'LOGIN'? <LoginForm/> : <SignupForm status={status}/>}
+            {status === login.LOGIN? 
+              <LoginForm/> : 
+              <SignupForm/>}
             <Box>
-                <Link href="/" onClick={e => handleClick(e)} underline="none" sx={textStyle3} color="#2BA84A">Click here</Link>
+                <Link href="/" onClick={e => handleStatusChange(e)} underline="none" sx={textStyle3} color="#2BA84A">Click here</Link>
                 <Typography display="inline" ml={.5} sx={textStyle3} color={palette.black}>
-                  to {status === 'LOGIN'? 'Sign up' : 'Login'} if you've already have an account
+                  to {status === login.LOGIN ? 'Sign up' : 'Login'} if you've already have an account
                 </Typography>
             </Box>
           </CardContent>
