@@ -1,9 +1,14 @@
 import React from 'react'
-import { Typography, FormControl, OutlinedInput, Select, Box, Grid } from '@mui/material'
+import { Typography, FormControl, OutlinedInput, Select, Box, Grid, MenuItem } from '@mui/material'
 import { ActionSubTitleStyled, ActionInputLabelStyled, ActionInputStyledText, ActionInputStyledSelect } from './MUIComponents'
 import TextEditor from './TextEditor'
+import { useSelector } from 'react-redux'
+import { dataSelector, subpageIndexSelector } from '../redux/selectors'
 
 const ActionInfoInputs = ({data}) => {
+    const subpageIndex = useSelector(subpageIndexSelector)
+    const defaultData = useSelector(dataSelector)[subpageIndex].rows[0]
+    console.log(defaultData)
     let rows = []
     const inputNum = data.inputs.length
     for (let i = 0; i < inputNum; i++) {
@@ -23,16 +28,24 @@ const ActionInfoInputs = ({data}) => {
                         </label>
                         {
                             {
-                                'text': <OutlinedInput id="" type="text" style={ActionInputStyledText}/>,
+                                'text': <OutlinedInput id="" type="text" style={ActionInputStyledText} defaultValue={"Crawford Room, Mortlock Wing...."}/>,
                                 'number': <OutlinedInput id="" type="number" style={ActionInputStyledText}/>,
                                 'select': (
-                                    <Select id="" type="select" style={ActionInputStyledSelect}/>
+                                    <Select id="" type="text" style={ActionInputStyledSelect} defaultValue={data.inputs[i].optionList && data.inputs[i].optionList[0] || "S"}>
+                                        {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
+                                            <MenuItem value={option}>{option}</MenuItem>
+                                        ))}
+                                    </Select>
                                 ),
                                 'date': <OutlinedInput id="" type="date" style={ActionInputStyledText}/>,
                                 'money': (
                                     <Box sx={{display: 'flex', gap: '12px'}}>
-                                        <OutlinedInput id="" type="number" style={{ActionInputStyledText, width: "100%"}}/>
-                                        <Select id="" type="select" style={ActionInputStyledSelect}/>
+                                        <OutlinedInput id="" type="number" style={{ActionInputStyledText, width: "100%", padding: "12px"}} defaultValue={1000}/>
+                                        <Select id="" type="text" style={ActionInputStyledSelect} defaultValue={"USD"}>
+                                            {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
+                                                <MenuItem value={option}>{option}</MenuItem>
+                                            ))}
+                                        </Select>
                                     </Box>
                                 ),
                                 'description': (

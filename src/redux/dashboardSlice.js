@@ -9,7 +9,7 @@ export default createSlice({
     name: 'dashboard',
     initialState: {
         authenticated: null,
-        subpage: null,
+        subpage: localStorage.getItem('state'),
         data: [
             {
                 state: 'Overview',
@@ -111,9 +111,9 @@ export default createSlice({
                     subtitles: ['Post Information', 'Media'],
                     inputs: [
                         {label: 'Title', type: 'text', width: '100%'}, 
-                        {label: 'Raising', type: 'money', width: '100%'}, 
-                        {label: 'Location', type: 'select', width: '50%', optionList: []}, 
-                        {label: 'Address', type: 'select', width: '50%', optionList: []}, 
+                        {label: 'Raising', type: 'money', width: '100%', optionList: ["USD", "EUR", "GBP", "VND"]}, 
+                        {label: 'Location', type: 'select', width: '50%', optionList: ["Sydney", "San Francisco"]}, 
+                        {label: 'Address', type: 'select', width: '50%', optionList: ["Crawford Room, Mortlock ....", "San Francisco"]}, 
                         {label: 'Discription', type: 'description', width: '100%'}
                     ], 
                     button: 'Create new post',
@@ -191,7 +191,7 @@ export default createSlice({
                     title: 'Add new location',
                     subtitles: ['Location Information', 'Media'],
                     inputs: [
-                        {label: 'Location', type: 'select', width: '100%', optionList: []}, 
+                        {label: 'Location', type: 'select', width: '100%', optionList: ["Sydney", "San Francisco"]}, 
                         {label: 'Address', type: 'text', width: '100%'}, 
                         {label: 'Description', type: 'description', width: '100%'}
                     ], 
@@ -412,5 +412,8 @@ export default createSlice({
                     state.subpage = action.payload
             }
         },
+        addData: (state, action) => {
+            
+        }
     }
 })
