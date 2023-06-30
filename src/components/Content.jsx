@@ -19,7 +19,7 @@ const Content = (props) => {
         setOpen(true)
     }
 
-    if (!pageIndex) return <Overview data={data}/>
+    if (!pageIndex) return <Overview data={props.data}/>
     else {
         let postsNum = data[pageIndex].rows.length
         return (
