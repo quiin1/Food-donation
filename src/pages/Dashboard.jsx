@@ -13,14 +13,14 @@ import dashboardSlice from '../redux/dashboardSlice';
 function Dashboard() {
   const dispatch = useDispatch()
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("authenticated") || false);
-  const [subpage, setSubpage] = useState(localStorage.getItem("state") || "Overview");
+  const [subpage, setSubpage] = useState(localStorage.getItem("state"));
 
   function handleLogout() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
     dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
     localStorage.removeItem("authenticated");
-    localStorage.removeItem("state");
-    setSubpage(null);
+    // localStorage.removeItem("state");
+    // setSubpage(null);
     setAuthenticated(false);
   }
 

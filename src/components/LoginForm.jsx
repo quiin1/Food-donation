@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from 'react'
-import { Box, TextField, Link, Typography, InputLabel, OutlinedInput } from '@mui/material'
+import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
 import { Navigate, useNavigate } from "react-router-dom"
 import { SignInButton } from './MUIComponents'
-import { textStyle3, palette } from '../theme'
+import { textStyle3 } from '../theme'
 import { useDispatch } from 'react-redux'
 import dashboardSlice from '../redux/dashboardSlice'
 import { LOGIN } from '../constants/login'

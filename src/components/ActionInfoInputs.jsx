@@ -8,7 +8,7 @@ import { dataSelector, subpageIndexSelector } from '../redux/selectors'
 const ActionInfoInputs = ({data}) => {
     const subpageIndex = useSelector(subpageIndexSelector)
     const defaultData = useSelector(dataSelector)[subpageIndex].rows[0]
-    console.log(defaultData)
+    // console.log(defaultData)
     let rows = []
     const inputNum = data.inputs.length
     for (let i = 0; i < inputNum; i++) {
@@ -51,7 +51,11 @@ const ActionInfoInputs = ({data}) => {
                                 'description': (
                                     <FormControl sx={{
                                         "*": {
-                                            fontFamily: 'Manrope'
+                                            color: "#2E2C34",
+                                            fontSize: "14px",
+                                            fontFamily: "Inter",
+                                            fontWeight: 400,
+                                            lineHeight: "24px"
                                         },
                                         ".ql-toolbar": {
                                             borderRadius: "4px 4px 0 0",

@@ -110,6 +110,13 @@ export const ActionInputStyledSelect = ({
   border: "1px solid #F4F5F6",
   background: "#FFF",
   padding: "14px 20px",
+
+  color: "#141416",
+  /* Regular Text/14px/Semibold */
+  fontSize: "14px",
+  fontFamily: "Manrope",
+  fontWeight: 600,
+  lineHeight: "20px",
 });
 
 export const ActionInputStyledDate = styled(Button)({

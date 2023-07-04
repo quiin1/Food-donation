@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CardMedia, FormControl, InputAdornment, OutlinedInput } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { searchPlaceholderSelector } from '../redux/selectors'
+import { subpageSelector } from '../redux/selectors'
 
-const SearchBar = (props) => {
+const SearchBar = () => {
   function handleChange() {
-
+    console.log("123")
   }
+  const placeholder = useSelector(searchPlaceholderSelector)
 
   return (
     <FormControl className="searchBar" ml="1em" sx={{
@@ -18,11 +22,19 @@ const SearchBar = (props) => {
             ml: "1em",
             ".MuiOutlinedInput-notchedOutline": {
               border: "none",
+            },
+            "::placeholder": {
+              color: "#353945",
+              /* Base */
+              fontSize: "16px",
+              fontFamily: "Inter",
+              fontWeight: 400,
+              // line-height: 150%
             }
           }}
           size="small"
           onChange={handleChange}
-          placeholder="Search a campaign"
+          placeholder={placeholder}
           startAdornment={
             <InputAdornment position="start">
               <CardMedia component="img" src="/fi-rr-search.svg"/>

@@ -14,7 +14,7 @@ const MyCard = (props) => {
             <CardContent>
                 <div style={{marginBottom:"16px"}}>{props.children}</div>
                 <Typography sx={{
-                    fontFamily: 'SF Pro',
+                    fontFamily: 'Inter',
                     color: '#141416',
                     fontWeight: 600,
                     fontSize: 20,

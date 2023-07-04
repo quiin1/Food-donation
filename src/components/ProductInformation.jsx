@@ -3,10 +3,14 @@ import { Box, Divider, Grid } from '@mui/material'
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ProductView from './ProductView';
+import { useDispatch } from 'react-redux';
+import dashboardSlide from '../redux/dashboardSlice'
 
 const ProductInfoCards = () => {
+    const dispatch = useDispatch()
     const [imageList, setImageList] = useState([])
-
+    const [openImage, setOpenImage] = useState(false)
     function uploadProduct() {
         const fileInput = document.getElementById("file-input")
         fileInput.onchange = (event) => {
@@ -15,10 +19,11 @@ const ProductInfoCards = () => {
             setImageList([...imageList, url])
         }
         fileInput.click()
+        dispatch(dashboardSlide.actions.addDataProductImage())
     }
     
     function viewProduct() {
-        
+        setOpenImage(true)
     }
 
     function deleteProduct(id) {
@@ -34,6 +39,7 @@ const ProductInfoCards = () => {
                 gap: '8px',
                 width: "163px",
             }}>
+                <ProductView openImage={openImage} setOpenImage={setOpenImage} image={image}/>
                 <Box 
                     sx={{
                         height: "165px",

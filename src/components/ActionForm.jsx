@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { Box, Slide, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography, FormControl, Input, InputLabel, OutlinedInput} from '@mui/material';
+import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography } from '@mui/material';
 import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from './MUIComponents';
 import ProductInfoCards from './ProductInformation';
 import ActionInfoInputs from './ActionInfoInputs';
 import ActionSuccess from './ActionSuccess';
+import { useDispatch } from 'react-redux';
+import dashboardSlice from '../redux/dashboardSlice';
 
 const ActionForm = (props) => {
+    const dispatch = useDispatch()
     const [openSuccess, setOpenSuccess] = useState(false)
 
     function handleClose() {
@@ -15,13 +18,15 @@ const ActionForm = (props) => {
     function handleSubmit() {
         handleClose()
         /* UPDATE DATA */
-
+        dispatch(dashboardSlice.actions.addData())
+        
+        // *** SUCCESSFULLY ***
         setOpenSuccess(true)
     }
 
-    const Transition = React.forwardRef(function Transition(props, ref) {
-        return <Slide direction="up" ref={ref} {...props} />;
-    });
+    // const Transition = React.forwardRef(function Transition(props, ref) {
+    //     return <Slide direction="up" ref={ref} {...props} />;
+    // });
 
     return (
         <>

@@ -53,7 +53,7 @@ const Overview = (props) => {
             <Typography>South Austraa(SA), 5583</Typography>
         </Box>
         <Divider/>
-        <Grid container spacing={2} mt="1.2em">
+        <Grid container spacing={4} mt=".3em">
             {data.map(item => (
                 <MyCard 
                     title={item.title}
