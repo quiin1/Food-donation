@@ -1,5 +1,6 @@
 import { React, useState } from 'react'
 import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
+import { useSnackbar } from 'notistack';
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,6 +10,7 @@ import { accountsSelector } from '../redux/selectors'
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
@@ -20,6 +22,7 @@ export const LoginForm = () => {
             setIsError(false)
             dispatch(dashboardSlice.actions.changeAuthenticated(login.LOGIN_SUCCESSFULLY))
             dispatch(dashboardSlice.actions.changeSubpage(login.LOGIN_SUCCESSFULLY))
+            enqueueSnackbar('Login successfully!', {variant: "success"});
         }
         else {
             setIsError(true)

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from './MUIComponents';
 import ProductInfoCards from './ProductInformation';
 import ActionInfoInputs from './ActionInfoInputs';
@@ -9,6 +10,7 @@ import dashboardSlice from '../redux/dashboardSlice';
 
 const ActionForm = (props) => {
     const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar()
     const [openSuccess, setOpenSuccess] = useState(false)
 
     function handleClose() {
@@ -24,6 +26,7 @@ const ActionForm = (props) => {
         
         // *** SUCCESSFULLY ***
         setOpenSuccess(true)
+        enqueueSnackbar('Create successfully!', {variant: "success"});
     }
 
     // const Transition = React.forwardRef(function Transition(props, ref) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box, CardMedia, Typography, List } from "@mui/material"
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSnackbar } from 'notistack';
 import { palette } from '../theme'
 import NavItem from '../components/NavItem'
 import SearchBar from '../components/SearchBar';
@@ -13,6 +14,7 @@ import { authenticatedSelector, subpageSelector } from '../redux/selectors';
 
 function Dashboard() {
   const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar()
   let authenticated = useSelector(authenticatedSelector)
   let subpage = useSelector(subpageSelector)
   
@@ -23,6 +25,7 @@ function Dashboard() {
   function handleLogout() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
     dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
+    enqueueSnackbar('Logout successfully!', {variant: "success"});
   }
 
   function handleChangeSubpage(title) {
