@@ -145,13 +145,11 @@ export default createSlice({
         changeSubpage: (state, action) => {
             switch (action.payload) {
                 case login.LOGIN:
+                    localStorage.setItem('state', state.subpage || "Overview")
                     state.subpage = localStorage.getItem('state')
                     state.searchPlaceholder = "Search a campaign"
-                    localStorage.setItem('state', state.subpage)
                     break
                 case dashboard.LOGOUT:
-                    state.subpage = null
-                    state.searchPlaceholder = null
                     break
                 default:
                     state.subpage = action.payload
@@ -159,7 +157,7 @@ export default createSlice({
                     localStorage.setItem('state', state.subpage)
             }
         },
-        addData: (state, action) => {
+        addData: (state) => {
             const subpageIndex = state.data.findIndex((item) => item.state === state.subpage)
             let deepClone = JSON.parse(JSON.stringify(mockData[subpageIndex][0]))
             deepClone.id = Math.round(Math.random() * 9000000000)
