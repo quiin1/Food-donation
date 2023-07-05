@@ -117,7 +117,7 @@ const mockData = JSON.parse(localStorage.getItem('mockData')) || [
 export default createSlice({
     name: 'dashboard',
     initialState: {
-        authenticated: null,
+        authenticated: false,
         subpage: localStorage.getItem('state'),
         data: 
             localStorage.getItem('mockData')? 
@@ -136,7 +136,8 @@ export default createSlice({
                     state.authenticated = true
                     break
                 case dashboard.LOGOUT:
-                    state.authenticated = null
+                    state.authenticated = false
+                    localStorage.removeItem("authenticated");
                     break
                 default:
                     break
@@ -150,6 +151,8 @@ export default createSlice({
                     state.searchPlaceholder = "Search a campaign"
                     break
                 case dashboard.LOGOUT:
+                    localStorage.setItem('state', "Overview")
+                    state.subpage = "Overview"
                     break
                 default:
                     state.subpage = action.payload

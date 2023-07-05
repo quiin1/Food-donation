@@ -1,26 +1,27 @@
-import { React, useState } from 'react'
+import { React } from 'react'
 import { Link, Typography, Box, CardMedia, CardContent, Grid } from '@mui/material';
-import { Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle3, palette } from '../theme';
 import { LoginForm } from '../components/LoginForm';
 import { SignupForm } from '../components/SignupForm';
 import loginSlice from '../redux/loginSlice';
 import * as login from '../constants/login'
+import { statusLoginSelector } from '../redux/selectors';
 
 function Login() {
   const dispatch = useDispatch()
-  const [status, setStatus] = useState(login.LOGIN)
+  const navigate = useNavigate();
+  const status = useSelector(statusLoginSelector)
   
   function handleStatusChange(e) {
     e.preventDefault()
     const nextStatus = status === login.LOGIN ? login.SIGNUP : login.LOGIN
     dispatch(loginSlice.actions.changeStatus(nextStatus))
-    setStatus(nextStatus)
   }
   
   if (localStorage.getItem('authenticated')) {
-    return <Navigate to="/dashboard"/>
+    navigate("/dashboard")
   }
   return (
     <Grid container sx={defaultStyle}>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, CardMedia, Typography, List } from "@mui/material"
 import { Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { palette } from '../theme'
 import NavItem from '../components/NavItem'
 import SearchBar from '../components/SearchBar';
@@ -9,25 +9,20 @@ import MyAvatar from '../components/MyAvatar';
 import Content from '../components/Content';
 import { LOGOUT, listNavItems } from '../constants/dashboard';
 import dashboardSlice from '../redux/dashboardSlice';
+import { authenticatedSelector, subpageSelector } from '../redux/selectors';
 
 function Dashboard() {
   const dispatch = useDispatch()
-  const [authenticated, setAuthenticated] = useState(localStorage.getItem("authenticated") || false);
-  const [subpage, setSubpage] = useState(localStorage.getItem("state"));
+  let authenticated = useSelector(authenticatedSelector)
+  let subpage = useSelector(subpageSelector)
 
   function handleLogout() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
     dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
-    localStorage.removeItem("authenticated");
-    // localStorage.removeItem("state");
-    // setSubpage(null);
-    setAuthenticated(false);
   }
 
   function handleChangeSubpage(title) {
-    setSubpage(title);
     dispatch(dashboardSlice.actions.changeSubpage(title));
-    localStorage.setItem('state', title)
   }
 
   if (!authenticated) {

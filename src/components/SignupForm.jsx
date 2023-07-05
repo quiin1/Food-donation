@@ -1,22 +1,27 @@
 import { React, useState } from 'react'
 import { Box, OutlinedInput, Typography, InputLabel } from '@mui/material'
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
-
+import * as login from "../constants/login"
+import loginSlice from '../redux/loginSlice'
+import { accountsSelector } from '../redux/selectors'
 
 export const SignupForm = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState("");
-    const [isSuccess, setIsSuccess] = useState(false);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [passwordCf, setPasswordCf] = useState("");
-    const data =JSON.parse(localStorage.getItem('accounts'))
+    const data = useSelector(accountsSelector)
+    // const data =JSON.parse(localStorage.getItem('accounts'))
 
     function postSignup() {
-        console.log(data)
-        console.log(userName, password, passwordCf)
+        // console.log(data)
+        // console.log(userName, password, passwordCf)
 
         if (userName==='' || password === '' || passwordCf === '') {
             setIsError(true)
@@ -31,20 +36,12 @@ export const SignupForm = () => {
             setMessage("Your password or password confirmation is invalid")
         }
         else if (password && password === passwordCf) {
+            dispatch(loginSlice.actions.signUp({"username": userName, "password": password}))
+            dispatch(loginSlice.actions.changeStatus(login.LOGIN))
+            navigate("/login")
             setIsError(false)
-            setIsSuccess(true)
-            if (data) {
-                data.push({"username": userName, "password": password})
-            }
-            console.log(data)
-            localStorage.setItem('accounts', JSON.stringify(data))
         }
     }
-
-    if (isSuccess) {
-        return <Navigate to={"/"}/>
-    }
-
     return (
         <Box mt='.5em' pr='.5em' display={'flex'} flexDirection={'column'} gap={'.5em'}>
             <Box>

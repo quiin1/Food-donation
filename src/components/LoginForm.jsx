@@ -3,9 +3,10 @@ import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
 import { Navigate, useNavigate } from "react-router-dom"
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import dashboardSlice from '../redux/dashboardSlice'
 import { LOGIN } from '../constants/login'
+import { accountsSelector } from '../redux/selectors'
 
 
 export const LoginForm = () => {
@@ -15,29 +16,13 @@ export const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const data = JSON.parse(localStorage.getItem('accounts'))
-
-    useEffect(() => {
-        // mock data
-        if (!data) {
-            const accounts = [
-                {
-                    "username": "annie",
-                    "password": "123"
-                }
-            ]
-            localStorage.clear();
-            localStorage.setItem('accounts', JSON.stringify(accounts))
-        }
-        else {
-            // console.log(data)
-        }
-    }, [])
+    const data = useSelector(accountsSelector)
+    console.log(data)
 
     function postLogIn(e) {
         e.preventDefault();
-        console.log(username, password);
-        console.log(data);
+        // console.log(username, password);
+        // console.log(data);
         if (data.some(account => account.username === username && account.password === password)) {
             // console.log("Successfully logged in");
             setIsSuccess(true)
@@ -62,7 +47,7 @@ export const LoginForm = () => {
                 <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Username</InputLabel>
                 <OutlinedInput
                     required
-                    hiddenLabel
+                    // hiddenLabel
                     variant="filled"
                     size="small"
                     type="text"
