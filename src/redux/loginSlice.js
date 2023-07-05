@@ -4,7 +4,7 @@ import * as login from "../constants/login"
 export default createSlice({
     name: 'login',
     initialState: {
-        status: login.LOGIN, // LOGIN LOGOUT SIGNUP
+        status: login.LOGIN, // LOGIN LOGOUT SIGNUP DASHBOARD
         accounts: JSON.parse(localStorage.getItem('accounts')) || [
             {
                 "username": "annie",

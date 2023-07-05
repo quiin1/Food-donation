@@ -1,6 +1,6 @@
 import { React } from 'react'
 import { Link, Typography, Box, CardMedia, CardContent, Grid } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle3, palette } from '../theme';
 import { LoginForm } from '../components/LoginForm';
@@ -8,21 +8,23 @@ import { SignupForm } from '../components/SignupForm';
 import loginSlice from '../redux/loginSlice';
 import * as login from '../constants/login'
 import { statusLoginSelector } from '../redux/selectors';
+import { authenticatedSelector } from '../redux/selectors';
 
 function Login() {
   const dispatch = useDispatch()
-  const navigate = useNavigate();
+  let authenticated = useSelector(authenticatedSelector)
   const status = useSelector(statusLoginSelector)
   
-  function handleStatusChange(e) {
+  if (authenticated) {
+    return <Navigate to={"/dashboard"}/>
+  }
+
+  function handleStatusChange(e) { // switch LOGIN SIGNUP
     e.preventDefault()
     const nextStatus = status === login.LOGIN ? login.SIGNUP : login.LOGIN
     dispatch(loginSlice.actions.changeStatus(nextStatus))
   }
   
-  if (localStorage.getItem('authenticated')) {
-    navigate("/dashboard")
-  }
   return (
     <Grid container sx={defaultStyle}>
       <Grid item xs={5} md={8} sx={backgroundStyle}/> 

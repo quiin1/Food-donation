@@ -28,10 +28,14 @@ const ActionInfoInputs = ({data}) => {
                         </label>
                         {
                             {
-                                'text': <OutlinedInput id="" type="text" style={ActionInputStyledText} defaultValue={"Crawford Room, Mortlock Wing...."}/>,
+                                'text': <OutlinedInput id="" type="text" style={ActionInputStyledText} 
+                                            placeholder={"Crawford Room, Mortlock Wing...."}
+                                        />,
                                 'number': <OutlinedInput id="" type="number" style={ActionInputStyledText}/>,
                                 'select': (
-                                    <Select id="" type="text" style={ActionInputStyledSelect} defaultValue={data.inputs[i].optionList && data.inputs[i].optionList[0] || "S"}>
+                                    <Select id="" type="text" style={ActionInputStyledSelect} 
+                                        placeholder={data.inputs[i].optionList && data.inputs[i].optionList[0] || "S"}
+                                    >
                                         {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
                                             <MenuItem value={option}>{option}</MenuItem>
                                         ))}
@@ -40,8 +44,12 @@ const ActionInfoInputs = ({data}) => {
                                 'date': <OutlinedInput id="" type="date" style={ActionInputStyledText}/>,
                                 'money': (
                                     <Box sx={{display: 'flex', gap: '12px'}}>
-                                        <OutlinedInput id="" type="number" style={{ActionInputStyledText, width: "100%", padding: "12px"}} defaultValue={1000}/>
-                                        <Select id="" type="text" style={ActionInputStyledSelect} defaultValue={"USD"}>
+                                        <OutlinedInput id="" type="number" style={{ActionInputStyledText, width: "100%", padding: "12px"}} 
+                                            defaultValue={1000}
+                                        />
+                                        <Select id="" type="text" style={ActionInputStyledSelect} 
+                                            defaultValue={"USD"}
+                                        >
                                             {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
                                                 <MenuItem value={option}>{option}</MenuItem>
                                             ))}
@@ -68,6 +76,7 @@ const ActionInfoInputs = ({data}) => {
                                             border: "1px solid #EBEAED",
                                             background: "#FFF",
                                             padding: "16px 16px 15px 16px",
+                                            minHeight: "120px"
                                         }
                                     }}>
                                         <TextEditor/>

@@ -23,7 +23,7 @@ const data = [
                 {label: 'Raising', type: 'money', width: '100%', optionList: ["USD", "EUR", "GBP", "VND"]}, 
                 {label: 'Location', type: 'select', width: '50%', optionList: ["Sydney", "San Francisco"]}, 
                 {label: 'Address', type: 'select', width: '50%', optionList: ["Crawford Room, Mortlock ....", "San Francisco"]}, 
-                {label: 'Discription', type: 'description', width: '100%'}
+                {label: 'Description', type: 'description', width: '100%'}
             ], 
             button: 'Create new post',
             success: {
@@ -117,7 +117,7 @@ const mockData = JSON.parse(localStorage.getItem('mockData')) || [
 export default createSlice({
     name: 'dashboard',
     initialState: {
-        authenticated: false,
+        authenticated: localStorage.getItem('authenticated') || false,
         subpage: localStorage.getItem('state'),
         data: 
             localStorage.getItem('mockData')? 
@@ -132,12 +132,13 @@ export default createSlice({
     reducers: {
         changeAuthenticated: (state, action) => {
             switch (action.payload) {
-                case login.LOGIN:
+                case login.LOGIN_SUCCESSFULLY:
                     state.authenticated = true
+                    localStorage.setItem("authenticated", state.authenticated)
                     break
                 case dashboard.LOGOUT:
                     state.authenticated = false
-                    localStorage.removeItem("authenticated");
+                    localStorage.setItem("authenticated", state.authenticated);
                     break
                 default:
                     break
@@ -145,7 +146,7 @@ export default createSlice({
         },
         changeSubpage: (state, action) => {
             switch (action.payload) {
-                case login.LOGIN:
+                case login.LOGIN_SUCCESSFULLY:
                     localStorage.setItem('state', state.subpage || "Overview")
                     state.subpage = localStorage.getItem('state')
                     state.searchPlaceholder = "Search a campaign"

@@ -17,12 +17,8 @@ export const SignupForm = () => {
     const [password, setPassword] = useState("");
     const [passwordCf, setPasswordCf] = useState("");
     const data = useSelector(accountsSelector)
-    // const data =JSON.parse(localStorage.getItem('accounts'))
 
     function postSignup() {
-        // console.log(data)
-        // console.log(userName, password, passwordCf)
-
         if (userName==='' || password === '' || passwordCf === '') {
             setIsError(true)
             setMessage("Please enter all required fields")
@@ -36,10 +32,10 @@ export const SignupForm = () => {
             setMessage("Your password or password confirmation is invalid")
         }
         else if (password && password === passwordCf) {
-            dispatch(loginSlice.actions.signUp({"username": userName, "password": password}))
-            dispatch(loginSlice.actions.changeStatus(login.LOGIN))
-            navigate("/login")
             setIsError(false)
+            dispatch(loginSlice.actions.changeStatus(login.LOGIN))
+            dispatch(loginSlice.actions.signUp({"username": userName, "password": password}))
+            navigate("/login")
         }
     }
     return (

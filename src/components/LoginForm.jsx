@@ -1,44 +1,29 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
-import { Navigate, useNavigate } from "react-router-dom"
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
 import { useDispatch, useSelector } from 'react-redux'
 import dashboardSlice from '../redux/dashboardSlice'
-import { LOGIN } from '../constants/login'
+import * as login from '../constants/login'
 import { accountsSelector } from '../redux/selectors'
-
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate();
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
     const data = useSelector(accountsSelector)
-    console.log(data)
 
     function postLogIn(e) {
         e.preventDefault();
-        // console.log(username, password);
-        // console.log(data);
         if (data.some(account => account.username === username && account.password === password)) {
-            // console.log("Successfully logged in");
-            setIsSuccess(true)
             setIsError(false)
-            dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN))
-            dispatch(dashboardSlice.actions.changeSubpage(LOGIN))
-            localStorage.setItem("authenticated", true)
-            navigate("/dashboard")
+            dispatch(dashboardSlice.actions.changeAuthenticated(login.LOGIN_SUCCESSFULLY))
+            dispatch(dashboardSlice.actions.changeSubpage(login.LOGIN_SUCCESSFULLY))
         }
         else {
             setIsError(true)
         }
-    }
-
-    if (isSuccess) {
-        return <Navigate to="/dashboard"/>
     }
 
     return (
@@ -47,7 +32,7 @@ export const LoginForm = () => {
                 <InputLabel sx={{fontFamily: "Roboto", color: "#353945"}}>Username</InputLabel>
                 <OutlinedInput
                     required
-                    // hiddenLabel
+                    hiddenLabel
                     variant="filled"
                     size="small"
                     type="text"

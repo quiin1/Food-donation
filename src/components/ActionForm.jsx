@@ -18,7 +18,9 @@ const ActionForm = (props) => {
     function handleSubmit() {
         handleClose()
         /* UPDATE DATA */
-        dispatch(dashboardSlice.actions.addData())
+        dispatch(dashboardSlice.actions.addData(
+            
+        ))
         
         // *** SUCCESSFULLY ***
         setOpenSuccess(true)

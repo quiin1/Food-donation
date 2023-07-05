@@ -15,6 +15,10 @@ function Dashboard() {
   const dispatch = useDispatch()
   let authenticated = useSelector(authenticatedSelector)
   let subpage = useSelector(subpageSelector)
+  
+  if (!authenticated) {
+    return <Navigate to={"/login"}/>
+  }
 
   function handleLogout() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
@@ -24,10 +28,7 @@ function Dashboard() {
   function handleChangeSubpage(title) {
     dispatch(dashboardSlice.actions.changeSubpage(title));
   }
-
-  if (!authenticated) {
-    return <Navigate to="/login" />
-  }
+  
   return (
     <Box display={"flex"}>
       <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}>

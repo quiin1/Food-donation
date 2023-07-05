@@ -19,7 +19,7 @@ function TextEditor() {
             [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
           ],
         },
-        placeholder: "Insert text in here ..."
+        placeholder: "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet."
       });
     }
   }, []);
@@ -29,7 +29,6 @@ function TextEditor() {
       ref={editorRef}
       style={{border: "none"}}
     >
-        Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam consequat sunt nostrud amet.
     </div>  
   );
 }
