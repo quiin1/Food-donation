@@ -5,7 +5,7 @@ import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
 import { useDispatch, useSelector } from 'react-redux'
 import dashboardSlice from '../redux/dashboardSlice'
-import * as login from '../constants/login'
+import * as login from '../until/constants'
 import { accountsSelector } from '../redux/selectors'
 
 export const LoginForm = () => {

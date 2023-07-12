@@ -7,8 +7,8 @@ import { palette } from '../theme'
 import NavItem from '../components/NavItem'
 import SearchBar from '../components/SearchBar';
 import MyAvatar from '../components/MyAvatar';
-import Content from '../components/Content';
-import { LOGOUT, listNavItems } from '../constants/dashboard';
+import Content from './Content';
+import { LOGOUT, listNavItems } from '../until/constants';
 import dashboardSlice from '../redux/dashboardSlice';
 import { authenticatedSelector, subpageSelector } from '../redux/selectors';
 

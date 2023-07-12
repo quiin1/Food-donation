@@ -3,11 +3,11 @@ import { Box, Typography, Pagination } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { PostButton } from './MUIComponents'
+import { PostButton } from '../components/MUIComponents'
 import Overview from './Overview';
 import IconEye from '../assets/fi-sr-eye.svg'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ActionForm from './ActionForm';
+import ActionForm from '../components/ActionForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../redux/selectors';
 import { subpageSelector } from '../redux/selectors';

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import * as login from "../constants/login"
+import * as login from "../until/constants"
 
 export default createSlice({
     name: 'login',

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
-import * as login from "../constants/login"
+import * as login from "../until/constants"
 import loginSlice from '../redux/loginSlice'
 import { accountsSelector } from '../redux/selectors'
 

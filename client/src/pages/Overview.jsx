@@ -4,7 +4,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import MyCard from '../components/MyCard';
 import { useDispatch } from 'react-redux';
 import dashboardSlice from '../redux/dashboardSlice';
-import * as dashboard from '../constants/dashboard';
+import * as dashboard from '../until/constants';
 
 const Overview = (props) => {
     const dispatch = useDispatch()

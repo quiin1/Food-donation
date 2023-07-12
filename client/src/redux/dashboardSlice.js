@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import * as dashboard from '../constants/dashboard' 
-import * as login from '../constants/login'
+import { LOGIN_SUCCESSFULLY, LOGOUT } from '../until/constants' 
 
 const data = [
     {
@@ -132,11 +131,11 @@ export default createSlice({
     reducers: {
         changeAuthenticated: (state, action) => {
             switch (action.payload) {
-                case login.LOGIN_SUCCESSFULLY:
+                case LOGIN_SUCCESSFULLY:
                     state.authenticated = true
                     localStorage.setItem("authenticated", state.authenticated)
                     break
-                case dashboard.LOGOUT:
+                case LOGOUT:
                     state.authenticated = false
                     localStorage.setItem("authenticated", state.authenticated);
                     break
@@ -146,12 +145,12 @@ export default createSlice({
         },
         changeSubpage: (state, action) => {
             switch (action.payload) {
-                case login.LOGIN_SUCCESSFULLY:
+                case LOGIN_SUCCESSFULLY:
                     localStorage.setItem('state', state.subpage || "Overview")
                     state.subpage = localStorage.getItem('state')
                     state.searchPlaceholder = "Search a campaign"
                     break
-                case dashboard.LOGOUT:
+                case LOGOUT:
                     localStorage.setItem('state', "Overview")
                     state.subpage = "Overview"
                     break

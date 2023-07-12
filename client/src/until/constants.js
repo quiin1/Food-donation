@@ -1,5 +1,9 @@
+export const LOGIN = 'LOGIN'
+export const SIGNUP = 'SIGNUP'
+export const LOGIN_SUCCESSFULLY = true
 export const LOGOUT = 'LOGOUT';
 
+// dashboard nav left bar
 export const listNavItems = [
     {
       title: "Overview",
@@ -22,3 +26,10 @@ export const listNavItems = [
       img: "/fi-sr-money.svg",
     }
   ]
+
+const apiBase = 'http://localhost:5000'
+export const api = {
+  GET_ACCOUNTS: apiBase + '/api/v1/accounts'
+
+}
+
