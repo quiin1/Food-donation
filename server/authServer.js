@@ -4,6 +4,7 @@ import cors from 'cors'
 import connectDB from './config/db.js'
 import authRoute from './routes/authRoute.js'
 import postRoute from './routes/postRoute.js'
+import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config()
 connectDB()
@@ -11,12 +12,29 @@ connectDB()
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// body parser 
 app.use(express.json())
+// cors
 app.use(cors())
 
+// import routes 
 // server -> route -> controller (update db)
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/posts', postRoute)
+
+// Unhandled Route 
+app.all('*', (req, res, next) => {
+    const err = new Error('The route can not be found')
+    err.statusCode = 404
+    /**
+     * {
+     *  message: 'The route can not be found'
+     *  statusCode: 404
+     * }
+     */
+    next(err)
+})
+app.use(errorHandler)
 
 // test 
 // app.get('/api/v1/accounts', (req, res) => {

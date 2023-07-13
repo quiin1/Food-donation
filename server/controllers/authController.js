@@ -4,19 +4,19 @@ import bcrypt from 'bcryptjs'
 
 export const register = async (req, res, next) => {
     try {
-        // name password
+        // req.body: {name:"", password:""}
         const user = new User(req.body)
         await user.save()
 
         const token = jwt.sign({userId: user._id}, process.env.ACCESS_TOKEN_SECRET, {
             // expiresIn: '30s'
         })
-        return res.status(200).json({
+        res.status(200).json({
             status: 'success',
             data: { token, userName: user.name }
         })
     } catch (error) {
-        return res.json(error)
+        res.json(error)
     }
 }
 
@@ -27,7 +27,10 @@ export const login = async (req, res, next) => {
         // isExisted?
         const user = await User.findOne({name: req.body.name})
         if (!user) {
-            return res.json("error1")
+            // Error: username is not correct 
+            const err = new Error('Username is incorrect or is not existed')
+            err.statusCode = 400
+            return next(err)
         }
 
         // checkPassword
@@ -35,7 +38,7 @@ export const login = async (req, res, next) => {
             const token = jwt.sign({userId: user._id}, process.env.ACCESS_TOKEN_SECRET, {
                 // expiresIn: '30s'
             })
-            return res.status(200).json({
+            res.status(200).json({
                 status: 'success',
                 data: {
                     token,
@@ -44,10 +47,12 @@ export const login = async (req, res, next) => {
             })
         }
         else {
-            // Error: password is incorrect
-            return res.json("error")
+            // Error: Password is incorrect
+            const err = new Error('Password is incorrect')
+            err.statusCode = 400
+            return next(err)
         }
     } catch (error) {
-        return res.json(error)
+        res.json(error)
     }
 }
