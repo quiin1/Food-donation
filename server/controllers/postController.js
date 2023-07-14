@@ -9,7 +9,7 @@ export const getAllPosts = async (req, res, next) => {
             data: {posts}
         })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }
 
@@ -22,7 +22,7 @@ export const createOnePost = async (req, res, next) => {
             data: {post}
         })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }
 
@@ -36,7 +36,7 @@ export const updateOnePost = async (req, res, next) => {
             data: {post}
         })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }
 
@@ -50,7 +50,7 @@ export const deleteOnePost = async (req, res, next) => {
             message: 'Post has been deleted'
         })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }
 

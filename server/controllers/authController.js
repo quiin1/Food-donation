@@ -16,7 +16,7 @@ export const register = async (req, res, next) => {
             data: { token, userName: user.name }
         })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }
 
@@ -53,6 +53,6 @@ export const login = async (req, res, next) => {
             return next(err)
         }
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 }

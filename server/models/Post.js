@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
     // image: { type: },
-    title: { type: String },
+    title: { type: String, required: [true, 'Post must have title'] },
     address: { type: String },
     location: { type: String },
     statusPost: { type: Boolean },
