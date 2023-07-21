@@ -15,7 +15,6 @@ import { PassportModule } from '@nestjs/passport';
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
     AuthModule,
     PassportModule,
-    
   ],
   controllers: [PostController],
   providers: [

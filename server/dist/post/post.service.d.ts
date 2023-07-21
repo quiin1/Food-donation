@@ -1,6 +1,6 @@
 import { Post } from './schemas/post.schema';
 import { Model } from 'mongoose';
-import { User } from 'src/auth/schemas/user.schema';
+import { User } from 'src/user/schemas/user.schema';
 export declare class PostService {
     private postModel;
     constructor(postModel: Model<Post>);

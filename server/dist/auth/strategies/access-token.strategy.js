@@ -17,7 +17,7 @@ const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
-const user_schema_1 = require("../schemas/user.schema");
+const user_schema_1 = require("../../user/schemas/user.schema");
 const common_1 = require("@nestjs/common");
 let AccessTokenStrategy = exports.AccessTokenStrategy = class AccessTokenStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy, 'jwt') {
     constructor(userModel) {

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostSchema = exports.Post = exports.Status = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-const user_schema_1 = require("../../auth/schemas/user.schema");
+const user_schema_1 = require("../../user/schemas/user.schema");
 var Status;
 (function (Status) {
     Status["ONLINE"] = "Online";

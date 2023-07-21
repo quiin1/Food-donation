@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PassportModule } from '@nestjs/passport';
+import { User, UserSchema } from './schemas/user.schema';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { User, UserSchema } from '../user/schemas/user.schema';
-import { AccessTokenStrategy } from './strategies/access-token.strategy';
 
 @Module({
   imports: [
-    // db
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    // jwt
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       imports: [ConfigModule], // env
@@ -24,16 +20,9 @@ import { AccessTokenStrategy } from './strategies/access-token.strategy';
           expiresIn: config.get<string | number>('JWT_ACCESS_EXPIRE')
         }
       })
-    }),
+    })
   ],
-  controllers: [AuthController],
-  providers: [
-    AuthService,
-    AccessTokenStrategy,
-  ],
-  exports: [
-    PassportModule,
-    AccessTokenStrategy,
-  ]
+  controllers: [UserController],
+  providers: [UserService]
 })
-export class AuthModule {}
+export class UserModule {}

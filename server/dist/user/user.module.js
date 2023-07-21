@@ -6,19 +6,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthModule = void 0;
+exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
+const user_controller_1 = require("./user.controller");
+const user_service_1 = require("./user.service");
 const mongoose_1 = require("@nestjs/mongoose");
-const passport_1 = require("@nestjs/passport");
+const user_schema_1 = require("./schemas/user.schema");
 const jwt_1 = require("@nestjs/jwt");
+const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
-const auth_controller_1 = require("./auth.controller");
-const auth_service_1 = require("./auth.service");
-const user_schema_1 = require("../user/schemas/user.schema");
-const access_token_strategy_1 = require("./strategies/access-token.strategy");
-let AuthModule = exports.AuthModule = class AuthModule {
+let UserModule = exports.UserModule = class UserModule {
 };
-exports.AuthModule = AuthModule = __decorate([
+exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
@@ -32,17 +31,10 @@ exports.AuthModule = AuthModule = __decorate([
                         expiresIn: config.get('JWT_ACCESS_EXPIRE')
                     }
                 })
-            }),
+            })
         ],
-        controllers: [auth_controller_1.AuthController],
-        providers: [
-            auth_service_1.AuthService,
-            access_token_strategy_1.AccessTokenStrategy,
-        ],
-        exports: [
-            passport_1.PassportModule,
-            access_token_strategy_1.AccessTokenStrategy,
-        ]
+        controllers: [user_controller_1.UserController],
+        providers: [user_service_1.UserService]
     })
-], AuthModule);
-//# sourceMappingURL=auth.module.js.map
+], UserModule);
+//# sourceMappingURL=user.module.js.map

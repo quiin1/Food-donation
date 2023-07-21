@@ -12,37 +12,26 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
-const user_dto_1 = require("../user/dto/user.dto");
-let AuthController = exports.AuthController = class AuthController {
-    constructor(authService) {
-        this.authService = authService;
+const user_service_1 = require("./user.service");
+let UserController = exports.UserController = class UserController {
+    constructor(userService) {
+        this.userService = userService;
     }
-    async createUser(user) {
-        return await this.authService.register(user);
-    }
-    async login(user) {
-        return await this.authService.login(user);
+    getUser(req) {
+        return this.userService.getUser(req);
     }
 };
 __decorate([
-    (0, common_1.Post)('/register'),
+    (0, common_1.Get)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.UserDto]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "createUser", null);
-__decorate([
-    (0, common_1.Post)('/login'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_dto_1.UserDto]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "login", null);
-exports.AuthController = AuthController = __decorate([
-    (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], AuthController);
-//# sourceMappingURL=auth.controller.js.map
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Object)
+], UserController.prototype, "getUser", null);
+exports.UserController = UserController = __decorate([
+    (0, common_1.Controller)('user'),
+    __metadata("design:paramtypes", [user_service_1.UserService])
+], UserController);
+//# sourceMappingURL=user.controller.js.map

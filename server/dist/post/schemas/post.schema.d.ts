@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { User } from "src/auth/schemas/user.schema";
+import { User } from "src/user/schemas/user.schema";
 export declare enum Status {
     ONLINE = "Online"
 }
