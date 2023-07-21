@@ -33,4 +33,3 @@ export const api = {
   SIGNUP: baseUrl + '/auth/register',
   GET_ACCOUNTS: baseUrl + '/api/v1/accounts',
 }
-

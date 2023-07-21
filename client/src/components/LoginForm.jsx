@@ -8,6 +8,7 @@ import { SignInButton } from './MUIComponents'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../redux/selectors'
 import axios from '../api/axios'
+import Cookies from 'js-cookie';
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
@@ -29,8 +30,11 @@ export const LoginForm = () => {
             try {
                 await axios.post(api.LOGIN, { name: username, password })
                     .then((response) => {
-                        console.log(response.data.token)
-                        localStorage.setItem("token", response.data.token)
+                        const token = response.data.token
+                        // Lưu token vào cookie với tên 'access_token' và thời gian tồn tại là 5 phút
+                        const expirationTimeInMinutes = 5;
+                        const expirationTimeInMilliseconds = expirationTimeInMinutes * 60 * 1000;
+                        Cookies.set('access_token', token, { expires: expirationTimeInMilliseconds });
                     })
             } catch (error) {
                 console.log(error)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Box, CardMedia, Typography, List } from "@mui/material"
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import Content from './Content';
 import { LOGOUT, listNavItems } from '../until/constants';
 import dashboardSlice from '../redux/dashboardSlice';
 import { authenticatedSelector, subpageSelector } from '../redux/selectors';
+import Cookies from 'js-cookie';
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -21,7 +22,7 @@ function Dashboard() {
   
   useEffect(() => {
     if (!authenticated) {
-      // return <Navigate to={"/login"}/>
+      // return <Navigate to={"/login"}/> --> error
       navigate("/login")
     }
   }, [authenticated])
@@ -29,8 +30,9 @@ function Dashboard() {
   function handleLogout() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
     dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
-    enqueueSnackbar('Logout successfully!', {variant: "success"});
-    localStorage.removeItem("token")
+    enqueueSnackbar('Logout successfully!', {variant: "info"});
+    // localStorage.removeItem("token")
+    Cookies.remove('access_token');
   }
 
   function handleChangeSubpage(title) {
