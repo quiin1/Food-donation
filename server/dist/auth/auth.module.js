@@ -16,7 +16,6 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const user_schema_1 = require("./schemas/user.schema");
 const access_token_strategy_1 = require("./strategies/access-token.strategy");
-const refresh_token_strategy_1 = require("./strategies/refresh-token.strategy");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
@@ -39,12 +38,10 @@ exports.AuthModule = AuthModule = __decorate([
         providers: [
             auth_service_1.AuthService,
             access_token_strategy_1.AccessTokenStrategy,
-            refresh_token_strategy_1.RefreshTokenStrategy
         ],
         exports: [
             passport_1.PassportModule,
             access_token_strategy_1.AccessTokenStrategy,
-            refresh_token_strategy_1.RefreshTokenStrategy
         ]
     })
 ], AuthModule);

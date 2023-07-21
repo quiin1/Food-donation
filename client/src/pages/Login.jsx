@@ -1,13 +1,12 @@
-import { React, useEffect } from 'react'
-import axios from 'axios'
+import { React } from 'react'
 import { Link, Typography, Box, CardMedia, CardContent, Grid } from '@mui/material';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { defaultStyle, backgroundStyle, flexCenter, textStyle0, textStyle3, palette } from '../theme';
 import { LoginForm } from '../components/LoginForm';
 import { SignupForm } from '../components/SignupForm';
 import loginSlice from '../redux/loginSlice';
-import {LOGIN, SIGNUP, api} from '../until/constants'
+import { LOGIN, SIGNUP } from '../until/constants'
 import { statusLoginSelector } from '../redux/selectors';
 import { authenticatedSelector } from '../redux/selectors';
 
@@ -15,22 +14,7 @@ function Login() {
   const dispatch = useDispatch()
   let authenticated = useSelector(authenticatedSelector)
   const status = useSelector(statusLoginSelector)
-  
-  async function fetchData() {
-    try {
-      const result = await axios.get(api.GET_ACCOUNTS)
-      console.log(result)
-      return result
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  useEffect(() => {
-    // call API get accounts
-    fetchData()
-  }, [])
-  
   if (authenticated) {
     return <Navigate to={"/dashboard"}/>
   }

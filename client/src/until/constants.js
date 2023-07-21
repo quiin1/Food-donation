@@ -27,9 +27,10 @@ export const listNavItems = [
     }
   ]
 
-const apiBase = 'http://localhost:5000'
+const baseUrl = 'http://localhost:5000'
 export const api = {
-  GET_ACCOUNTS: apiBase + '/api/v1/accounts'
-
+  LOGIN: baseUrl + '/auth/login',
+  SIGNUP: baseUrl + '/auth/register',
+  GET_ACCOUNTS: baseUrl + '/api/v1/accounts',
 }
 

@@ -30,6 +30,7 @@ function Dashboard() {
     dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
     dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
     enqueueSnackbar('Logout successfully!', {variant: "success"});
+    localStorage.removeItem("token")
   }
 
   function handleChangeSubpage(title) {

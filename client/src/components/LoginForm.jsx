@@ -1,28 +1,40 @@
 import { React, useState } from 'react'
 import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
 import { useSnackbar } from 'notistack';
-import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
-import { useDispatch, useSelector } from 'react-redux'
 import dashboardSlice from '../redux/dashboardSlice'
-import * as login from '../until/constants'
+import { LOGIN_SUCCESSFULLY, api } from '../until/constants'
+import { SignInButton } from './MUIComponents'
+import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../redux/selectors'
+import axios from '../api/axios'
 
 export const LoginForm = () => {
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar()
+    
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isError, setIsError] = useState(false);
     const data = useSelector(accountsSelector)
 
-    function postLogIn(e) {
+    async function postLogIn(e) {
         e.preventDefault();
         if (data.some(account => account.username === username && account.password === password)) {
-            setIsError(false)
-            dispatch(dashboardSlice.actions.changeAuthenticated(login.LOGIN_SUCCESSFULLY))
-            dispatch(dashboardSlice.actions.changeSubpage(login.LOGIN_SUCCESSFULLY))
+            dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
+            dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))
             enqueueSnackbar('Login successfully!', {variant: "success"});
+            setIsError(false)
+            
+            try {
+                await axios.post(api.LOGIN, { name: username, password })
+                    .then((response) => {
+                        console.log(response.data.token)
+                        localStorage.setItem("token", response.data.token)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
         }
         else {
             setIsError(true)

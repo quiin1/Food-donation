@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { SignInButton } from './MUIComponents'
 import { textStyle3 } from '../theme'
-import * as login from "../until/constants"
+import { LOGIN, api } from '../until/constants'
 import loginSlice from '../redux/loginSlice'
 import { accountsSelector } from '../redux/selectors'
+import axios from '../api/axios'
 
 export const SignupForm = () => {
     const dispatch = useDispatch()
@@ -18,7 +19,7 @@ export const SignupForm = () => {
     const [passwordCf, setPasswordCf] = useState("");
     const data = useSelector(accountsSelector)
 
-    function postSignup() {
+    async function postSignup() {
         if (userName==='' || password === '' || passwordCf === '') {
             setIsError(true)
             setMessage("Please enter all required fields")
@@ -33,8 +34,18 @@ export const SignupForm = () => {
         }
         else if (password && password === passwordCf) {
             setIsError(false)
-            dispatch(loginSlice.actions.changeStatus(login.LOGIN))
+            dispatch(loginSlice.actions.changeStatus(LOGIN))
             dispatch(loginSlice.actions.signUp({"username": userName, "password": password}))
+
+            try {
+                await axios.post(api.SIGNUP, { name: userName, password })
+                    .then((response) => {
+                        console.log(response.data)
+                    })
+            } catch (error) {
+                console.log(error)
+            }
+
             navigate("/login")
         }
     }
