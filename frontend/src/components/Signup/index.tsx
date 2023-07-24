@@ -45,8 +45,8 @@ const Signup: React.FC = () => {
             } catch (error) {
                 console.log(error)
             }
-
-            navigate("/login")
+            
+            navigate("/")
         }
     }
     return (
