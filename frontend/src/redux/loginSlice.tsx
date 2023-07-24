@@ -11,13 +11,15 @@ interface LoginState {
     accounts: Account[]
 }
 
-const accountsFromLocalStorage = localStorage.getItem('accounts');
-const initialAccounts: Account[] = accountsFromLocalStorage ? JSON.parse(accountsFromLocalStorage) : [
-  {
-    username: "annie",
-    password: "123"
-  }
-];
+// const accountsFromLocalStorage = localStorage.getItem('accounts');
+const initialAccounts: Account[] = 
+    // accountsFromLocalStorage ? JSON.parse(accountsFromLocalStorage) : 
+    [
+        // {
+        //     username: "annie",
+        //     password: "123"
+        // }
+    ];
 const initialState: LoginState = {
     status: login.LOGIN,
     accounts: initialAccounts
@@ -33,7 +35,7 @@ export default createSlice({
         }, // type: "login/changeStatus"
         signUp: (state, action) => {
             state.accounts.push(action.payload)
-            localStorage.setItem('accounts', JSON.stringify(state.accounts))
+            // localStorage.setItem('accounts', JSON.stringify(state.accounts))
         }
     }
 })

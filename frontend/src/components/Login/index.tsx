@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import { textStyle3 } from '../../theme'
 import dashboardSlice from '../../redux/dashboardSlice'
 import { LOGIN_SUCCESSFULLY, api } from '../../until/constants'
-import { SignInButton } from '../MUIComponents'
+import { SignInButton } from '../StyleComponents/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../../redux/selectors'
 import axios from '../../api/axios'
@@ -19,28 +19,42 @@ const Login: React.FC = () => {
     const [isError, setIsError] = useState(false);
     const data = useSelector(accountsSelector)
 
+    function capitalizeFirstLetter(str: string) {
+        if (typeof str !== "string" || str.length === 0) {
+          return str; // Return the input if it's not a string or an empty string
+        }
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
     async function postLogIn(e: any) {
         e.preventDefault();
-        if (data.some((account: { username: string; password: string; }) => account.username === username && account.password === password)) {
-            dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
-            dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))
-            enqueueSnackbar('Login successfully!', {variant: "success"});
-            setIsError(false)
-            
-            try {
-                await axios.post(api.LOGIN, { name: username, password })
-                    .then((response) => {
-                        const token = response.data.token
-                        // Lưu token vào cookie với tên 'access_token' và thời gian tồn tại là 5 phút
-                        const expirationTimeInMinutes = 5;
-                        const expirationTimeInMilliseconds = expirationTimeInMinutes * 60 * 1000;
-                        Cookies.set('access_token', token, { expires: expirationTimeInMilliseconds });
-                    })
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        else {
+        // line comment below: check registed account at frontend 
+        // if (data.some((account: { username: string; password: string; }) => account.username === username && account.password === password))
+        try {
+            await axios.post(api.LOGIN, { name: username, password })
+                .then((response) => {
+                    // console.log("response", response)
+                    
+                    const token = response.data.token
+                    /**
+                     * Lưu token vào cookie với tên 'access_token' và thời gian tồn tại là 5 phút
+                     *  */ 
+                    const expirationTimeInMinutes = 5;
+                    const expirationTimeInMilliseconds = expirationTimeInMinutes * 60 * 1000;
+                    Cookies.set('access_token', token, { expires: expirationTimeInMilliseconds });
+
+                    dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
+                    dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))
+                    enqueueSnackbar('Login successfully!', {variant: "success"});
+                    setIsError(false)
+
+                    /** 
+                     * save current username in localStorage 
+                     * */
+                    localStorage.setItem("username", capitalizeFirstLetter(username))
+                })
+        } catch (error) {
+            console.log("error", error)
             setIsError(true)
         }
     }

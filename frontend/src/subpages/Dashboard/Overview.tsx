@@ -63,9 +63,7 @@ const Overview: React.FC = () => {
             fontWeight: "600",
             fontSize: "1.5em"  
         }}>
-            Welcome back, {
-                
-            }
+            Welcome back, {localStorage.getItem("username")}
         </Typography>
         <Box className="description" display="flex" sx={{margin: ".8em 0 1em 0"}}>
             <PlaceIcon sx={{
