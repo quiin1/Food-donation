@@ -6,7 +6,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 
 import MyCard from '../../components/Dashboard/Overview/MyCard'
 
-// import dashboardSlice from '../../redux/dashboardSlice';
+import dashboardSlice from '../../redux/dashboardSlice';
 import * as dashboard from '../../until/constants';
 
 const Overview: React.FC = () => {
@@ -19,11 +19,11 @@ const Overview: React.FC = () => {
             case 2: 
             case 3: 
             case 4: 
-                // dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
+                dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
                 navigate(dashboard.listNavItems[id].path)
                 break
             default:
-                // dispatch(dashboardSlice.actions.changeSubpage("Overview"))
+                dispatch(dashboardSlice.actions.changeSubpage("Overview"))
         }
     }
     const data = [

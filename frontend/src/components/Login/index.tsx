@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
 import { useSnackbar } from 'notistack';
 import { textStyle3 } from '../../theme'
-// import dashboardSlice from '../../redux/dashboardSlice'
+import dashboardSlice from '../../redux/dashboardSlice'
 import { LOGIN_SUCCESSFULLY, api } from '../../until/constants'
 import { SignInButton } from '../MUIComponents'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,8 +22,8 @@ const Login: React.FC = () => {
     async function postLogIn(e: any) {
         e.preventDefault();
         if (data.some((account: { username: string; password: string; }) => account.username === username && account.password === password)) {
-            // dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
-            // dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))
+            dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
+            dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))
             enqueueSnackbar('Login successfully!', {variant: "success"});
             setIsError(false)
             

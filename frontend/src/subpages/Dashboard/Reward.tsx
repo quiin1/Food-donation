@@ -3,6 +3,7 @@ import { Box } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import titleImage from "../../assets/dashboard/title/3.svg"
 
 import Table from '../../components/Dashboard/Table'
 import Dashboard from '../../pages/Dashboard';
@@ -10,7 +11,7 @@ import Dashboard from '../../pages/Dashboard';
 function handleDelete(id: number) {}
 
 const Reward: React.FC = () => {
-    const column = [
+    const columns = [
         { 
             field: 'id', 
             headerName: 'VOUCHER CODE', 
@@ -84,10 +85,13 @@ const Reward: React.FC = () => {
         },
     ]
 
+    const rows = [
+        { id: 9256821912, voucherInfo: {img: titleImage, voucherInfo: 'VOUCHER 50%'}, expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
+    ]
+
     return (
         <Dashboard>
-            {/* <Table column={column} data={[]} /> */}
-            <Table column={[]} data={[]} />
+            <Table columns={columns as any} rows={rows} />
         </Dashboard>
     )
 }

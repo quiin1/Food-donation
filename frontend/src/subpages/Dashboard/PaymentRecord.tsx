@@ -3,6 +3,7 @@ import { Box } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import titleImage from "../../assets/dashboard/title/4.svg"
 
 import Table from '../../components/Dashboard/Table'
 import Dashboard from '../../pages/Dashboard';
@@ -10,7 +11,7 @@ import Dashboard from '../../pages/Dashboard';
 function handleDelete(id: number) {}
 
 const PaymentRecord: React.FC = () => {
-    const column = [
+    const columns = [
         { 
             field: 'id', 
             headerName: 'LOG ID', 
@@ -109,10 +110,13 @@ const PaymentRecord: React.FC = () => {
         },
     ]
 
+    const rows = [
+        { id: 9256821912, event: {img: titleImage, event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid'},
+    ]
+
     return (
         <Dashboard>
-            {/* <Table column={column} data={[]} /> */}
-            <Table column={[]} data={[]} />
+            <Table columns={columns as any} rows={rows} />
         </Dashboard>
     )
 }

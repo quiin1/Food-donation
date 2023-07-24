@@ -15,15 +15,15 @@ import { authenticatedSelector } from '../redux/selectors';
 
 function LoginSignup() {
   const dispatch = useDispatch()
-  // let authenticated = useSelector(authenticatedSelector)
+  let authenticated = useSelector(authenticatedSelector)
   const status = useSelector(statusLoginSelector)
 
-  // if (authenticated) {
-  //   return <Navigate to={"/dashboard"}/>
-  // }
+  if (authenticated) {
+    return <Navigate to={"/dashboard"}/>
+  }
 
-  function handleStatusChange() { // switch LOGIN SIGNUP
-    // e.preventDefault()
+  function handleStatusChange(e: any) { // switch LOGIN SIGNUP
+    e.preventDefault()
     const nextStatus = status === LOGIN ? SIGNUP : LOGIN
     dispatch(loginSlice.actions.changeStatus(nextStatus))
   }
@@ -43,7 +43,7 @@ function LoginSignup() {
           <CardContent>
             {status === LOGIN? <Login/> : <Signup/>}
             <Box>
-                <Link href="/" onClick={e => handleStatusChange()} underline="none" sx={textStyle3} color="#2BA84A">Click here</Link>
+                <Link href="/" onClick={e => handleStatusChange(e)} underline="none" sx={textStyle3} color="#2BA84A">Click here</Link>
                 <Typography display="inline" ml={.5} sx={textStyle3} color={palette.black}>
                   to {status === LOGIN ? 'Sign up' : 'Login'} if you've already have an account
                 </Typography>

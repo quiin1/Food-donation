@@ -8,7 +8,7 @@ import ActionInfoInputs from './ActionInfoInputs';
 import ActionSuccess from './ActionSuccess';
 
 import { useDispatch } from 'react-redux';
-// import dashboardSlice from '../../../redux/dashboardSlice';
+import dashboardSlice from '../../../redux/dashboardSlice';
 
 interface MyData {
     title: string
@@ -36,10 +36,13 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
 
     function handleSubmit() {
         handleClose()
-        /* UPDATE DATA */
-        // dispatch(dashboardSlice.actions.addData(
+        /** 
+         * Call API to add new Data
+         * YOUR CODE HERE
+        */
+        dispatch(dashboardSlice.actions.addData(
             
-        // ))
+        ))
         
         // *** SUCCESSFULLY ***
         setOpenSuccess(true)
@@ -83,7 +86,9 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
                             flexDirection: 'column',
                             gap: '20px',
                         }}>
-                            <ActionInfoInputs data={props.data} i={props.i}/>
+                            <ActionInfoInputs data={props.data} 
+                                // i={props.i}
+                            />
                         </Box>
                         <Box sx={{
                             display: 'flex',

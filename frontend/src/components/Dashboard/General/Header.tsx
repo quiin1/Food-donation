@@ -3,7 +3,7 @@ import { Box } from "@mui/material"
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import Cookies from 'js-cookie';
-// import dashboardSlice from '../../../redux/dashboardSlice';
+import dashboardSlice from '../../../redux/dashboardSlice';
 import { LOGOUT } from '../../../until/constants';
 
 import SearchBar from './SearchBar';
@@ -14,10 +14,9 @@ const Header: React.FC = () => {
     const { enqueueSnackbar } = useSnackbar()
 
     function handleLogout() {
-        // dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
-        // dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
+        dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
+        dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
         enqueueSnackbar('Logout successfully!', {variant: "info"});
-        // localStorage.removeItem("token")
         Cookies.remove('access_token');
     }
 

@@ -24,12 +24,11 @@ interface ActionInfoInputsProps {
             button: string
         }
     }
-    i: number
 }
 
 const ActionInfoInputs: React.FC<ActionInfoInputsProps> = ({data}) => {
-    const subpageIndex = useSelector(subpageIndexSelector)
-    const defaultData = useSelector(dataSelector)[subpageIndex].rows[0]
+    // const subpageIndex = useSelector(subpageIndexSelector)
+    // const defaultData = useSelector(dataSelector)[subpageIndex].rows[0]
     // console.log(defaultData)
     let rows = []
     const inputNum = data.inputs.length

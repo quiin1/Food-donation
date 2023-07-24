@@ -6,7 +6,7 @@ import logo from '../../../assets/logo/logo.png'
 import { listNavItems } from '../../../until/constants';
 import NavItem from './NavItem'
 import { subpageSelector } from '../../../redux/selectors';
-// import dashboardSlice from '../../../redux/dashboardSlice';
+import dashboardSlice from '../../../redux/dashboardSlice';
 import { useNavigate } from 'react-router-dom';
 
 const SideBar: React.FC = () => {
@@ -26,7 +26,7 @@ const SideBar: React.FC = () => {
             default:
                 navigate("/dashboard")
         }
-        // dispatch(dashboardSlice.actions.changeSubpage(title));
+        dispatch(dashboardSlice.actions.changeSubpage(title));
     }
 
     return (

@@ -10,25 +10,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import { subpageSelector } from '../../redux/selectors';
 import { subpageIndexSelector } from '../../redux/selectors';
-// import dashboardSlice from '../../redux/dashboardSlice';
+import dashboardSlice from '../../redux/dashboardSlice';
 
 type GridAlignment = 'left' | 'right' | 'center';
 
-interface CustomGridColDef {
-    field: string;
-    headerName: string;
-    width: number;
-    renderCell: (params: { value: string | number | boolean | React.ReactElement<any> }) => React.ReactElement<any>;
-    type?: string;
-    align?: GridAlignment;
-    getActions?: (params: { value: string | number | boolean }) => React.ReactElement<any>;
-}
-
 interface TableProps {
-    column: GridColDef[]
-    data: {
-        [key: string]: any
-    }[]
+    columns: GridColDef[]
+    rows: any
+    // data: {
+    //     [key: string]: any
+    // }[]
 }
 
 interface GridPaginationModel {
@@ -37,7 +28,8 @@ interface GridPaginationModel {
   }
 
 const Table: React.FC<TableProps> = (props) => {
-    // const column: CustomGridColDef[] = props.column || []
+    const columns = props.columns || []
+    const rows = props.rows || []
 
     const dispatch = useDispatch()
     let data = useSelector(dataSelector)
@@ -61,7 +53,7 @@ const Table: React.FC<TableProps> = (props) => {
         localStorage.setItem("mockData", JSON.stringify(newData))
     
         // update to Redux
-        // dispatch(dashboardSlice.actions.deleteData(id)) 
+        dispatch(dashboardSlice.actions.deleteData(id)) 
     }
 
     const [page, setPage] = useState(1)
@@ -84,7 +76,7 @@ const Table: React.FC<TableProps> = (props) => {
         // console.log("totalPages", totalPages)
         
         // reduce 1 totalPages
-        let length = data[pageIndex].rows.length //newTotalRows
+        let length = rows.length // data[pageIndex].rows.length //newTotalRows
         if (length <= (totalPages - 1) * 8 ) {
             setPage(totalPages-1)
         }
@@ -123,9 +115,9 @@ const Table: React.FC<TableProps> = (props) => {
             </Box>
             <Box mt="1.3em" bgcolor="white">
                 <DataGrid
-                    // columns={column}
-                    columns={[]}
-                    rows={data[pageIndex].rows}
+                    columns={columns}
+                    // rows={data[pageIndex].rows}
+                    rows={rows}
                     disableRowSelectionOnClick
                     paginationModel={paginationModel}
                     getRowId={(row) => row.id}

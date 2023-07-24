@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit"
 import loginSlice from "./loginSlice"
-// import dashboardSlice from "./dashboardSlice"
+import dashboardSlice from "./dashboardSlice"
 
 const store = configureStore({
     reducer: {
         login: loginSlice.reducer,
-        // dashboard: dashboardSlice.reducer 
+        dashboard: dashboardSlice.reducer 
     }
 })
 

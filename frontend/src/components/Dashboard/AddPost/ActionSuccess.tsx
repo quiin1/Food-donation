@@ -9,19 +9,8 @@ interface ActionSuccessProps {
     setOpen: Function
     data: {
         title: string
-        subtitles: string[]
-        inputs: {
-            label: string 
-            type: string 
-            width: string 
-            optionList: string[]
-        }[]
+        content: string
         button: string
-        success: {
-            title: string
-            content: string
-            button: string
-        }
     }
 }
 
@@ -74,7 +63,7 @@ const ActionSuccess: React.FC<ActionSuccessProps> = (props) => {
                     fontWeight: 400,
                     lineHeight: "150%"
                 }}>
-                    <Typography mt=".5em" mb="32px">{props.data.success.content}</Typography>
+                    <Typography mt=".5em" mb="32px">{props.data.content}</Typography>
                     <img src={successImage} alt="successfully"/>
                 </DialogContentText>
                 <DialogActions sx={{

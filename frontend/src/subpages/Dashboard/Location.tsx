@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
+import titleImage from "../../assets/dashboard/title/2.png"
 
 import Table from '../../components/Dashboard/Table'
 import Dashboard from '../../pages/Dashboard';
@@ -15,7 +16,7 @@ const Location: React.FC = () => {
     const dispatch = useDispatch()
     let data = useSelector(dataSelector)
 
-    const column = [
+    const columns = [
         { 
             field: 'id', 
             headerName: 'ADDRESS ID', 
@@ -90,10 +91,13 @@ const Location: React.FC = () => {
         },
     ]
 
+    const rows = [
+        { id: 9256821912, address: {img: titleImage, address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
+    ]
+
     return (
         <Dashboard>
-            {/* <Table column={column} data={[]} /> */}
-            <Table column={[]} data={[]} />
+            <Table columns={columns as any} rows={rows} />
         </Dashboard>
     )
 }

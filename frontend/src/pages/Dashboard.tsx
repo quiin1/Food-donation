@@ -13,14 +13,14 @@ type DashboardProps = {
 
 const Dashboard: React.FC<DashboardProps> = ({ children }) => {
   const navigate = useNavigate()
-  // let authenticated = useSelector(authenticatedSelector)
+  let authenticated = useSelector(authenticatedSelector)
   
-  // useEffect(() => {
-  //   if (!authenticated) {
-  //     // return <Navigate to={"/login"}/> --> error
-  //     navigate("/")
-  //   }
-  // }, [authenticated])
+  useEffect(() => {
+    if (!authenticated) {
+      // return <Navigate to={"/login"}/> --> error
+      navigate("/")
+    }
+  }, [authenticated])
   
   return (
     <Box display={"flex"}>
