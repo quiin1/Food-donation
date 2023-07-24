@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, OutlinedInput, Typography, InputLabel } from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { SignInButton } from '../MUIComponents'
+import { SignInButton } from '../StyleComponents/styles'
 import { textStyle3 } from '../../theme'
 import { LOGIN, api } from '../../until/constants'
 import loginSlice from '../../redux/loginSlice'

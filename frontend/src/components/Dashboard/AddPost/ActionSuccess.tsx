@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material'
-import { ActionButton } from '../../MUIComponents';
+import { ActionButton } from '../../StyleComponents/styles';
 import successImage from '../../../assets/dashboard/givingtuesday-movement.png';
 
 interface ActionSuccessProps {

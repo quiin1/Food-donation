@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography, FormControl, OutlinedInput, Select, Box, Grid, MenuItem } from '@mui/material'
-import { ActionSubTitleStyled, ActionInputLabelStyled, ActionInputStyledText, ActionInputStyledSelect } from '../../MUIComponents'
+import { ActionSubTitleStyled, ActionInputLabelStyled, ActionInputStyledText, ActionInputStyledSelect } from '../../StyleComponents/styles'
 
 import TextEditor from './TextEditor'
 

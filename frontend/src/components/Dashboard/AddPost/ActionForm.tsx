@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from '../../MUIComponents';
+import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from '../../StyleComponents/styles';
 
 import ProductInfoCards from './ProductInformation';
 import ActionInfoInputs from './ActionInfoInputs';

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Card, CardActions, CardContent, Typography, Grid } from '@mui/material'
-import { CardButton } from '../../MUIComponents'
+import { CardButton } from '../../StyleComponents/styles'
 
 interface MyCardProps {
     children: ReactNode

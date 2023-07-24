@@ -93,7 +93,7 @@ export const ActionInputStyledText = ({
   border: "1px solid #EBEAED",
   background: "#FFF",
   padding: "14px 12px 11px 12px",
-  
+
   color: "#141416",
   /* Regular Text/14px/Semibold */
   fontSize: "14px",
@@ -103,7 +103,7 @@ export const ActionInputStyledText = ({
 });
 
 export const ActionInputStyledNumber = styled(Button)({
-  
+
 });
 export const ActionInputStyledSelect = ({
   borderRadius: "4px",
@@ -120,5 +120,5 @@ export const ActionInputStyledSelect = ({
 });
 
 export const ActionInputStyledDate = styled(Button)({
-  
+
 });
