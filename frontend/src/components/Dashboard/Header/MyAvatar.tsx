@@ -4,7 +4,6 @@ import { Logout, Settings } from '@mui/icons-material'
 import avatar from "../../../assets/dashboard/avatar.png"
 
 interface MyAvatarProps {
-  
   handleLogout: Function
 }
 

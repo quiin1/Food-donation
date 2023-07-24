@@ -2,10 +2,10 @@ import React, { ReactNode, useEffect } from 'react'
 import { Box } from "@mui/material"
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Header from '../components/Dashboard/General/Header';
-import SideBar from '../components/Dashboard/General/SideBar';
-import Overview from '../subpages/Dashboard/Overview';
-import { authenticatedSelector } from '../redux/selectors';
+import Header from '../../components/Dashboard/Header/Header';
+import SideBar from '../../components/Dashboard/SideBar/SideBar';
+import Overview from '../../subpages/Dashboard/Overview';
+import { authenticatedSelector } from '../../redux/selectors';
 
 type DashboardProps = {
   children: ReactNode

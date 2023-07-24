@@ -20,7 +20,6 @@ const SideBar: React.FC = () => {
             case 2:
             case 3:
             case 4:
-                console.log(listNavItems[index].path)
                 navigate(listNavItems[index].path)
                 break
             default:

@@ -18,6 +18,10 @@ const Header: React.FC = () => {
         dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
         enqueueSnackbar('Logout successfully!', {variant: "info"});
         Cookies.remove('access_token');
+        /** 
+         * remove current username in localStorage 
+         * */
+        localStorage.removeItem("username")
     }
 
     return (

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Box, Typography, Pagination } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
-import { PostButton } from '../MUIComponents'
-import Overview from '../../subpages/Dashboard/Overview';
-import ActionForm from './AddPost/ActionForm';
+import { PostButton } from '../../StyleComponents/styles'
+import Overview from '../../../subpages/Dashboard/Overview';
+import ActionForm from '../AddPost/ActionForm';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { dataSelector } from '../../redux/selectors';
-import { subpageSelector } from '../../redux/selectors';
-import { subpageIndexSelector } from '../../redux/selectors';
-import dashboardSlice from '../../redux/dashboardSlice';
+import { dataSelector } from '../../../redux/selectors';
+import { subpageSelector } from '../../../redux/selectors';
+import { subpageIndexSelector } from '../../../redux/selectors';
+import dashboardSlice from '../../../redux/dashboardSlice';
 
 type GridAlignment = 'left' | 'right' | 'center';
 
