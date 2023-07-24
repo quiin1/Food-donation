@@ -78,6 +78,7 @@ const Overview: React.FC = () => {
         <Grid container spacing={4} mt=".3em">
             {data.map(item => (
                 <MyCard 
+                    key={item.title}
                     title={item.title}
                     content={item.content}
                     btnName={item.btnName}
