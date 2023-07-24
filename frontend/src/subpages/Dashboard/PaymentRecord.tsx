@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import titleImage from "../../assets/dashboard/title/4.svg"
 
-import Table from '../../components/Dashboard/Table'
+import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
 
 function handleDelete(id: number) {}

@@ -6,7 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconEye from '../../assets/dashboard/table/fi-sr-eye.svg';
 import titleImage from "../../assets/dashboard/title/1.png"
 
-import Table from '../../components/Dashboard/Table'
+import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
 
 function handleDelete(id: number) {}

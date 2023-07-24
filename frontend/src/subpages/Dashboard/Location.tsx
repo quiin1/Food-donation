@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import titleImage from "../../assets/dashboard/title/2.png"
 
-import Table from '../../components/Dashboard/Table'
+import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
 
 function handleDelete(id: number) {}
@@ -32,7 +32,6 @@ const Location: React.FC = () => {
             headerName: 'ADDRESS', 
             width: 350,
             renderCell: (params: { value: { img: string | undefined; address: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }; }) => {
-                console.log(params.value.img)
                 return (
                     <Box sx={{
                         display: 'flex',
