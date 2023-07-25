@@ -11,15 +11,12 @@ import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
 import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
-import dashboardSlice from '../../redux/dashboardSlice';
 import axios from 'axios';
 import { api } from '../../until/constants';
 import Cookies from 'js-cookie';
-
-function handleDelete(id: number) {}
 
 const PostManager: React.FC<any> = () => {
     const columns = [
@@ -112,12 +109,31 @@ const PostManager: React.FC<any> = () => {
         },
     ]
 
-    const [rows, setRows] = useState([
-        { id: 9256821911, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
-        { id: 9256821912, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
-    ])
+    const [rows, setRows] = useState<any>([])
 
+    let data = useSelector(dataSelector)
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => { 
+        setOpen(true)
+    }
+    function handleClose() {
+        setOpen(false)
+    }
+    const [title, setTitle] = useState('')
+    const [value, setValue] = useState(1000)
+    const [unit, setUnit] = useState('USD')
+    const [location, setLocation] = useState('')
+    const [address, setAddress] = useState('')
+    const [desc, setDesc] = useState('')
+    
+    const { enqueueSnackbar } = useSnackbar() 
+    const [openSuccess, setOpenSuccess] = useState(false)
     const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        getAllPosts()
+    }, [])
+
     async function getAllPosts() {
         try {
             const token = Cookies.get('access_token')
@@ -127,10 +143,11 @@ const PostManager: React.FC<any> = () => {
                     }
                 }).then((response) => {
                     console.log("response", response.data)
-                    let newRows = [...rows]
+                    let newRows: { _id: any; id: any; title: { img: any; title: any; }; releaseDate: any; view: number; status: string; }[] = []
                     response.data.map((item: any) => {
-                        console.log(item)
+                        // console.log(item)
                         const newRow = {
+                            _id: item._id,
                             id: item.id,
                             title: {
                                 img: titleImage,
@@ -140,7 +157,7 @@ const PostManager: React.FC<any> = () => {
                             view: 200,
                             status: 'Online'
                         }
-                        newRows = [...newRows, newRow]
+                        newRows.push(newRow)
                     })
                     setRows(newRows)
                     setLoading(false)
@@ -153,7 +170,7 @@ const PostManager: React.FC<any> = () => {
     async function postCreatePost(post: any) {
         try {
             const token = Cookies.get('access_token')
-            await axios.post(api.GET_ALL_POSTS, post,
+            await axios.post(api.CREATE_POST, post,
                 {
                     headers: {
                         Authorization: `Bearer ${token}` // Thêm token vào header Authorization
@@ -165,28 +182,23 @@ const PostManager: React.FC<any> = () => {
             console.log("error at post create post", error)
         }
     }
-    useEffect(() => {
-        getAllPosts()
-    }, [])
-
-    let data = useSelector(dataSelector)
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => { 
-        setOpen(true)
-    }
-    const [title, setTitle] = useState('')
-    const [value, setValue] = useState(1000)
-    const [unit, setUnit] = useState('USD')
-    const [location, setLocation] = useState('')
-    const [address, setAddress] = useState('')
-    const [desc, setDesc] = useState('')
     
-    const dispatch = useDispatch()
-    const { enqueueSnackbar } = useSnackbar() 
-    const [openSuccess, setOpenSuccess] = useState(false)
-    function handleClose() {
-        setOpen(false)
+    async function deletePost(_id: number) {
+        try {
+            const token = Cookies.get('access_token')
+            console.log("_id", _id)
+            await axios.delete(`${api.DELETE_POST}/${_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
+                    }
+                }).then((response) => {
+                    console.log("response", response.data)
+                })
+        } catch (error) {
+            console.log("error at deletePost", error)
+        }
     }
+
     function handleSubmit() {
         // check Empty 
         if (title == '') {
@@ -227,6 +239,21 @@ const PostManager: React.FC<any> = () => {
         setTitle('')
     }
 
+    const handleDelete = (id: number) => {
+        const indexToRemove = rows.findIndex((item: any) => item.id === id)
+        console.log(indexToRemove)
+        if (indexToRemove >= 0 && indexToRemove < rows.length) {
+            const newRows = rows.filter((_: any, index: any) => index !== indexToRemove)
+            setRows(newRows)
+            /** 
+             * use API
+             */
+            deletePost(rows[indexToRemove]._id)
+        } else {
+            console.log('Invalid index. No object was removed.');
+        }
+    }
+    
     return (
         <Dashboard>
             <ActionForm 

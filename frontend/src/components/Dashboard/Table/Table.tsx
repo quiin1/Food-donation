@@ -5,11 +5,10 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { PostButton } from '../../StyleComponents/styles'
 import Overview from '../../../subpages/Dashboard/Overview';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { dataSelector } from '../../../redux/selectors';
 import { subpageSelector } from '../../../redux/selectors';
 import { subpageIndexSelector } from '../../../redux/selectors';
-import dashboardSlice from '../../../redux/dashboardSlice';
 
 interface TableProps {
     columns: GridColDef[]
@@ -26,25 +25,9 @@ const Table: React.FC<TableProps> = (props) => {
     const columns = props.columns || []
     const rows = props.rows || []
 
-    const dispatch = useDispatch()
     let data = useSelector(dataSelector)
     let subpage = useSelector(subpageSelector)
     let pageIndex = useSelector(subpageIndexSelector)
-    
-    const handleDelete = (id: number) => {
-        // delete at localStorage
-        const newData = [
-            [],
-            data[1].rows.map((item: any) => item),
-            data[2].rows.map((item: any) => item),
-            data[3].rows.map((item: any) => item),
-            data[4].rows.map((item: any) => item)
-        ]
-        localStorage.setItem("mockData", JSON.stringify(newData))
-    
-        // update to Redux
-        dispatch(dashboardSlice.actions.deleteData(id)) 
-    }
 
     const [page, setPage] = useState(1)
     const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({

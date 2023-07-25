@@ -14,6 +14,9 @@ export const api = {
   LOGIN: baseUrl + '/auth/login',
   SIGNUP: baseUrl + '/auth/register',
   GET_ALL_POSTS: baseUrl + '/posts',
+  CREATE_POST: baseUrl + '/posts',
+  UPDATE_POST: baseUrl + '/posts',
+  DELETE_POST: baseUrl + '/posts',
 }
 
 // dashboard nav left bar
