@@ -10,14 +10,17 @@ export enum Status {
     timestamps: true
 })
 export class Post {
+    @Prop({ default: Math.round(Math.random() * 9000000000) })
+    id: number;
+
     @Prop({ unique: true, required: true })
     title: string;
 
     @Prop()
     image: string;
 
-    @Prop()
-    realeaseDate: Date;
+    @Prop({ default: Date.now })
+    releaseDate: Date;
 
     @Prop()
     view: number;

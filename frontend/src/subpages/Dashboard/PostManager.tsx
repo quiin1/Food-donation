@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Box } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Box, CircularProgress, Grid, Skeleton } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +15,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
 import dashboardSlice from '../../redux/dashboardSlice';
+import axios from 'axios';
+import { api } from '../../until/constants';
+import Cookies from 'js-cookie';
 
 function handleDelete(id: number) {}
 
@@ -114,6 +117,43 @@ const PostManager: React.FC<any> = () => {
         { id: 9256821912, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
     ])
 
+    const [loading, setLoading] = useState(true)
+    async function getAllPosts() {
+        try {
+            const token = Cookies.get('access_token')
+            await axios.get(api.GET_ALL_POSTS, {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
+                    }
+                }).then((response) => {
+                    console.log("response", response.data)
+                    let newRows = [...rows]
+                    response.data.map((item: any) => {
+                        console.log(item)
+                        const newRow = {
+                            id: item.id,
+                            title: {
+                                img: titleImage,
+                                title: item.title
+                            },
+                            releaseDate: item.releaseDate,
+                            view: 200,
+                            status: 'Online'
+                        }
+                        newRows = [...newRows, newRow]
+                    })
+                    setRows(newRows)
+                    setLoading(false)
+                })
+        } catch (error) {
+            // const isUnauthorized = error.response.data.message == "Unauthorized"
+            console.log("error", error)
+        }
+    }
+    useEffect(() => {
+        getAllPosts()
+    }, [])
+
     let data = useSelector(dataSelector)
     const [open, setOpen] = useState(false)
     const handleOpen = () => { 
@@ -193,7 +233,11 @@ const PostManager: React.FC<any> = () => {
                     setDesc={setDesc}
                 />
             </ActionForm>
-            <Table columns={columns as any} rows={rows} handleOpen={handleOpen}/>
+            {loading ? 
+                <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
+                    <CircularProgress className="flex align-center justify-center"/>
+                </Grid>
+                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen}/>}
         </Dashboard>
     )
 }

@@ -38,7 +38,10 @@ export class PostService {
 
     // FIX HERE user underfind
     async createPost(post: Post, user: User): Promise<Post> {
-        const data = Object.assign(post
+        const id = Math.round(Math.random() * 9000000000)
+        const data = Object.assign(
+            id,
+            post
             // , { user: user._id }
             )
         console.log(data)

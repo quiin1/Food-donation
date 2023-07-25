@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 // import dashboardSlide from '../../../redux/dashboardSlice'
 
 const ProductInfoCards: React.FC = () => {
-    const dispatch = useDispatch()
-    const [imageList, setImageList] = useState<string[]>([])
+    // const dispatch = useDispatch()
+    const [image, setImage] = useState('')
     const [openImage, setOpenImage] = useState(false)
     function uploadProduct() {
         const fileInput = document.getElementById("file-input") as HTMLInputElement | null
@@ -19,7 +19,7 @@ const ProductInfoCards: React.FC = () => {
                 if (target.files && target.files.length > 0) {
                     const file = target.files[0]
                     const url = URL.createObjectURL(file)
-                    setImageList([...imageList, url])
+                    setImage(url)
                 }
             }
             fileInput.click()
@@ -34,15 +34,14 @@ const ProductInfoCards: React.FC = () => {
         setOpenImage(true)
     }
 
-    function deleteProduct(id: number) {
-        imageList.splice(id, 1)
-        setImageList([...imageList])
+    function deleteProduct() {
+        setImage('')
     }
 
-    function Card({isProduct, id, image}: { isProduct: boolean; id?: number | string; image: string }) {
+    function Card({isProduct, image}: { isProduct: boolean; image: string }) {
         return (
             <Grid item xs={4} sx={{
-                display: 'flex',
+                display: image=='' && isProduct == true ? 'none' : 'flex',
                 flexDirection: 'column',
                 gap: '8px',
                 width: "163px",
@@ -69,7 +68,6 @@ const ProductInfoCards: React.FC = () => {
                     {
                         isProduct?
                         <img 
-                            id={id?.toString()}
                             style={{width: "113.986px", height: "115.385px"}} 
                             src={image}
                         />
@@ -116,11 +114,7 @@ const ProductInfoCards: React.FC = () => {
                                     }
                                 }}
                                 onClick={() => {
-                                    if (typeof id === 'number') {
-                                        deleteProduct(id)
-                                    } else {
-                                        console.log("Invalid id")
-                                    }
+                                    deleteProduct()
                                 }}
                             />
                         </>
@@ -134,10 +128,8 @@ const ProductInfoCards: React.FC = () => {
 
     return (
         <Grid id="product-container" container spacing={2}>
-            {
-                imageList.map((image, index) => <Card key={index} id={index} isProduct={true} image={image}/>)
-            }
-            <Card isProduct={false} id={undefined} image={""}/>
+            <Card isProduct={true} image={image}/>
+            <Card isProduct={false} image={""}/>
         </Grid>
     )
 }

@@ -13,7 +13,7 @@ export const baseUrl = 'http://localhost:5000'
 export const api = {
   LOGIN: baseUrl + '/auth/login',
   SIGNUP: baseUrl + '/auth/register',
-  GET_ACCOUNTS: baseUrl + '/api/v1/accounts',
+  GET_ALL_POSTS: baseUrl + '/posts',
 }
 
 // dashboard nav left bar
