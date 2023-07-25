@@ -146,8 +146,23 @@ const PostManager: React.FC<any> = () => {
                     setLoading(false)
                 })
         } catch (error) {
-            // const isUnauthorized = error.response.data.message == "Unauthorized"
             console.log("error", error)
+        }
+    }
+    
+    async function postCreatePost(post: any) {
+        try {
+            const token = Cookies.get('access_token')
+            await axios.post(api.GET_ALL_POSTS, post,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
+                    }
+                }).then((response) => {
+                    console.log("response", response.data)
+                })
+        } catch (error) {
+            console.log("error at post create post", error)
         }
     }
     useEffect(() => {
@@ -195,7 +210,14 @@ const PostManager: React.FC<any> = () => {
         }
         setRows([...rows, newRow])
         // dispatch(dashboardSlice.actions.addData())
-        
+        const storeNewRow = {
+            id: newRow.id,
+            title: newRow.title.title,
+            releaseDate: dateString,
+            view: 200,
+            status: 'Online'
+        }
+        postCreatePost(storeNewRow)
         
         // *** SUCCESSFULLY ***
         setOpenSuccess(true)
@@ -243,3 +265,4 @@ const PostManager: React.FC<any> = () => {
 }
 
 export default PostManager
+
