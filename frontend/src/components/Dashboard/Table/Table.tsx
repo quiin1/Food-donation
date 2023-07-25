@@ -4,7 +4,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { PostButton } from '../../StyleComponents/styles'
 import Overview from '../../../subpages/Dashboard/Overview';
-import ActionForm from '../AddPost/ActionForm';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../../redux/selectors';
@@ -12,14 +11,10 @@ import { subpageSelector } from '../../../redux/selectors';
 import { subpageIndexSelector } from '../../../redux/selectors';
 import dashboardSlice from '../../../redux/dashboardSlice';
 
-type GridAlignment = 'left' | 'right' | 'center';
-
 interface TableProps {
     columns: GridColDef[]
     rows: any
-    // data: {
-    //     [key: string]: any
-    // }[]
+    handleOpen: Function
 }
 
 interface GridPaginationModel {
@@ -35,11 +30,6 @@ const Table: React.FC<TableProps> = (props) => {
     let data = useSelector(dataSelector)
     let subpage = useSelector(subpageSelector)
     let pageIndex = useSelector(subpageIndexSelector)
-
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => { 
-        setOpen(true)
-    }
     
     const handleDelete = (id: number) => {
         // delete at localStorage
@@ -100,8 +90,6 @@ const Table: React.FC<TableProps> = (props) => {
     // console.log(totalRows)
     return (
         <Box>
-            <ActionForm open={open} setOpen={setOpen} data={data[pageIndex].actionForm} i={pageIndex}/>
-            
             <Box display="flex" justifyContent="space-between">
                 <Typography sx={{
                     color: "#2E2C34", 
@@ -111,7 +99,7 @@ const Table: React.FC<TableProps> = (props) => {
                 }}>
                     {data[pageIndex].title}
                 </Typography>
-                <PostButton onClick={handleOpen}>{data[pageIndex].action}</PostButton>
+                <PostButton onClick={props.handleOpen as any}>{data[pageIndex].action}</PostButton>
             </Box>
             <Box mt="1.3em" bgcolor="white">
                 <DataGrid

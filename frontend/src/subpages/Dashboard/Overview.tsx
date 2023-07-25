@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Box, Typography, Divider, Grid } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 
@@ -15,11 +15,6 @@ import { subpageIndexSelector } from '../../redux/selectors';
 const Overview: React.FC = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    let data = useSelector(dataSelector)
-    const [formIndex, setFormIndex] = useState(1)
-
-    const [open, setOpen] = useState(false)
     const handleOpen = (id: number) => { 
         // switch(id) {
         //     case 1: 
@@ -31,23 +26,13 @@ const Overview: React.FC = () => {
         //     default:
         //         dispatch(dashboardSlice.actions.changeSubpage("Overview"))
         // }
-        if (id > 0 && id < 4) setFormIndex(id)
-        setOpen(true)
-    }
 
-    const handleNavigate = (id: number) => { 
-        switch(id) {
-            case 1: 
-            case 2: 
-            case 3: 
-            case 4: 
-                dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
-                navigate(dashboard.listNavItems[id].path)
-                break
-            default:
-                dispatch(dashboardSlice.actions.changeSubpage("Overview"))
+        if (id > 0 && id < 4) {
+            dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
+            navigate(dashboard.listNavItems[id].path)
         }
     }
+
     const cardData = [
         {
             id: 1,
@@ -81,8 +66,6 @@ const Overview: React.FC = () => {
 
     return (
         <Box>
-            <ActionForm open={open} setOpen={setOpen} data={data[formIndex].actionForm} i={formIndex}/>
-            
             <Typography sx={{
                 color: "#141416",
                 fontWeight: "600",

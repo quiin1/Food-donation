@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,11 +9,12 @@ import titleImage from "../../assets/dashboard/title/2.png"
 
 import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
+import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
+import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
 
 function handleDelete(id: number) {}
 
 const Location: React.FC = () => {
-    const dispatch = useDispatch()
     let data = useSelector(dataSelector)
 
     const columns = [
@@ -94,9 +95,17 @@ const Location: React.FC = () => {
         { id: 9256821912, address: {img: titleImage, address: '66b Regent St, Redfern NSW 2016'}, location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
     ]
 
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => { 
+        setOpen(true)
+    }
+
     return (
         <Dashboard>
-            <Table columns={columns as any} rows={rows} />
+            <ActionForm open={open} setOpen={setOpen} data={data[2].actionForm} i={2}>
+                <ActionInfoInputs data={data[2].actionForm} />
+            </ActionForm>
+            <Table columns={columns as any} rows={rows} handleOpen={handleOpen}/>
         </Dashboard>
     )
 }

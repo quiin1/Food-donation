@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,6 +7,11 @@ import titleImage from "../../assets/dashboard/title/4.svg"
 
 import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
+import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
+
+import { useSelector } from 'react-redux';
+import { dataSelector } from '../../redux/selectors';
+import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
 
 function handleDelete(id: number) {}
 
@@ -114,9 +119,18 @@ const PaymentRecord: React.FC = () => {
         { id: 9256821912, event: {img: titleImage, event: 'By food for kids'}, moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid'},
     ]
 
+    const [open, setOpen] = useState(false)
+    const handleOpen = () => { 
+        setOpen(true)
+    }
+    let data = useSelector(dataSelector)
+
     return (
         <Dashboard>
-            <Table columns={columns as any} rows={rows} />
+            <ActionForm open={open} setOpen={setOpen} data={data[4].actionForm} i={4}>
+                <ActionInfoInputs data={data[4].actionForm} />
+            </ActionForm>
+            <Table columns={columns as any} rows={rows} handleOpen={handleOpen}/>
         </Dashboard>
     )
 }

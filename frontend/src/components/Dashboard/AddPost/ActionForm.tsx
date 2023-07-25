@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Typography } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from '../../StyleComponents/styles';
 
 import ProductInfoCards from './ProductInformation';
-import ActionInfoInputs from './ActionInfoInputs';
 import ActionSuccess from './ActionSuccess';
 
 import { useDispatch } from 'react-redux';
@@ -23,6 +22,7 @@ interface ActionFormProps {
     setOpen: Function
     data: MyData
     i: number
+    children: ReactNode
 }
 
 const ActionForm: React.FC<ActionFormProps> = (props) => {
@@ -86,9 +86,7 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
                             flexDirection: 'column',
                             gap: '20px',
                         }}>
-                            <ActionInfoInputs data={props.data} 
-                                // i={props.i}
-                            />
+                            {props.children}
                         </Box>
                         <Box sx={{
                             display: 'flex',
