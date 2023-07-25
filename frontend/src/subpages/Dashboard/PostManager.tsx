@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
+import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconEye from '../../assets/dashboard/table/fi-sr-eye.svg';
@@ -10,9 +11,10 @@ import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
 import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
+import dashboardSlice from '../../redux/dashboardSlice';
 
 function handleDelete(id: number) {}
 
@@ -107,21 +109,89 @@ const PostManager: React.FC<any> = () => {
         },
     ]
 
-    const rows = [
-        { id: 9256821912, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
+    const [rows, setRows] = useState([
         { id: 9256821911, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
-    ]
+        { id: 9256821912, title: {img: titleImage, title: 'Crawford Room, Mortlock Wing....'}, releaseDate: '15:46.673 02/08/2022', view: 200, status: 'Online' },
+    ])
 
+    let data = useSelector(dataSelector)
     const [open, setOpen] = useState(false)
     const handleOpen = () => { 
         setOpen(true)
     }
-    let data = useSelector(dataSelector)
+    const [title, setTitle] = useState('')
+    const [value, setValue] = useState(1000)
+    const [unit, setUnit] = useState('USD')
+    const [location, setLocation] = useState('')
+    const [address, setAddress] = useState('')
+    const [desc, setDesc] = useState('')
     
+    const dispatch = useDispatch()
+    const { enqueueSnackbar } = useSnackbar() 
+    const [openSuccess, setOpenSuccess] = useState(false)
+    function handleClose() {
+        setOpen(false)
+    }
+    function handleSubmit() {
+        // check Empty 
+        if (title == '') {
+            enqueueSnackbar('Please fill the Title field', {variant: "error"});
+            return
+        }
+        handleClose()
+
+        /** 
+         * Add new Data
+         * YOUR CODE HERE
+        */
+        const currentDate = new Date();
+        const dateString = currentDate.toISOString();
+        const newRow = {
+            id: Math.round(Math.random() * 9000000000),
+            title: {img: titleImage, title: title},
+            releaseDate: dateString, 
+            view: 200, 
+            status: 'Online'
+        }
+        setRows([...rows, newRow])
+        // dispatch(dashboardSlice.actions.addData())
+        
+        
+        // *** SUCCESSFULLY ***
+        setOpenSuccess(true)
+        enqueueSnackbar('Create successfully!', {variant: "success"});
+        
+        // refresh values 
+        setTitle('')
+    }
+
     return (
         <Dashboard>
-            <ActionForm open={open} setOpen={setOpen} data={data[1].actionForm} i={1}>
-                <ActionInfoInputs data={data[1].actionForm} />
+            <ActionForm 
+                open={open}
+                setOpen={setOpen}
+                data={data[1].actionForm}
+                i={1} 
+                openSuccess={openSuccess} 
+                setOpenSuccess={setOpenSuccess} 
+                handleClose={handleClose} 
+                handleSubmit={handleSubmit}                
+            >
+                <ActionInfoInputs 
+                    data={data[1].actionForm}
+                    title={title}
+                    setTitle={setTitle} 
+                    value={value}             
+                    setValue={setValue}
+                    unit={unit}
+                    setUnit={setUnit}
+                    location={location}             
+                    setLocation={setLocation}             
+                    address={address}             
+                    setAddress={setAddress}
+                    desc={desc}             
+                    setDesc={setDesc}
+                />
             </ActionForm>
             <Table columns={columns as any} rows={rows} handleOpen={handleOpen}/>
         </Dashboard>

@@ -6,9 +6,6 @@ import { ActionButton, ActionSubTitleStyled, ActionTitleStyled } from '../../Sty
 import ProductInfoCards from './ProductInformation';
 import ActionSuccess from './ActionSuccess';
 
-import { useDispatch } from 'react-redux';
-import dashboardSlice from '../../../redux/dashboardSlice';
-
 interface MyData {
     title: string
     subtitles: string[]
@@ -23,44 +20,25 @@ interface ActionFormProps {
     data: MyData
     i: number
     children: ReactNode
+    openSuccess: boolean
+    setOpenSuccess: Function
+    handleClose: Function 
+    handleSubmit: Function 
 }
 
-const ActionForm: React.FC<ActionFormProps> = (props) => {
-    const dispatch = useDispatch()
-    const { enqueueSnackbar } = useSnackbar()
-    const [openSuccess, setOpenSuccess] = useState(false)
-
-    function handleClose() {
-        props.setOpen(false)
-    }
-
-    function handleSubmit() {
-        handleClose()
-        /** 
-         * Call API to add new Data
-         * YOUR CODE HERE
-        */
-        dispatch(dashboardSlice.actions.addData(
-            
-        ))
-        
-        // *** SUCCESSFULLY ***
-        setOpenSuccess(true)
-        enqueueSnackbar('Create successfully!', {variant: "success"});
-    }
-
+const ActionForm: React.FC<ActionFormProps> = (props) => {    
     // const Transition = React.forwardRef(function Transition(props, ref) {
     //     return <Slide direction="up" ref={ref} {...props} />;
     // });
 
     return (
         <>
-            <ActionSuccess data={props.data.success} open={openSuccess} setOpen={setOpenSuccess}/>
+            <ActionSuccess data={props.data.success} open={props.openSuccess} setOpen={props.setOpenSuccess}/>
             <Dialog
                 open={props.open}
                 // TransitionComponent={Transition}
                 // keepMounted
-                onClose={handleClose}
+                onClose={props.handleClose as any}
                 aria-describedby="alert-dialog-slide-description"
                 sx={{
                     "& .MuiDialog-paper": {
@@ -103,7 +81,7 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
                         padding: '11px 24px',
                     }
                 }}>
-                    <ActionButton onClick={handleSubmit}>{props.data.button}</ActionButton>
+                    <ActionButton onClick={props.handleSubmit as any}>{props.data.button}</ActionButton>
                 </DialogActions>
             </Dialog>
         </>

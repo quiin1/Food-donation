@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography, FormControl, OutlinedInput, Select, Box, Grid, MenuItem } from '@mui/material'
 import { ActionSubTitleStyled, ActionInputLabelStyled, ActionInputStyledText, ActionInputStyledSelect } from '../../StyleComponents/styles'
 
 import TextEditor from './TextEditor'
-
-import { useSelector } from 'react-redux'
-import { dataSelector, subpageIndexSelector } from '../../../redux/selectors'
 
 interface ActionInfoInputsProps {
     data: {
@@ -24,16 +21,29 @@ interface ActionInfoInputsProps {
             button: string
         }
     }
+    title: string 
+    setTitle: Function 
+    value: number
+    setValue: Function
+    unit: string
+    setUnit: Function
+    location: string     
+    setLocation: Function            
+    address: string
+    setAddress: Function
+    desc: string     
+    setDesc: Function 
 }
 
-const ActionInfoInputs: React.FC<ActionInfoInputsProps> = ({data}) => {
-    // const subpageIndex = useSelector(subpageIndexSelector)
-    // const defaultData = useSelector(dataSelector)[subpageIndex].rows[0]
-    // console.log(defaultData)
+const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
+    useEffect(()=>{
+        console.log(props)
+    }, [props])
+
     let rows = []
-    const inputNum = data.inputs.length
+    const inputNum = props.data.inputs.length
     for (let i = 0; i < inputNum; i++) {
-        let width = data.inputs[i].width
+        let width = props.data.inputs[i].width
         let grid = 12/(100/Number(width.slice(0, width.length-1))) //fullwidth=12
         rows.push(
                 <Grid item xs={grid}>
@@ -45,33 +55,40 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = ({data}) => {
                         }}
                     >
                         <label style={ActionInputLabelStyled} htmlFor="">
-                            {data.inputs[i].label}
+                            {props.data.inputs[i].label}
                         </label>
                         {
                             {
                                 'text': <OutlinedInput id="" type="text" style={ActionInputStyledText} 
                                             placeholder={"Crawford Room, Mortlock Wing...."}
+                                            value={props.title}
+                                            onChange={e => props.setTitle(e.target.value)}
                                         />,
-                                'number': <OutlinedInput id="" type="number" style={ActionInputStyledText}/>,
+                                'number': <OutlinedInput id="" type="number" style={ActionInputStyledText} 
+
+                                        />,
                                 'select': (
                                     <Select id="" type="text" style={ActionInputStyledSelect} 
-                                        placeholder={data.inputs[i].optionList && data.inputs[i].optionList[0] || "S"}
+                                        placeholder={props.data.inputs[i].optionList && props.data.inputs[i].optionList[0] || "S"}
                                     >
-                                        {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
+                                        {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
                                             <MenuItem value={option}>{option}</MenuItem>
                                         ))}
                                     </Select>
                                 ),
-                                'date': <OutlinedInput id="" type="date" style={ActionInputStyledText}/>,
+                                'date': <OutlinedInput id="date" type="date" style={ActionInputStyledText}/>,
                                 'money': (
                                     <Box sx={{display: 'flex', gap: '12px'}}>
                                         <OutlinedInput id="" type="number" style={{...ActionInputStyledText, width: "100%", padding: "12px"}} 
-                                            defaultValue={1000}
+                                            value={props.value}
+                                            onChange={e => props.setValue(e.target.value)}
                                         />
                                         <Select id="" type="text" style={ActionInputStyledSelect} 
                                             defaultValue={"USD"}
+                                            value={props.unit}
+                                            onChange={e => props.setUnit(e.target.value)}
                                         >
-                                            {data.inputs[i].optionList && data.inputs[i].optionList.map(option => (
+                                            {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
                                                 <MenuItem value={option}>{option}</MenuItem>
                                             ))}
                                         </Select>
@@ -103,7 +120,7 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = ({data}) => {
                                         <TextEditor/>
                                     </FormControl>
                                 )
-                            }[data.inputs[i].type]
+                            }[props.data.inputs[i].type]
                         }
                     </FormControl>
                 </Grid>
@@ -111,7 +128,7 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = ({data}) => {
     }
     return (
         <Box sx={{fontFamily: 'Manrope'}}>
-            <Typography sx={ActionSubTitleStyled}>{data.subtitles[0]}</Typography>
+            <Typography sx={ActionSubTitleStyled}>{props.data.subtitles[0]}</Typography>
             <Grid container spacing={2}>{rows}</Grid>
         </Box>
     )
