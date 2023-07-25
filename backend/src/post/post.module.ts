@@ -8,6 +8,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+// import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -15,6 +16,9 @@ import { PassportModule } from '@nestjs/passport';
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
     AuthModule,
     PassportModule,
+    // MulterModule.register({
+    //   dest: './uploads', // Destination folder for uploaded files
+    // }),
   ],
   controllers: [PostController],
   providers: [
