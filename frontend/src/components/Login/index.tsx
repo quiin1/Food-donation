@@ -39,9 +39,8 @@ const Login: React.FC = () => {
                     /**
                      * Lưu token vào cookie với tên 'access_token' và thời gian tồn tại là 5 phút
                      *  */ 
-                    const expirationTimeInMinutes = 5;
-                    const expirationTimeInMilliseconds = expirationTimeInMinutes * 60 * 1000;
-                    Cookies.set('access_token', token, { expires: expirationTimeInMilliseconds });
+                    const expirationTimeInDays = 0.001
+                    Cookies.set('access_token', token, { expires: expirationTimeInDays });
 
                     dispatch(dashboardSlice.actions.changeAuthenticated(LOGIN_SUCCESSFULLY))
                     dispatch(dashboardSlice.actions.changeSubpage(LOGIN_SUCCESSFULLY))

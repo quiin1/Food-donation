@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box } from "@mui/material"
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
@@ -12,6 +12,15 @@ import MyAvatar from './MyAvatar';
 const Header: React.FC = () => {
     const dispatch = useDispatch()
     const { enqueueSnackbar } = useSnackbar()
+
+    useEffect(()=> {
+        const isAuthorized = Cookies.get('access_token')
+        // console.log(isAuthorized)
+        // console.log(typeof isAuthorized)
+        if (!isAuthorized || isAuthorized === "undefined") {
+            handleLogout()
+        }
+    }, [Cookies.get('access_token')])
 
     function handleLogout() {
         dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
