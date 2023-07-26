@@ -15,17 +15,15 @@ const Header: React.FC = () => {
 
     useEffect(()=> {
         const isAuthorized = Cookies.get('access_token')
-        // console.log(isAuthorized)
-        // console.log(typeof isAuthorized)
         if (!isAuthorized || isAuthorized === "undefined") {
-            handleLogout()
+            handleLogout(false)
         }
     }, [Cookies.get('access_token')])
 
-    function handleLogout() {
+    function handleLogout(isAlarm: boolean = true) {
         dispatch(dashboardSlice.actions.changeAuthenticated(LOGOUT))
         dispatch(dashboardSlice.actions.changeSubpage(LOGOUT))
-        enqueueSnackbar('Logout successfully!', {variant: "info"});
+        isAlarm ? enqueueSnackbar('Logout successfully!', {variant: "info"}) : <></>
         Cookies.remove('access_token');
         /** 
          * remove current username in localStorage 
