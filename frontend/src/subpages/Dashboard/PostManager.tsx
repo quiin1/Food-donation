@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Grid, Skeleton } from '@mui/material'
+import { Box, CircularProgress, Grid } from '@mui/material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
 import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -24,7 +24,7 @@ const PostManager: React.FC<any> = () => {
             field: 'id', 
             headerName: 'POST ID', 
             width: 150,
-            renderCell: (params: { value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => {
+            renderCell: (params: any) => {
                 return (
                     <Box color="#2BA84A">{params.value}</Box>
                 )
@@ -34,7 +34,7 @@ const PostManager: React.FC<any> = () => {
             field: 'title', 
             headerName: 'TITLE', 
             width: 350,
-            renderCell: (params: { value: { img: string | undefined; title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }; }) => {
+            renderCell: (params: any) => {
                 return (
                     <Box sx={{
                         display: 'flex',
@@ -52,7 +52,7 @@ const PostManager: React.FC<any> = () => {
             field: 'view', 
             headerName: 'VIEW', 
             width: 130,
-            renderCell: (params: { value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => {
+            renderCell: (params: any) => {
                 return (
                     <Box sx={{
                         display: 'flex',
@@ -69,7 +69,7 @@ const PostManager: React.FC<any> = () => {
             field: 'status', 
             headerName: 'STATUS', 
             width: 200,
-            renderCell: (params: { value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => {
+            renderCell: (params: any) => {
                 return (
                     <Box sx={{
                         display: 'flex',
@@ -231,7 +231,7 @@ const PostManager: React.FC<any> = () => {
     function handleSubmit() {
         console.log("isUpdateData", isUpdateData)
         // check Empty 
-        if (title == '') {
+        if (title === '') {
             enqueueSnackbar('Please fill the Title field', {variant: "error"});
             return
         }
@@ -248,7 +248,7 @@ const PostManager: React.FC<any> = () => {
          * func: updatePost     call API put
          */
         else {
-            if (_idToUpdate != -1) {
+            if (_idToUpdate !== -1) {
                 updatePost(_idToUpdate, {
                     title
                 })
@@ -392,7 +392,7 @@ const PostManager: React.FC<any> = () => {
                 <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
                     <CircularProgress className="flex align-center justify-center"/>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} page={1} pageLimit={8}/>}
+                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} pageLimit={8}/>}
         </Dashboard>
     )
 }
