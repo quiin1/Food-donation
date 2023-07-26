@@ -3,11 +3,11 @@ import { Box, Typography, InputLabel, OutlinedInput } from '@mui/material'
 import { useSnackbar } from 'notistack';
 import { textStyle3 } from '../../theme'
 import dashboardSlice from '../../redux/dashboardSlice'
-import { LOGIN_SUCCESSFULLY, api } from '../../until/constants'
+import { LOGIN_SUCCESSFULLY } from '../../until/constants'
 import { SignInButton } from '../StyleComponents/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../../redux/selectors'
-import axios from '../../api/axios'
+import axios, { api } from '../../api'
 import Cookies from 'js-cookie';
 
 const Login: React.FC = () => {

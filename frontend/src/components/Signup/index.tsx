@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { SignInButton } from '../StyleComponents/styles'
 import { textStyle3 } from '../../theme'
-import { LOGIN, api } from '../../until/constants'
+import { LOGIN } from '../../until/constants'
 import loginSlice from '../../redux/loginSlice'
 import { accountsSelector } from '../../redux/selectors'
-import axios from '../../api/axios'
+import axios, { api } from '../../api'
 
 const Signup: React.FC = () => {
     const dispatch = useDispatch()
