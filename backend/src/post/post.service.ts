@@ -64,8 +64,8 @@ export class PostService {
     }
 
     // FIX HERE
-    async updatePostById(id: string): Promise<any> {
-        return await this.postModel.findByIdAndUpdate(id, this.findPostById(id), { 
+    async updatePostById(post: Post, id: string): Promise<any> {
+        return await this.postModel.findByIdAndUpdate(id, post, { 
             new: true,
             runValidators: true,
         })

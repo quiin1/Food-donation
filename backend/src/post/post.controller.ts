@@ -18,8 +18,8 @@ export class PostController {
     }
 
     @Put(':postId')
-    async updatePostById(@Param('postId') id: string): Promise<any> {
-        return this.postService.updatePostById(id)
+    async updatePostById(@Body() post: any, @Param('postId') id: string): Promise<any> {
+        return this.postService.updatePostById(post, id)
     }
 
     @Delete(':postId')
