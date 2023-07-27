@@ -14,9 +14,7 @@ import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
-import axios from 'axios';
-import { api } from '../../until/constants';
-import Cookies from 'js-cookie';
+import { getAllPosts, postCreatePost, deletePost, updatePost } from '../../api';
 
 const PostManager: React.FC<any> = () => {
     const columns = [
@@ -41,8 +39,8 @@ const PostManager: React.FC<any> = () => {
                         alignItems: 'center',
                         gap: '1em'
                     }}>
-                        <img src={params.value.img} alt={""}/>
-                        {params.value.title}
+                        <img src={params.row.img} alt={""}/>
+                        {params.row.title}
                     </Box>
                 )
             }
@@ -93,8 +91,6 @@ const PostManager: React.FC<any> = () => {
             field: 'actions',
             type: 'actions',
             align: 'right',
-            // flex: 1,
-            // minWidth: 10,
             getActions: (params: { id: number; }) => [
                 <GridActionsCellItem
                     icon={<DeleteIcon/>}
@@ -109,7 +105,6 @@ const PostManager: React.FC<any> = () => {
             ],
         },
     ]
-
     const [rows, setRows] = useState<any>([])
 
     let data = useSelector(dataSelector)
@@ -121,11 +116,6 @@ const PostManager: React.FC<any> = () => {
         setOpen(false)
     }
     const [title, setTitle] = useState('')
-    const [value, setValue] = useState(0)
-    const [unit, setUnit] = useState('')
-    const [location, setLocation] = useState('')
-    const [address, setAddress] = useState('')
-    const [desc, setDesc] = useState('')
     
     const { enqueueSnackbar } = useSnackbar() 
     const [openSuccess, setOpenSuccess] = useState(false)
@@ -135,97 +125,11 @@ const PostManager: React.FC<any> = () => {
     const [_idToUpdate, set_IdToUpdate] = useState(-1)
 
     useEffect(() => {
-        getAllPosts()
+        getAllPosts(setRows, setLoading)
     }, [])
-
-    async function getAllPosts() {
-        try {
-            const token = Cookies.get('access_token')
-            await axios.get(api.GET_ALL_POSTS, {
-                    headers: {
-                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
-                    }
-                }).then((response) => {
-                    console.log("response getAllPosts", response.data)
-                    let newRows: { _id: any; id: any; title: { img: any; title: any; }; releaseDate: any; view: number; status: string; }[] = []
-                    response.data.map((item: any) => {
-                        // console.log(item)
-                        const newRow = {
-                            _id: item._id,
-                            id: item.id,
-                            title: {
-                                img: titleImage,
-                                title: item.title
-                            },
-                            releaseDate: item.releaseDate,
-                            view: 200,
-                            status: 'Online'
-                        }
-                        newRows.push(newRow)
-                    })
-                    setRows(newRows)
-                    setLoading(false)
-                })
-        } catch (error) {
-            console.log("error", error)
-        }
-    }
-    
-    async function postCreatePost(post: any) {
-        try {
-            const token = Cookies.get('access_token')
-            await axios.post(api.CREATE_POST, post,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
-                    }
-                }).then((response) => {
-                    console.log("response create Post", response.data)
-                })
-        } catch (error) {
-            console.log("error at post create post", error)
-        }
-    }
-    
-    async function deletePost(_id: number) {
-        try {
-            const token = Cookies.get('access_token')
-            console.log("_id", _id)
-            await axios.delete(`${api.DELETE_POST}/${_id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
-                    }
-                }).then((response) => {
-                    console.log("response delete Post", response.data)
-                })
-        } catch (error) {
-            console.log("error at deletePost", error)
-        }
-    }
-
-    async function updatePost(_id: number, req: any) {
-        try {
-            const token = Cookies.get('access_token')
-            console.log("_id", _id)
-            await axios.put(`${api.UPDATE_POST}/${_id}`, req, {
-                    headers: {
-                        Authorization: `Bearer ${token}` // Thêm token vào header Authorization
-                    }
-                }).then((response) => {
-                    console.log("response update Post", response.data)
-                })
-        } catch (error) {
-            console.log("error at update", error)
-        }
-    }
 
     function refreshValues() {
         setTitle('')
-        setValue(0)
-        setUnit('USD')
-        setLocation('')
-        setAddress('')
-        setDesc('')
     }
 
     function handleSubmit() {
@@ -255,18 +159,11 @@ const PostManager: React.FC<any> = () => {
                 setIsUpdateData(false)
                 setIdToUpdate(-1)
                 set_IdToUpdate(-1)
-                /**
-                 * rerender Table 
-                 * YOUR CODE HERE
-                 *  */
                 
                 const updatedRow = {
                     id: rows[idToUpdate].id,
-                    title: {
-                        img: titleImage,
-                        title,
-                    },
-                    value,
+                    img: titleImage,
+                    title,
                     releaseDate: rows[idToUpdate].releaseDate, 
                     view: 200, 
                     status: 'Online'
@@ -274,9 +171,6 @@ const PostManager: React.FC<any> = () => {
                 const newRows = rows.map((item: any, index: number) =>
                     index === idToUpdate ? updatedRow : item
                 )
-                // const newRow = rows.find((e:any) => e.id === idToUpdate)
-                // newRow.title = title
-                console.log(newRows)
                 setRows(newRows)
             }
         }
@@ -297,11 +191,8 @@ const PostManager: React.FC<any> = () => {
         // FE
         const newRow = {
             id: Math.round(Math.random() * 9000000000),
-            title: {
-                img: titleImage,
-                title,
-            },
-            value,
+            img: titleImage,
+            title,
             releaseDate: dateString, 
             view: 200, 
             status: 'Online'
@@ -311,7 +202,6 @@ const PostManager: React.FC<any> = () => {
         const storeNewRow = {
             id: newRow.id,
             title,
-            value,
             releaseDate: dateString,
             view: 200,
             status: 'Online'
@@ -335,7 +225,6 @@ const PostManager: React.FC<any> = () => {
     }
     
     const handleEdit = (id: number) => {
-
         const indexToEdit = rows.findIndex((item: any) => item.id === id)
         setIsUpdateData(true)
         setIdToUpdate(indexToEdit)
@@ -348,13 +237,8 @@ const PostManager: React.FC<any> = () => {
              * front-end
              * >> get current data
              */
-            setTitle(rows[indexToEdit].title.title)
-            handleOpen()
-
-            /**
-             * update data at FE 
-             */
-            
+            setTitle(rows[indexToEdit].title)
+            handleOpen()            
         } else {
             console.log('Invalid index');
         }
@@ -376,23 +260,13 @@ const PostManager: React.FC<any> = () => {
                     data={data[1].actionForm}
                     title={title}
                     setTitle={setTitle} 
-                    value={value}             
-                    setValue={setValue}
-                    unit={unit}
-                    setUnit={setUnit}
-                    location={location}             
-                    setLocation={setLocation}             
-                    address={address}             
-                    setAddress={setAddress}
-                    desc={desc}             
-                    setDesc={setDesc}
                 />
             </ActionForm>
             {loading ? 
                 <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
                     <CircularProgress className="flex align-center justify-center"/>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} pageLimit={8}/>}
+                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} initialPageLimit={8}/>}
         </Dashboard>
     )
 }
