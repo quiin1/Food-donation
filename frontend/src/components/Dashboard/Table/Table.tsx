@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Typography, Pagination } from '@mui/material'
+import React from 'react'
+import { Box, Typography } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import { PostButton } from '../../StyleComponents/styles'
@@ -12,13 +12,12 @@ interface TableProps {
     columns: GridColDef[]
     rows: any
     handleOpen: Function
-    pageLimit: number
+    initialPageLimit: number
 }
 
 const Table: React.FC<TableProps> = (props) => {
     const columns = props.columns || []
     const rows = props.rows || []
-    const [pageLimit, setPageLimit] = useState(props.pageLimit)
 
     let data = useSelector(dataSelector)
     let pageIndex = useSelector(subpageIndexSelector)
@@ -45,7 +44,7 @@ const Table: React.FC<TableProps> = (props) => {
                     hideFooterPagination={false}
                     initialState={{
                         pagination: {
-                            paginationModel: { pageSize: pageLimit },
+                            paginationModel: { pageSize: props.initialPageLimit },
                         },
                     }}
                     pagination={true}

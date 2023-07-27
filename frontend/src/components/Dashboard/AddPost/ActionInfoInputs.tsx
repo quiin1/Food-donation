@@ -23,21 +23,11 @@ interface ActionInfoInputsProps {
     }
     title: string 
     setTitle: Function 
-    value: number
-    setValue: Function
-    unit: string
-    setUnit: Function
-    location: string     
-    setLocation: Function            
-    address: string
-    setAddress: Function
-    desc: string     
-    setDesc: Function 
 }
 
 const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
     useEffect(()=>{
-        console.log(props)
+        // console.log(props)
     }, [props])
 
     let rows = []
@@ -69,7 +59,7 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
                                         />,
                                 'select': (
                                     <Select id="" type="text" style={ActionInputStyledSelect} 
-                                        placeholder={props.data.inputs[i].optionList && props.data.inputs[i].optionList[0] || "S"}
+                                        placeholder={props.data.inputs[i].optionList && (props.data.inputs[i].optionList[0] || "S")}
                                     >
                                         {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
                                             <MenuItem value={option}>{option}</MenuItem>
@@ -80,13 +70,9 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
                                 'money': (
                                     <Box sx={{display: 'flex', gap: '12px'}}>
                                         <OutlinedInput id="" type="number" style={{...ActionInputStyledText, width: "100%", padding: "12px"}} 
-                                            value={props.value}
-                                            onChange={e => props.setValue(e.target.value)}
                                         />
                                         <Select id="" type="text" style={ActionInputStyledSelect} 
                                             defaultValue={"USD"}
-                                            value={props.unit}
-                                            onChange={e => props.setUnit(e.target.value)}
                                         >
                                             {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
                                                 <MenuItem value={option}>{option}</MenuItem>

@@ -93,28 +93,12 @@ const data = [
 ]
 
 const authenticatedFromLocalStorage = localStorage.getItem('authenticated')
-// const mockDataFromLocalStorage = localStorage.getItem('mockData')
-// const mockData = mockDataFromLocalStorage ? JSON.parse(mockDataFromLocalStorage) : [
-//     [],
-//     data[1].rows.map(item => {item.id -=1; return item}),
-//     data[2].rows.map(item => {item.id -=1; return item}),
-//     data[3].rows.map(item => {item.id -=1; return item}),
-//     data[4].rows.map(item => {item.id -=1; return item})
-// ]
-
 export default createSlice({
     name: 'dashboard',
     initialState: {
         authenticated: authenticatedFromLocalStorage ? JSON.parse(authenticatedFromLocalStorage) : false,
         subpage: localStorage.getItem('state'),
-        data: 
-        // mockDataFromLocalStorage ? 
-            // data.map((item, index) => {
-            //     // item.rows = mockData[index]
-            //     return data[index]
-            // })
-            // : 
-            data,
+        data,
         searchPlaceholder: localStorage.getItem('state') === "Overview" ? "Search a campaign" : "Search a post"
     },
     reducers: {
@@ -149,39 +133,5 @@ export default createSlice({
                     localStorage.setItem('state', state.subpage || "Overview")
             }
         },
-        
-        addData: (state) => {
-            // const subpageIndex = state.data.findIndex((item) => item.state === state.subpage)
-            // let deepClone = JSON.parse(JSON.stringify(mockData[subpageIndex][0])) as any
-            // deepClone.id = Math.round(Math.random() * 9000000000)
-            // state.data[subpageIndex].rows.push(deepClone)
-
-            // const newData = [
-            //     [],
-            //     state.data[1].rows.map(item => item),
-            //     state.data[2].rows.map(item => item),
-            //     state.data[3].rows.map(item => item),
-            //     state.data[4].rows.map(item => item)
-            // ]
-            // localStorage.setItem("mockData", JSON.stringify(newData))
-        },
-
-        addDataProductImage: (state, action) => {
-            
-        },
-
-        deleteData: (state, action) => {
-            // const subpageIndex = state.data.findIndex((item) => item.state === state.subpage)
-            // const deleteIndex = state.data[subpageIndex].rows.findIndex(item => item.id === action.payload)
-            // state.data[subpageIndex].rows.splice(deleteIndex, 1)
-            // const newData = [
-            //     [],
-            //     state.data[1].rows.map(item => item),
-            //     state.data[2].rows.map(item => item),
-            //     state.data[3].rows.map(item => item),
-            //     state.data[4].rows.map(item => item)
-            // ]
-            // localStorage.setItem("mockData", JSON.stringify(newData))
-        }
     }
 })
