@@ -17,7 +17,7 @@ export class Post {
     title: string;
 
     @Prop()
-    image: string;
+    img: string;
 
     @Prop({ default: Date.now })
     releaseDate: Date;

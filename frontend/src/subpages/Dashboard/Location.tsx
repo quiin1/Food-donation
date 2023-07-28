@@ -13,6 +13,7 @@ import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
 import { useSnackbar } from 'notistack';
 import { deletePost, getAllPosts, postCreatePost, updatePost } from '../../api';
+import firebase from 'firebase/compat/app';
 
 const Location: React.FC = () => {
     const columns = [
@@ -146,7 +147,7 @@ const Location: React.FC = () => {
                 
                 const updatedRow = {
                     id: rows[idToUpdate].id,
-                    img: titleImage,
+                    img: rows[idToUpdate].id,
                     address,
                     addedDate: rows[idToUpdate].addedDate, 
                     view: 200, 
@@ -234,11 +235,14 @@ const Location: React.FC = () => {
                 open={open}
                 setOpen={setOpen}
                 data={data[2].actionForm}
-                i={2} 
-                openSuccess={openSuccess} 
-                setOpenSuccess={setOpenSuccess} 
-                handleClose={handleClose} 
-                handleSubmit={handleSubmit}                
+                i={2}
+                openSuccess={openSuccess}
+                setOpenSuccess={setOpenSuccess}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                setSelectedFile={() => { } }
+                selectedFileURL={''} 
+                setSelectedFileURL={() => { } }
             >
                 <ActionInfoInputs 
                     data={data[2].actionForm}

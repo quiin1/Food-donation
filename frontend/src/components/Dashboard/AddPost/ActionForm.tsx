@@ -24,6 +24,9 @@ interface ActionFormProps {
     setOpenSuccess: Function
     handleClose: Function 
     handleSubmit: Function 
+    setSelectedFile: Function
+    selectedFileURL: string
+    setSelectedFileURL: Function
 }
 
 const ActionForm: React.FC<ActionFormProps> = (props) => {    
@@ -72,7 +75,7 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
                             gap: '20px',
                         }}>
                             <Typography sx={ActionSubTitleStyled}>{props.data.subtitles[1]}</Typography>
-                            <ProductInfoCards/>
+                            <ProductInfoCards setSelectedFile={props.setSelectedFile} selectedFileURL={props.selectedFileURL} setSelectedFileURL={props.setSelectedFileURL} />
                         </Box>
                     </DialogContentText>
                 </DialogContent>

@@ -148,7 +148,7 @@ const Reward: React.FC = () => {
                 
                 const updatedRow = {
                     id: rows[idToUpdate].id,
-                    img: titleImage,
+                    img: rows[idToUpdate].img || titleImage,
                     title,
                     // releaseDate: rows[idToUpdate].releaseDate, 
                     view: 200, 
@@ -236,11 +236,14 @@ const Reward: React.FC = () => {
                 open={open}
                 setOpen={setOpen}
                 data={data[3].actionForm}
-                i={3} 
-                openSuccess={openSuccess} 
-                setOpenSuccess={setOpenSuccess} 
-                handleClose={handleClose} 
-                handleSubmit={handleSubmit}                
+                i={3}
+                openSuccess={openSuccess}
+                setOpenSuccess={setOpenSuccess}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                setSelectedFile={() => { } } 
+                selectedFileURL={''}
+                setSelectedFileURL={() => { } } 
             >
                 <ActionInfoInputs 
                     data={data[3].actionForm}

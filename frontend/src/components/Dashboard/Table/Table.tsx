@@ -92,8 +92,7 @@ const Table: React.FC<TableProps> = (props) => {
             </Box>
             <Box mt="1.3em" bgcolor="white" width={{xs: "90vw", sm: "65vw", md: "75vw", lg: "80vw"}}>
                 <DataGrid
-                    autoHeight
-                    autoPageSize={false}
+                    // autoHeight={true}
                     columns={columns}
                     rows={rows}
                     disableRowSelectionOnClick
@@ -104,7 +103,7 @@ const Table: React.FC<TableProps> = (props) => {
                         },
                     }}
                     pagination={true}
-                    pageSizeOptions={[3, 5, 8, 13, 21, 100]}
+                    pageSizeOptions={[5, 8, 10, 25]}
                     // rowCount={props.totalRows}
                     // paginationMode="server"
                     // onPaginationModelChange={handlePaginationModelChange}

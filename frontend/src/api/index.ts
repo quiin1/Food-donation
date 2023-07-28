@@ -46,13 +46,13 @@ export async function getAllPosts(setRows: Function, setLoading: Function) {
                     Authorization: `Bearer ${token}` // Thêm token vào header Authorization
                 }
             }).then(({data}) => {
-                console.log("response getAllPosts", data)
+                // console.log("response getAllPosts", data)
                 let newRows: any[] = []
                 data.posts.forEach((item: any) => {
                     const newRow = {
                         _id: item._id,
                         id: item.id,
-                        img: titleImage,
+                        img: item.img || titleImage,
                         title: item.title,
                         releaseDate: item.releaseDate,
                         view: 200,
@@ -77,14 +77,14 @@ export async function getPosts(params: any, setRows: Function, setTotalRows: Fun
             },
             params,
         }).then(({data}) => {
-            console.log("response getPosts", data)
+            // console.log("response getPosts", data)
 
             let newRows: any[] = []
             data.posts.forEach((item: any) => {
                 const newRow = {
                     _id: item._id,
                     id: item.id,
-                    img: titleImage,
+                    img: item.img || titleImage,
                     title: item.title,
                     releaseDate: item.releaseDate,
                     view: 200,

@@ -15,12 +15,15 @@ import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
 import { postCreatePost, deletePost, updatePost, getPosts, getAllPosts } from '../../api';
+import 'firebase/compat/firestore';
+import { storage } from '../../App';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const PostManager: React.FC<any> = () => {
     const columns = [
-        { 
-            field: 'id', 
-            headerName: 'POST ID', 
+        {
+            field: 'id',
+            headerName: 'POST ID',
             width: 150,
             renderCell: (params: any) => {
                 return (
@@ -28,9 +31,9 @@ const PostManager: React.FC<any> = () => {
                 )
             }
         },
-        { 
-            field: 'title', 
-            headerName: 'TITLE', 
+        {
+            field: 'title',
+            headerName: 'TITLE',
             width: 350,
             renderCell: (params: any) => {
                 return (
@@ -39,16 +42,16 @@ const PostManager: React.FC<any> = () => {
                         alignItems: 'center',
                         gap: '1em'
                     }}>
-                        <img src={params.row.img} alt={""}/>
+                        <img style={{minWidth: "32px"}} src={params.row.img} alt={"title-image"} />
                         {params.row.title}
                     </Box>
                 )
             }
         },
         { field: 'releaseDate', headerName: 'RELEASE DATE', width: 200 },
-        { 
-            field: 'view', 
-            headerName: 'VIEW', 
+        {
+            field: 'view',
+            headerName: 'VIEW',
             width: 130,
             renderCell: (params: any) => {
                 return (
@@ -57,15 +60,15 @@ const PostManager: React.FC<any> = () => {
                         alignItems: 'center',
                         gap: '.5em'
                     }}>
-                        <img src={IconEye} alt={""}/>
+                        <img src={IconEye} alt={""} />
                         {params.value}
                     </Box>
                 )
             }
         },
-        { 
-            field: 'status', 
-            headerName: 'STATUS', 
+        {
+            field: 'status',
+            headerName: 'STATUS',
             width: 200,
             renderCell: (params: any) => {
                 return (
@@ -93,12 +96,12 @@ const PostManager: React.FC<any> = () => {
             align: 'right',
             getActions: (params: { id: number; }) => [
                 <GridActionsCellItem
-                    icon={<DeleteIcon/>}
+                    icon={<DeleteIcon />}
                     label="Delete"
                     onClick={() => handleDelete(params.id)}
                 />,
                 <GridActionsCellItem
-                    icon={<EditIcon sx={{color: "#84818A", width: ".87em" }}/>}
+                    icon={<EditIcon sx={{ color: "#84818A", width: ".87em" }} />}
                     label="Edit"
                     onClick={() => handleEdit(params.id)}
                 />,
@@ -109,15 +112,18 @@ const PostManager: React.FC<any> = () => {
 
     let data = useSelector(dataSelector)
     const [open, setOpen] = useState(false)
-    const handleOpen = () => { 
+    const handleOpen = () => {
         setOpen(true)
     }
     function handleClose() {
         setOpen(false)
     }
+
     const [title, setTitle] = useState('')
-    
-    const { enqueueSnackbar } = useSnackbar() 
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedFileURL, setSelectedFileURL] = useState('');
+
+    const { enqueueSnackbar } = useSnackbar()
     const [openSuccess, setOpenSuccess] = useState(false)
     const [isUpdateData, setIsUpdateData] = useState(false)
     const [idToUpdate, setIdToUpdate] = useState(-1)
@@ -137,15 +143,38 @@ const PostManager: React.FC<any> = () => {
         // getPosts(queryParams, setRows, setTotalRows, setLoading)
     }, [])
 
+    useEffect(() => {
+        updateSelectedFileURL()
+    }, [selectedFile, setSelectedFile])
+
+    async function updateSelectedFileURL() {
+        if (selectedFile) {
+            const imageRef = ref(storage, `/${selectedFile.name}`);
+            const uploadedImage = await uploadBytes(imageRef, selectedFile).then((snapshot: { ref: any; }) => {
+                return getDownloadURL(snapshot.ref)
+            })
+            console.log(uploadedImage)
+            setSelectedFileURL(uploadedImage)
+        }
+        else {
+            setSelectedFileURL('')
+        }
+    }
+
     function refreshValues() {
         setTitle('')
+        setSelectedFile(null)
     }
 
     function handleSubmit() {
         console.log("isUpdateData", isUpdateData)
         // check Empty 
         if (title === '') {
-            enqueueSnackbar('Please fill the Title field', {variant: "error"});
+            enqueueSnackbar('Please fill the Title field', { variant: "error" });
+            return
+        }
+        if (!selectedFileURL) {
+            enqueueSnackbar('Please upload image!', {variant: "error"});
             return
         }
         handleClose()
@@ -155,7 +184,7 @@ const PostManager: React.FC<any> = () => {
          * func: handleAdd      call API 
         */
         if (!isUpdateData) handleAdd()
-        
+
         /**
          * Update data
          * func: updatePost     call API put
@@ -163,18 +192,19 @@ const PostManager: React.FC<any> = () => {
         else {
             if (_idToUpdate !== -1) {
                 updatePost(_idToUpdate, {
-                    title
+                    title,
+                    img: selectedFileURL
                 })
                 setIsUpdateData(false)
                 setIdToUpdate(-1)
                 set_IdToUpdate(-1)
-                
+
                 const updatedRow = {
                     id: rows[idToUpdate].id,
-                    img: titleImage,
+                    img: selectedFileURL || titleImage,
                     title,
-                    releaseDate: rows[idToUpdate].releaseDate, 
-                    view: 200, 
+                    releaseDate: rows[idToUpdate].releaseDate,
+                    view: 200,
                     status: 'Online'
                 }
                 const newRows = rows.map((item: any, index: number) =>
@@ -186,30 +216,34 @@ const PostManager: React.FC<any> = () => {
 
         /**
          * *** SUCCESSFULLY ***
-         *  */ 
+         *  */
         setOpenSuccess(true)
-        enqueueSnackbar('Create successfully!', {variant: "success"});
-        
+        enqueueSnackbar('Create successfully!', { variant: "success" });
+
         // refresh values 
         refreshValues()
     }
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
+        console.log("selectedFile", selectedFile)
+        console.log("selectedFileURL", selectedFile)
+        
         const currentDate = new Date();
         const dateString = currentDate.toISOString();
         // FE
         const newRow = {
             id: Math.round(Math.random() * 9000000000),
-            img: titleImage,
+            img: selectedFileURL,
             title,
-            releaseDate: dateString, 
-            view: 200, 
+            releaseDate: dateString,
+            view: 200,
             status: 'Online'
         }
-        setRows([...rows, newRow])
+        setRows([newRow, ...rows])
         // BE
         const storeNewRow = {
             id: newRow.id,
+            img: selectedFileURL,
             title,
             releaseDate: dateString,
             view: 200,
@@ -232,14 +266,13 @@ const PostManager: React.FC<any> = () => {
             console.log('Invalid index. No object was removed.');
         }
     }
-    
+
     const handleEdit = (id: number) => {
         const indexToEdit = rows.findIndex((item: any) => item.id === id)
         setIsUpdateData(true)
         setIdToUpdate(indexToEdit)
         set_IdToUpdate(rows[indexToEdit]._id)
 
-        
         setIdToUpdate(indexToEdit)
         if (indexToEdit >= 0 && indexToEdit < rows.length) {
             /**
@@ -247,7 +280,8 @@ const PostManager: React.FC<any> = () => {
              * >> get current data
              */
             setTitle(rows[indexToEdit].title)
-            handleOpen()            
+            setSelectedFileURL(rows[indexToEdit].img || titleImage)
+            handleOpen()
         } else {
             console.log('Invalid index');
         }
@@ -255,35 +289,38 @@ const PostManager: React.FC<any> = () => {
 
     return (
         <Dashboard>
-            <ActionForm 
+            <ActionForm
                 open={open}
                 setOpen={setOpen}
                 data={data[1].actionForm}
-                i={1} 
-                openSuccess={openSuccess} 
-                setOpenSuccess={setOpenSuccess} 
-                handleClose={handleClose} 
-                handleSubmit={handleSubmit}                
+                i={1}
+                openSuccess={openSuccess}
+                setOpenSuccess={setOpenSuccess}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                setSelectedFile={setSelectedFile} 
+                selectedFileURL={selectedFileURL}
+                setSelectedFileURL={setSelectedFileURL} 
             >
-                <ActionInfoInputs 
+                <ActionInfoInputs
                     data={data[1].actionForm}
                     title={title}
-                    setTitle={setTitle} 
+                    setTitle={setTitle}
                 />
             </ActionForm>
-            {loading ? 
+            {loading ?
                 <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
-                    <CircularProgress className="flex align-center justify-center"/>
-                </Grid> 
+                    <CircularProgress className="flex align-center justify-center" />
+                </Grid>
                 :
-                <Table 
+                <Table
                     columns={columns as any}
                     rows={rows}
                     handleOpen={handleOpen}
                     initialPageLimit={8}
                     loading={loading}
-                    totalRows={totalRows} 
-                    paginationModel={{page, pageSize: pageLimit}} 
+                    totalRows={totalRows}
+                    paginationModel={{ page, pageSize: pageLimit }}
                 />
             }
         </Dashboard>

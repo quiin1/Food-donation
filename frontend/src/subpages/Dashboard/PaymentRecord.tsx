@@ -147,7 +147,7 @@ const PaymentRecord: React.FC = () => {
         console.log("isUpdateData", isUpdateData)
         // check Empty 
         if (title === '') {
-            enqueueSnackbar('Please fill the Title field', {variant: "error"});
+            enqueueSnackbar('Please fill the Title field!', {variant: "error"});
             return
         }
         handleClose()
@@ -173,7 +173,7 @@ const PaymentRecord: React.FC = () => {
                 
                 const updatedRow = {
                     id: rows[idToUpdate].id,
-                    img: titleImage,
+                    img: rows[idToUpdate].img,
                     title,
                     // releaseDate: rows[idToUpdate].releaseDate, 
                     view: 200, 
@@ -260,11 +260,14 @@ const PaymentRecord: React.FC = () => {
                 open={open}
                 setOpen={setOpen}
                 data={data[1].actionForm}
-                i={1} 
-                openSuccess={openSuccess} 
-                setOpenSuccess={setOpenSuccess} 
-                handleClose={handleClose} 
-                handleSubmit={handleSubmit}                
+                i={1}
+                openSuccess={openSuccess}
+                setOpenSuccess={setOpenSuccess}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+                setSelectedFile={() => { } } 
+                selectedFileURL={''}
+                setSelectedFileURL={() => { } } 
             >
                 <ActionInfoInputs 
                     data={data[1].actionForm}

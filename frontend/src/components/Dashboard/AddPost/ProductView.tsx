@@ -1,6 +1,5 @@
-import { Dialog } from '@mui/material'
+import { Dialog, Zoom } from '@mui/material'
 import React from 'react'
-
 interface ProductViewProps {
     openImage: boolean
     setOpenImage: Function
@@ -16,11 +15,9 @@ const ProductView: React.FC<ProductViewProps> = (props) => {
         <Dialog
             open={props.openImage}
             onClose={handleClose}
+            BackdropProps={{ invisible: true }}
         >
-            <img
-                style={{
-                }} 
-                src={props.image}/>
+            <img style={{width: "25vw", height: "auto"}} src={props.image}/>
         </Dialog>
     )
 }

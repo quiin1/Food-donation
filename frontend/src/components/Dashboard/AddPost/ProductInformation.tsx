@@ -4,10 +4,8 @@ import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ProductView from './ProductView';
-import { useDispatch } from 'react-redux';
-// import dashboardSlide from '../../../redux/dashboardSlice'
 
-const ProductInfoCards: React.FC = () => {
+const ProductInfoCards: React.FC<any> = ({setSelectedFile, selectedFileURL, setSelectedFileURL}) => {
     // const dispatch = useDispatch()
     const [image, setImage] = useState('')
     const [openImage, setOpenImage] = useState(false)
@@ -18,6 +16,7 @@ const ProductInfoCards: React.FC = () => {
                 const target = event.target as HTMLInputElement
                 if (target.files && target.files.length > 0) {
                     const file = target.files[0]
+                    setSelectedFile(file)
                     const url = URL.createObjectURL(file)
                     setImage(url)
                 }
@@ -27,7 +26,6 @@ const ProductInfoCards: React.FC = () => {
         else {
             console.error("File input element not found!");
         }
-        // dispatch(dashboardSlide.actions.addDataProductImage(""))
     }
     
     function viewProduct() {
@@ -36,6 +34,8 @@ const ProductInfoCards: React.FC = () => {
 
     function deleteProduct() {
         setImage('')
+        setSelectedFile(null)
+        setSelectedFileURL('')
     }
 
     function Card({isProduct, image}: { isProduct: boolean; image: string }) {
@@ -69,7 +69,7 @@ const ProductInfoCards: React.FC = () => {
                         isProduct?
                         <img 
                             style={{width: "113.986px", height: "115.385px"}} 
-                            src={image}
+                            src={selectedFileURL}
                         />
                         :
                         <>
@@ -128,7 +128,7 @@ const ProductInfoCards: React.FC = () => {
 
     return (
         <Grid id="product-container" container spacing={2}>
-            <Card isProduct={true} image={image}/>
+            <Card isProduct={true} image={image || selectedFileURL}/>
             <Card isProduct={false} image={""}/>
         </Grid>
     )
