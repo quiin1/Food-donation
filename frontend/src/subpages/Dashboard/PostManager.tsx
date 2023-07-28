@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Grid } from '@mui/material'
-import { GridActionsCellItem } from '@mui/x-data-grid'
+import { GridActionsCellItem, GridPaginationModel } from '@mui/x-data-grid'
 import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +14,7 @@ import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
-import { getAllPosts, postCreatePost, deletePost, updatePost } from '../../api';
+import { postCreatePost, deletePost, updatePost, getPosts, getAllPosts } from '../../api';
 
 const PostManager: React.FC<any> = () => {
     const columns = [
@@ -119,13 +119,22 @@ const PostManager: React.FC<any> = () => {
     
     const { enqueueSnackbar } = useSnackbar() 
     const [openSuccess, setOpenSuccess] = useState(false)
-    const [loading, setLoading] = useState(true)
     const [isUpdateData, setIsUpdateData] = useState(false)
     const [idToUpdate, setIdToUpdate] = useState(-1)
     const [_idToUpdate, set_IdToUpdate] = useState(-1)
+    const [totalRows, setTotalRows] = useState(0)
+
+    const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [pageLimit, setPageLimit] = useState(8)
 
     useEffect(() => {
         getAllPosts(setRows, setLoading)
+        // const queryParams = {
+        //     page,
+        //     pageLimit
+        // }
+        // getPosts(queryParams, setRows, setTotalRows, setLoading)
     }, [])
 
     function refreshValues() {
@@ -265,8 +274,18 @@ const PostManager: React.FC<any> = () => {
             {loading ? 
                 <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
                     <CircularProgress className="flex align-center justify-center"/>
-                </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} initialPageLimit={8}/>}
+                </Grid> 
+                :
+                <Table 
+                    columns={columns as any}
+                    rows={rows}
+                    handleOpen={handleOpen}
+                    initialPageLimit={8}
+                    loading={loading}
+                    totalRows={totalRows} 
+                    paginationModel={{page, pageSize: pageLimit}} 
+                />
+            }
         </Dashboard>
     )
 }
