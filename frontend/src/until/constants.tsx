@@ -19,21 +19,21 @@ export const listNavItems = [
     {
       title: "Post manager",
       img: document,
-      path: "/dashboard/post-manager"
+      path: "/post-manager"
     },
     {
       title: "Location",
       img: location,
-      path: "/dashboard/location"
+      path: "/location"
     },
     {
       title: "Reward",
       img: reward,
-      path: "/dashboard/reward"
+      path: "/reward"
     },
     {
       title: "Payment record",
       img: money,
-      path: "/dashboard/payment-record"
+      path: "/payment-record"
     }
   ]
