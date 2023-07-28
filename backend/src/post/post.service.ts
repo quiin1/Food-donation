@@ -33,7 +33,7 @@ export class PostService {
         // const pageLimit = params.pageLimit
         const count = await this.postModel.countDocuments().exec()
         if (!page && !pageLimit) {
-            const posts = await this.postModel.find({}).populate('user')
+            const posts = await this.postModel.find({}).populate('user').sort({createdAt: -1}).exec()
             return {
                 data: {
                     posts,
@@ -95,7 +95,7 @@ export class PostService {
     }
     
     async deletePostById(id: string): Promise<Response> {
-        console.log("id", id)
+        // console.log("id", id)
         const deletedPost = await this.postModel.findByIdAndDelete(id)
         return {
             data: {deletedPost}
