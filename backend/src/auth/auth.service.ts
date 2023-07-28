@@ -24,10 +24,13 @@ export class AuthService {
         // hash password
         const hashPassword = await bcrypt.hash(user.password, 10)
         // add in db
-        return await this.userModel.create({
+        const newUser = await this.userModel.create({
             name: user.name,
             password: hashPassword
         });
+        return {
+            data: {newUser}
+        }
     }
 
     async login(user: UserDto): Promise<any> {
@@ -47,6 +50,8 @@ export class AuthService {
 
         // create access token by user id
         const token = await this.jwtService.signAsync({ id: currentUser._id })
-        return { token }
+        return {
+            data: { token }
+        } 
     }
 }

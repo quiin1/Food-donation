@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../../redux/selectors'
 import axios, { api } from '../../api'
 import Cookies from 'js-cookie';
+import axiosInstance from '../../api';
 
 const Login: React.FC = () => {
     const dispatch = useDispatch()
@@ -31,11 +32,11 @@ const Login: React.FC = () => {
         // line comment below: check registed account at frontend 
         // if (data.some((account: { username: string; password: string; }) => account.username === username && account.password === password))
         try {
-            await axios.post(api.LOGIN, { name: username, password })
-                .then((response) => {
-                    // console.log("response", response)
+            await axiosInstance.post(api.LOGIN, { name: username, password })
+                .then(({data}) => {
+                    console.log("response", data)
                     
-                    const token = response.data.token
+                    const token = data.token
                     /**
                      * Lưu token vào cookie với tên 'access_token' và thời gian tồn tại là 5 phút
                      *  */ 

@@ -7,7 +7,8 @@ import { textStyle3 } from '../../theme'
 import { LOGIN } from '../../until/constants'
 import loginSlice from '../../redux/loginSlice'
 import { accountsSelector } from '../../redux/selectors'
-import axios, { api } from '../../api'
+import { api } from '../../api'
+import axiosInstance from '../../api'
 
 const Signup: React.FC = () => {
     const dispatch = useDispatch()
@@ -38,9 +39,9 @@ const Signup: React.FC = () => {
             dispatch(loginSlice.actions.signUp({"username": userName, "password": password}))
 
             try {
-                await axios.post(api.SIGNUP, { name: userName, password })
-                    .then((response) => {
-                        console.log(response.data)
+                await axiosInstance.post(api.SIGNUP, { name: userName, password })
+                    .then(({data}) => {
+                        console.log(data.newUser)
                     })
             } catch (error) {
                 console.log(error)

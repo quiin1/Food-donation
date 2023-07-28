@@ -25,7 +25,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
             // Error token not expired but wrong userId
             throw new UnauthorizedException('Login first to access this endpoint.')
         }
-        console.log("payload", payload)
+        // console.log("payload", payload)
         return payload
     }
 }
