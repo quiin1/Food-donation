@@ -36,15 +36,15 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
         let width = props.data.inputs[i].width
         let grid = 12/(100/Number(width.slice(0, width.length-1))) //fullwidth=12
         rows.push(
-                <Grid item xs={grid}>
-                    <FormControl 
+                <Grid item xs={grid} key={props.data.inputs[i].label}>
+                    <FormControl
                         sx={{
                             display: 'flex', 
                             gap: '8px', 
                             width: "100%"
                         }}
                     >
-                        <label style={ActionInputLabelStyled} htmlFor="">
+                        <label style={{...ActionInputLabelStyled}} htmlFor="">
                             {props.data.inputs[i].label}
                         </label>
                         {
@@ -55,14 +55,13 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
                                             onChange={e => props.setTitle(e.target.value)}
                                         />,
                                 'number': <OutlinedInput id="" type="number" style={ActionInputStyledText} 
-
                                         />,
                                 'select': (
                                     <Select id="" type="text" style={ActionInputStyledSelect} 
-                                        placeholder={props.data.inputs[i].optionList && (props.data.inputs[i].optionList[0] || "S")}
+                                        defaultValue={props.data.inputs[i].optionList && (props.data.inputs[i].optionList[0] || "Vietnam")}
                                     >
                                         {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
-                                            <MenuItem value={option}>{option}</MenuItem>
+                                            <MenuItem key={option} value={option}>{option}</MenuItem>
                                         ))}
                                     </Select>
                                 ),
@@ -71,17 +70,19 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
                                     <Box sx={{display: 'flex', gap: '12px'}}>
                                         <OutlinedInput id="" type="number" style={{...ActionInputStyledText, width: "100%", padding: "12px"}} 
                                         />
-                                        <Select id="" type="text" style={ActionInputStyledSelect} 
-                                            defaultValue={"USD"}
-                                        >
-                                            {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
-                                                <MenuItem value={option}>{option}</MenuItem>
-                                            ))}
-                                        </Select>
+                                        <FormControl>
+                                            <Select id="" type="text" style={ActionInputStyledSelect} 
+                                                defaultValue={"USD"}
+                                            >
+                                                {props.data.inputs[i].optionList && props.data.inputs[i].optionList.map(option => (
+                                                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
                                     </Box>
                                 ),
                                 'description': (
-                                    <FormControl sx={{
+                                    <Box sx={{
                                         "*": {
                                             color: "#2E2C34",
                                             fontSize: "14px",
@@ -104,7 +105,7 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
                                         }
                                     }}>
                                         <TextEditor/>
-                                    </FormControl>
+                                    </Box>
                                 )
                             }[props.data.inputs[i].type]
                         }

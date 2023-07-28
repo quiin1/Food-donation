@@ -29,14 +29,16 @@ const SideBar: React.FC = () => {
     }
 
     return (
-        <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}>
+        <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}
+            display={{xs: "none", sm: "block"}}
+        >
             <Box display="flex" mt="1em" justifyContent={"center"}>
                 <CardMedia component="img" src={logo} sx={{ width: "45px" }} />
                 <Typography sx={{
-                fontFamily: "Inter",
-                fontWeight: "800",
-                fontSize: "1.2em",
-                color: palette.green
+                    fontFamily: "Inter",
+                    fontWeight: "800",
+                    fontSize: "1.2em",
+                    color: palette.green
                 }} ml=".4em">Startnow</Typography>
             </Box>
             <List sx={{ margin: "2em 0"}}>

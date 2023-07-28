@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css'; 
 
@@ -24,11 +25,11 @@ const TextEditor: React.FC = () => {
   }, []);
 
   return(
-    <div
+    <Box
       ref={editorRef}
       style={{border: "none"}}
     >
-    </div>  
+    </Box>  
   );
 }
 
