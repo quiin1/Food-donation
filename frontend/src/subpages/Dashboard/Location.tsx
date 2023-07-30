@@ -9,8 +9,8 @@ import titleImage from "../../assets/dashboard/title/2.png"
 
 import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
-import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
-import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
+import ActionForm from '../../components/Dashboard/CRUDPost/ActionForm';
+import ActionInfoInputs from '../../components/Dashboard/CRUDPost/ActionInfoInputs';
 import { useSnackbar } from 'notistack';
 import { deletePost, getAllPosts, postCreatePost, updatePost } from '../../api';
 import firebase from 'firebase/compat/app';
@@ -238,7 +238,7 @@ const Location: React.FC = () => {
                 i={2}
                 openSuccess={openSuccess}
                 setOpenSuccess={setOpenSuccess}
-                handleClose={handleClose}
+                handleCloseActionForm={handleClose}
                 handleSubmit={handleSubmit}
                 setSelectedFile={() => { } }
                 selectedFileURL={''} 
@@ -255,7 +255,7 @@ const Location: React.FC = () => {
                     {/* <CircularProgress className="flex align-center justify-center"/> */}
                     <span>This subpage is under maintenance.</span>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} totalRows={0} loading={false} paginationModel={{ page: 1, pageSize: 2 }} setPaginationModel={() => {}} />}
+                : <Table columns={columns as any} rows={rows} handleOpenActionForm={handleOpen} totalRows={0} loading={false} paginationModel={{ page: 1, pageSize: 2 }} setPaginationModel={() => {}} />}
         </Dashboard>
     )
 }

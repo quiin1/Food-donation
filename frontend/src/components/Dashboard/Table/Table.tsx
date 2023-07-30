@@ -11,7 +11,7 @@ import { subpageIndexSelector } from '../../../redux/selectors';
 interface TableProps {
     columns: GridColDef[]
     rows: any
-    handleOpen: Function
+    handleOpenActionForm: Function
     loading: boolean
     totalRows: number
     paginationModel: GridPaginationModel
@@ -36,7 +36,7 @@ const Table: React.FC<TableProps> = (props) => {
                 }}>
                     {data[pageIndex].title}
                 </Typography>
-                <PostButton onClick={props.handleOpen as any}>{data[pageIndex].action}</PostButton>
+                <PostButton onClick={props.handleOpenActionForm as any}>{data[pageIndex].action}</PostButton>
             </Box>
             <Box mt="1.3em" bgcolor="white" width={{xs: "90vw", sm: "65vw", md: "75vw", lg: "80vw"}}>
                 <DataGrid

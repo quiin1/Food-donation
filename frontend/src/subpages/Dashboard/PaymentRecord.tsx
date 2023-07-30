@@ -7,11 +7,11 @@ import titleImage from "../../assets/dashboard/title/4.svg"
 
 import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
-import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
+import ActionForm from '../../components/Dashboard/CRUDPost/ActionForm';
 
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
-import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
+import ActionInfoInputs from '../../components/Dashboard/CRUDPost/ActionInfoInputs';
 import { useSnackbar } from 'notistack';
 import { deletePost, getAllPosts, postCreatePost, updatePost } from '../../api';
 
@@ -263,7 +263,7 @@ const PaymentRecord: React.FC = () => {
                 i={1}
                 openSuccess={openSuccess}
                 setOpenSuccess={setOpenSuccess}
-                handleClose={handleClose}
+                handleCloseActionForm={handleClose}
                 handleSubmit={handleSubmit}
                 setSelectedFile={() => { } } 
                 selectedFileURL={''}
@@ -280,7 +280,7 @@ const PaymentRecord: React.FC = () => {
                     {/* <CircularProgress className="flex align-center justify-center"/> */}
                     <span>This subpage is under maintenance.</span>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} totalRows={0} loading={false} paginationModel={{page: 1, pageSize: 2}} 
+                : <Table columns={columns as any} rows={rows} handleOpenActionForm={handleOpen} totalRows={0} loading={false} paginationModel={{page: 1, pageSize: 2}} 
                 setPaginationModel={() => {}} 
             />}
         </Dashboard>

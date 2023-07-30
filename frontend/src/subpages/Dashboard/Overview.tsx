@@ -1,35 +1,21 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Divider, Grid } from '@mui/material'
 import PlaceIcon from '@mui/icons-material/Place';
 
 import MyCard from '../../components/Dashboard/Overview/MyCard'
-import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
 
 import dashboardSlice from '../../redux/dashboardSlice';
 import * as dashboard from '../../until/constants';
-import { dataSelector } from '../../redux/selectors';
-import { subpageIndexSelector } from '../../redux/selectors';
 
 const Overview: React.FC = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleOpen = (id: number) => { 
-        // switch(id) {
-        //     case 1: 
-        //     case 2: 
-        //     case 3: 
-        //     case 4: 
-        //         dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
-        //         break
-        //     default:
-        //         dispatch(dashboardSlice.actions.changeSubpage("Overview"))
-        // }
-
         if (id > 0 && id < 4) {
             dispatch(dashboardSlice.actions.changeSubpage(dashboard.listNavItems[id].title))
-            navigate(dashboard.listNavItems[id].path)
+            navigate(dashboard.listNavItems[id].path, { state: { openActionForm: true } })
         }
     }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Grid } from '@mui/material'
-import { GridActionsCellItem, GridPaginationModel } from '@mui/x-data-grid'
+import { Box, Button, Dialog, DialogActions, DialogTitle, Grid } from '@mui/material'
+import { GridActionsCellItem } from '@mui/x-data-grid'
 import { useSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -9,15 +9,16 @@ import titleImage from "../../assets/dashboard/title/1.png"
 
 import Table from '../../components/Dashboard/Table/Table'
 import Dashboard from '../../pages/Dashboard';
-import ActionForm from '../../components/Dashboard/AddPost/ActionForm';
+import ActionForm from '../../components/Dashboard/CRUDPost/ActionForm';
 
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
-import ActionInfoInputs from '../../components/Dashboard/AddPost/ActionInfoInputs';
+import ActionInfoInputs from '../../components/Dashboard/CRUDPost/ActionInfoInputs';
 import { postCreatePost, deletePost, updatePost, getPosts, getAllPosts } from '../../api';
 import 'firebase/compat/firestore';
 import { storage } from '../../App';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useLocation } from 'react-router-dom';
 
 const PostManager: React.FC<any> = () => {
     const columns = [
@@ -98,7 +99,7 @@ const PostManager: React.FC<any> = () => {
                 <GridActionsCellItem
                     icon={<DeleteIcon />}
                     label="Delete"
-                    onClick={() => handleDelete(params.id)}
+                    onClick={() => {setOpenConfirmDelete(true); setIdToDelete(params.id)}}
                 />,
                 <GridActionsCellItem
                     icon={<EditIcon sx={{ color: "#84818A", width: ".87em" }} />}
@@ -111,13 +112,9 @@ const PostManager: React.FC<any> = () => {
     const [rows, setRows] = useState<any>([])
 
     let data = useSelector(dataSelector)
-    const [open, setOpen] = useState(false)
-    const handleOpen = () => {
-        setOpen(true)
-    }
-    function handleClose() {
-        setOpen(false)
-    }
+    const location = useLocation();
+    const [openActionForm, setOpenActionForm] = useState(location?.state?.openActionForm || false)
+    const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
 
     const [title, setTitle] = useState('')
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -127,6 +124,7 @@ const PostManager: React.FC<any> = () => {
     const [openSuccess, setOpenSuccess] = useState(false)
     const [isUpdateData, setIsUpdateData] = useState(false)
     const [idToUpdate, setIdToUpdate] = useState(-1)
+    const [idToDelete, setIdToDelete] = useState(-1)
     const [_idToUpdate, set_IdToUpdate] = useState(-1)
 
     const [paginationModel, setPaginationModel] = useState({
@@ -162,6 +160,7 @@ const PostManager: React.FC<any> = () => {
     function refreshValues() {
         setTitle('')
         setSelectedFile(null)
+        setIdToDelete(-1)
     }
 
     function handleSubmit() {
@@ -175,7 +174,7 @@ const PostManager: React.FC<any> = () => {
             enqueueSnackbar('Please upload image!', { variant: "error" });
             return
         }
-        handleClose()
+        setOpenActionForm(false)
 
         /** 
          * Add new Data
@@ -248,12 +247,13 @@ const PostManager: React.FC<any> = () => {
             status: 'Online'
         }
         postCreatePost(storeNewRow)
+        getPosts(paginationModel, setRows, setTotalRows, setLoading)
     }
 
     const handleDelete = (id: number) => {
         const indexToRemove = rows.findIndex((item: any) => item.id === id)
-        console.log(indexToRemove)
-        if (indexToRemove >= 0 && indexToRemove < rows.length) {
+        if (indexToRemove >= 0 && indexToRemove < rows.length && idToDelete !== -1) {
+            /** Delete */
             const newRows = rows.filter((_: any, index: any) => index !== indexToRemove)
             setRows(newRows)
             /** 
@@ -263,6 +263,8 @@ const PostManager: React.FC<any> = () => {
         } else {
             console.log('Invalid index. No object was removed.');
         }
+        refreshValues()
+        getPosts(paginationModel, setRows, setTotalRows, setLoading)
     }
 
     const handleEdit = (id: number) => {
@@ -279,7 +281,7 @@ const PostManager: React.FC<any> = () => {
              */
             setTitle(rows[indexToEdit].title)
             setSelectedFileURL(rows[indexToEdit].img || titleImage)
-            handleOpen()
+            setOpenActionForm(true)
         } else {
             console.log('Invalid index');
         }
@@ -287,14 +289,30 @@ const PostManager: React.FC<any> = () => {
 
     return (
         <Dashboard>
+            <Dialog
+                open={openConfirmDelete}
+                onClose={() => setOpenConfirmDelete(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"Are you sure to delete this post?"}
+                </DialogTitle>
+                <DialogActions>
+                    <Button onClick={() => {handleDelete(idToDelete); setOpenConfirmDelete(false);}} autoFocus>
+                        Agree
+                    </Button>
+                    <Button onClick={() => setOpenConfirmDelete(false)}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
             <ActionForm
-                open={open}
-                setOpen={setOpen}
+                open={openActionForm}
+                setOpen={setOpenActionForm}
                 data={data[1].actionForm}
                 i={1}
                 openSuccess={openSuccess}
                 setOpenSuccess={setOpenSuccess}
-                handleClose={handleClose}
+                handleCloseActionForm={() => setOpenActionForm(false)}
                 handleSubmit={handleSubmit}
                 setSelectedFile={setSelectedFile}
                 selectedFileURL={selectedFileURL}
@@ -309,7 +327,7 @@ const PostManager: React.FC<any> = () => {
                 <Table
                     columns={columns as any}
                     rows={rows}
-                    handleOpen={handleOpen}
+                    handleOpenActionForm={() => setOpenActionForm(true)}
                     loading={loading}
                     totalRows={totalRows}
                     paginationModel={{ page: paginationModel.page - 1, pageSize: paginationModel.pageSize }}
