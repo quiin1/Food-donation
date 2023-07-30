@@ -42,7 +42,7 @@ const PostManager: React.FC<any> = () => {
                         alignItems: 'center',
                         gap: '1em'
                     }}>
-                        <img style={{minWidth: "32px"}} src={params.row.img} alt={"title-image"} />
+                        <img style={{ minWidth: "32px" }} src={params.row.img} alt={"title-image"} />
                         {params.row.title}
                     </Box>
                 )
@@ -128,20 +128,18 @@ const PostManager: React.FC<any> = () => {
     const [isUpdateData, setIsUpdateData] = useState(false)
     const [idToUpdate, setIdToUpdate] = useState(-1)
     const [_idToUpdate, set_IdToUpdate] = useState(-1)
+
+    const [paginationModel, setPaginationModel] = useState({
+        page: 1,
+        pageSize: 8
+    })
+    const [loading, setLoading] = useState(true)
     const [totalRows, setTotalRows] = useState(0)
 
-    const [loading, setLoading] = useState(true)
-    const [page, setPage] = useState(1)
-    const [pageLimit, setPageLimit] = useState(8)
-
     useEffect(() => {
-        getAllPosts(setRows, setLoading)
-        // const queryParams = {
-        //     page,
-        //     pageLimit
-        // }
-        // getPosts(queryParams, setRows, setTotalRows, setLoading)
-    }, [])
+        // getAllPosts(setRows, setLoading)
+        getPosts(paginationModel, setRows, setTotalRows, setLoading)
+    }, [paginationModel])
 
     useEffect(() => {
         updateSelectedFileURL()
@@ -174,7 +172,7 @@ const PostManager: React.FC<any> = () => {
             return
         }
         if (!selectedFileURL) {
-            enqueueSnackbar('Please upload image!', {variant: "error"});
+            enqueueSnackbar('Please upload image!', { variant: "error" });
             return
         }
         handleClose()
@@ -227,7 +225,7 @@ const PostManager: React.FC<any> = () => {
     const handleAdd = async () => {
         console.log("selectedFile", selectedFile)
         console.log("selectedFileURL", selectedFile)
-        
+
         const currentDate = new Date();
         const dateString = currentDate.toISOString();
         // FE
@@ -298,9 +296,9 @@ const PostManager: React.FC<any> = () => {
                 setOpenSuccess={setOpenSuccess}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
-                setSelectedFile={setSelectedFile} 
+                setSelectedFile={setSelectedFile}
                 selectedFileURL={selectedFileURL}
-                setSelectedFileURL={setSelectedFileURL} 
+                setSelectedFileURL={setSelectedFileURL}
             >
                 <ActionInfoInputs
                     data={data[1].actionForm}
@@ -308,21 +306,15 @@ const PostManager: React.FC<any> = () => {
                     setTitle={setTitle}
                 />
             </ActionForm>
-            {loading ?
-                <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
-                    <CircularProgress className="flex align-center justify-center" />
-                </Grid>
-                :
                 <Table
                     columns={columns as any}
                     rows={rows}
                     handleOpen={handleOpen}
-                    initialPageLimit={8}
                     loading={loading}
                     totalRows={totalRows}
-                    paginationModel={{ page, pageSize: pageLimit }}
+                    paginationModel={{ page: paginationModel.page - 1, pageSize: paginationModel.pageSize }}
+                    setPaginationModel={setPaginationModel}
                 />
-            }
         </Dashboard>
     )
 }

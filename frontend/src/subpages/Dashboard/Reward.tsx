@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, CircularProgress, Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { GridActionsCellItem, GridPaginationModel } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -256,7 +256,8 @@ const Reward: React.FC = () => {
                     {/* <CircularProgress className="flex align-center justify-center"/> */}
                     <span>This subpage is under maintenance.</span>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} initialPageLimit={8} totalRows={0} loading={false} paginationModel={{page: 1, pageSize: 2}}
+                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} totalRows={0} loading={false} paginationModel={{page: 1, pageSize: 2}}
+                    setPaginationModel={() => {}} 
                 />}
         </Dashboard>
     )

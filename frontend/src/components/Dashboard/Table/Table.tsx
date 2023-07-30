@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React from 'react'
 import { Box, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridFilterModel, GridPaginationModel, GridRowId, GridSortModel } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridPaginationModel } from '@mui/x-data-grid';
 
 import { PostButton } from '../../StyleComponents/styles'
 
@@ -11,27 +11,11 @@ import { subpageIndexSelector } from '../../../redux/selectors';
 interface TableProps {
     columns: GridColDef[]
     rows: any
-    totalRows: number
     handleOpen: Function
     loading: boolean
-    initialPageLimit: number
+    totalRows: number
     paginationModel: GridPaginationModel
-    // onPaginationModelChange: (model: GridPaginationModel) => void
-}
-interface PageInfo {
-    totalRowCount?: number;
-    nextCursor?: string;
-    pageSize?: number;
-}
-
-interface QueryOptions {
-    cursor?: GridRowId;
-    page?: number;
-    pageSize?: number;
-    filterModel?: GridFilterModel;
-    sortModel?: GridSortModel;
-    firstRowToRender?: number;
-    lastRowToRender?: number;
+    setPaginationModel: Function
 }
 
 const Table: React.FC<TableProps> = (props) => {
@@ -40,42 +24,6 @@ const Table: React.FC<TableProps> = (props) => {
 
     let data = useSelector(dataSelector)
     let pageIndex = useSelector(subpageIndexSelector)
-
-    const mapPageToNextCursor = useRef<any>({});
-    const [paginationModel, setPaginationModel] = useState({
-        page: 1,
-        pageSize: props.initialPageLimit,
-    });
-    const queryOptions = useMemo(() => ({
-        cursor: mapPageToNextCursor.current[paginationModel.page - 1],
-        pageSize: paginationModel.pageSize,
-    }),[paginationModel]);
-    // const useQuery = (queryOptions: QueryOptions) => {
-    //     pageInfo: PageInfo;
-    //     rows: GridValidRowModel[];
-    //     isLoading: boolean;
-    // }
-    // const { isLoading, rows, pageInfo } = useQuery(queryOptions);
-    const pageInfo = {
-        totalRowCount: props.totalRows,
-        nextCursor: queryOptions.cursor,
-        pageSize: queryOptions.pageSize
-    }
-
-    const handlePaginationModelChange = (newPaginationModel: GridPaginationModel) => {
-        if (
-            newPaginationModel.page === 0 ||
-            mapPageToNextCursor.current[newPaginationModel.page - 1]
-        ) {
-        setPaginationModel(newPaginationModel);
-        }
-    }
-    useEffect(() => {
-        if (!props.loading && pageInfo?.nextCursor) {
-          // We add nextCursor when available
-          mapPageToNextCursor.current[paginationModel.page] = pageInfo?.nextCursor;
-        }
-    }, [paginationModel.page, props.loading, pageInfo?.nextCursor]);
 
     return (
         <Box>
@@ -92,42 +40,17 @@ const Table: React.FC<TableProps> = (props) => {
             </Box>
             <Box mt="1.3em" bgcolor="white" width={{xs: "90vw", sm: "65vw", md: "75vw", lg: "80vw"}}>
                 <DataGrid
-                    // autoHeight={true}
                     columns={columns}
                     rows={rows}
+                    autoHeight
                     disableRowSelectionOnClick
-                    // getRowId={(row) => row.id}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { pageSize: props.initialPageLimit },
-                        },
-                    }}
-                    pagination={true}
+                    pagination                    
                     pageSizeOptions={[5, 8, 10, 25]}
-                    // rowCount={props.totalRows}
-                    // paginationMode="server"
-                    // onPaginationModelChange={handlePaginationModelChange}
-                    // paginationModel={paginationModel}
-                    // loading={props.loading}
-                    sx={{
-                        width: "100%",
-                        "& .MuiDataGrid-columnHeaders > *": {
-                            color: "#141416",
-                            fontSize: "12px",
-                            fontFamily: "Inter",
-                            fontWeight: "600 !important",
-                            lineHeight: "18px",
-                        },
-                        "& .MuiDataGrid-main": {
-                            px: "1em",
-                            paddingBottom: "0.3em"
-                        },
-                        "& *": {
-                            fontSize: "14px",
-                            fontWeight: 200,
-                            lineHeight: "20px"
-                        },
-                    }}
+                    paginationMode="server"
+                    loading={props.loading}
+                    rowCount={props.totalRows}
+                    paginationModel={props.paginationModel}
+                    onPaginationModelChange={(newPaginationModel) => props.setPaginationModel({...newPaginationModel, page: newPaginationModel.page + 1})} 
                 />
             </Box>
         </Box>

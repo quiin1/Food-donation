@@ -8,9 +8,9 @@ export class PostController {
     constructor(private postService: PostService) {}
 
     @Get()
-    async getPosts(@Query('page') page: any, @Query('pageLimit') pageLimit: any): Promise<any> {
-        console.log("params: ", page, pageLimit)
-        return this.postService.getPosts(page, pageLimit)
+    async getPosts(@Query('page') page: any, @Query('pageSize') pageSize: any): Promise<any> {
+        console.log("params: ", page, pageSize)
+        return this.postService.getPosts(page, pageSize)
     }
 
     @Post()

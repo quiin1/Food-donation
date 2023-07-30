@@ -28,11 +28,9 @@ export class PostService {
         private postModel: Model<Post>
     ){}
     
-    async getPosts(page: any, pageLimit: any): Promise<Response> {
-        // const page = params.page
-        // const pageLimit = params.pageLimit
+    async getPosts(page: any, pageSize: any): Promise<Response> {
         const count = await this.postModel.countDocuments().exec()
-        if (!page && !pageLimit) {
+        if (!page && !pageSize) {
             const posts = await this.postModel.find({}).populate('user').sort({createdAt: -1}).exec()
             return {
                 data: {
@@ -42,8 +40,8 @@ export class PostService {
             }
         }
         if (page > 0) {
-            const skip = (page - 1) * pageLimit;
-            const posts = await this.postModel.find({}).populate('user').limit(pageLimit).skip(skip).exec()
+            const skip = (page - 1) * pageSize;
+            const posts = await this.postModel.find({}).populate('user').limit(pageSize).skip(skip).sort({createdAt: -1}).exec()
             return {
                 data: {
                     posts,

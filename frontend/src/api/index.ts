@@ -70,6 +70,7 @@ export async function getAllPosts(setRows: Function, setLoading: Function) {
 
 export async function getPosts(params: any, setRows: Function, setTotalRows: Function, setLoading: Function) {
     try {
+        setLoading(true)
         const token = Cookies.get('access_token')
         await axiosInstance.get(api.GET_POSTS, {
             headers: {

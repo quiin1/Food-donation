@@ -255,7 +255,7 @@ const Location: React.FC = () => {
                     {/* <CircularProgress className="flex align-center justify-center"/> */}
                     <span>This subpage is under maintenance.</span>
                 </Grid>
-                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} initialPageLimit={8} totalRows={0} loading={false} paginationModel={{page: 1, pageSize: 2}} />}
+                : <Table columns={columns as any} rows={rows} handleOpen={handleOpen} totalRows={0} loading={false} paginationModel={{ page: 1, pageSize: 2 }} setPaginationModel={() => {}} />}
         </Dashboard>
     )
 }
