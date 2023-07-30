@@ -22,7 +22,7 @@ interface ActionFormProps {
     children: ReactNode
     openSuccess: boolean
     setOpenSuccess: Function
-    handleClose: Function 
+    handleCloseActionForm: Function 
     handleSubmit: Function 
     setSelectedFile: Function
     selectedFileURL: string
@@ -41,7 +41,7 @@ const ActionForm: React.FC<ActionFormProps> = (props) => {
                 open={props.open}
                 // TransitionComponent={Transition}
                 // keepMounted
-                onClose={props.handleClose as any}
+                onClose={props.handleCloseActionForm as any}
                 aria-describedby="alert-dialog-slide-description"
                 sx={{
                     "& .MuiDialog-paper": {

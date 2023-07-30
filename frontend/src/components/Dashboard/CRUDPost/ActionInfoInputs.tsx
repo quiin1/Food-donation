@@ -36,7 +36,7 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
         let width = props.data.inputs[i].width
         let grid = 12/(100/Number(width.slice(0, width.length-1))) //fullwidth=12
         rows.push(
-                <Grid item xs={grid} key={props.data.inputs[i].label}>
+                <Grid item xs={grid} component="span" key={props.data.inputs[i].label}>
                     <FormControl
                         sx={{
                             display: 'flex', 
@@ -115,8 +115,8 @@ const ActionInfoInputs: React.FC<ActionInfoInputsProps> = (props) => {
     }
     return (
         <Box sx={{fontFamily: 'Manrope'}}>
-            <Typography sx={ActionSubTitleStyled}>{props.data.subtitles[0]}</Typography>
-            <Grid container spacing={2}>{rows}</Grid>
+            <Typography component="span" variant='body2' sx={ActionSubTitleStyled}>{props.data.subtitles[0]}</Typography>
+            <Grid component="span" container spacing={2}>{rows}</Grid>
         </Box>
     )
 }

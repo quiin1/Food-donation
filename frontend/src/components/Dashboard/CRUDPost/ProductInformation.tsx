@@ -6,7 +6,6 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ProductView from './ProductView';
 
 const ProductInfoCards: React.FC<any> = ({setSelectedFile, selectedFileURL, setSelectedFileURL}) => {
-    // const dispatch = useDispatch()
     const [image, setImage] = useState('')
     const [openImage, setOpenImage] = useState(false)
     function uploadProduct() {
