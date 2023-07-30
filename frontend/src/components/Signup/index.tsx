@@ -9,6 +9,7 @@ import loginSlice from '../../redux/loginSlice'
 import { accountsSelector } from '../../redux/selectors'
 import { api } from '../../api'
 import axiosInstance from '../../api'
+import { enqueueSnackbar } from 'notistack'
 
 const Signup: React.FC = () => {
     const dispatch = useDispatch()
@@ -47,6 +48,7 @@ const Signup: React.FC = () => {
                 console.log(error)
             }
             
+            enqueueSnackbar('Sign up successfully!', {variant: "success"});
             navigate("/")
         }
     }
