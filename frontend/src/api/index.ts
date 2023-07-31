@@ -111,7 +111,7 @@ export async function postCreatePost(post: any) {
                   Authorization: `Bearer ${token}` // Thêm token vào header Authorization
               }
           }).then(({data}) => {
-              console.log("response create Post", data)
+            //   console.log("response create Post", data)
           })
   } catch (error) {
       console.log("error at post create post", error)
@@ -121,13 +121,13 @@ export async function postCreatePost(post: any) {
 export async function deletePost(_id: number) {
   try {
       const token = Cookies.get('access_token')
-      console.log("_id", _id)
+    //   console.log("_id", _id)
       await axiosInstance.delete(`${api.DELETE_POST}/${_id}`, {
               headers: {
                   Authorization: `Bearer ${token}` // Thêm token vào header Authorization
               }
           }).then(({data}) => {
-              console.log("response delete Post", data)
+            //   console.log("response delete Post", data)
           })
   } catch (error) {
       console.log("error at deletePost", error)
@@ -137,7 +137,7 @@ export async function deletePost(_id: number) {
 export async function updatePost(_id: number, req: any) {
   try {
       const token = Cookies.get('access_token')
-      console.log("_id", _id)
+    //   console.log("_id", _id)
       await axiosInstance.put(`${api.UPDATE_POST}/${_id}`, req, {
               headers: {
                   Authorization: `Bearer ${token}` // Thêm token vào header Authorization

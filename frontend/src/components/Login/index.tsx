@@ -34,7 +34,7 @@ const Login: React.FC = () => {
         try {
             await axiosInstance.post(api.LOGIN, { name: username, password })
                 .then(({data}) => {
-                    console.log("response", data)
+                    // console.log("response", data)
                     
                     const token = data.token
                     /**

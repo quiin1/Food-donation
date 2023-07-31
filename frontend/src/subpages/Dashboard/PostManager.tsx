@@ -43,7 +43,7 @@ const PostManager: React.FC<any> = () => {
                         alignItems: 'center',
                         gap: '1em'
                     }}>
-                        <img style={{ minWidth: "32px" }} src={params.row.img} alt={"title-image"} />
+                        <img style={{ maxWidth: "32px" }} src={params.row.img} alt={"title-image"} />
                         {params.row.title}
                     </Box>
                 )
@@ -149,7 +149,7 @@ const PostManager: React.FC<any> = () => {
             const uploadedImage = await uploadBytes(imageRef, selectedFile).then((snapshot: { ref: any; }) => {
                 return getDownloadURL(snapshot.ref)
             })
-            console.log(uploadedImage)
+            // console.log(uploadedImage)
             setSelectedFileURL(uploadedImage)
         }
         else {
@@ -164,7 +164,7 @@ const PostManager: React.FC<any> = () => {
     }
 
     function handleSubmit() {
-        console.log("isUpdateData", isUpdateData)
+        // console.log("isUpdateData", isUpdateData)
         // check Empty 
         if (title === '') {
             enqueueSnackbar('Please fill the Title field', { variant: "error" });
@@ -222,8 +222,8 @@ const PostManager: React.FC<any> = () => {
     }
 
     const handleAdd = async () => {
-        console.log("selectedFile", selectedFile)
-        console.log("selectedFileURL", selectedFile)
+        // console.log("selectedFile", selectedFile)
+        // console.log("selectedFileURL", selectedFile)
 
         const currentDate = new Date();
         const dateString = currentDate.toISOString();

@@ -7,7 +7,7 @@ import searchIcon from '../../../assets/dashboard/fi-rr-search.svg'
 
 const SearchBar: React.FC = () => {
   function handleChange() {
-    console.log("123")
+    // console.log("123")
   }
   const placeholder = useSelector(searchPlaceholderSelector)
 
