@@ -51,6 +51,16 @@ const Table: React.FC<TableProps> = (props) => {
                     rowCount={props.totalRows}
                     paginationModel={props.paginationModel}
                     onPaginationModelChange={(newPaginationModel) => props.setPaginationModel({...newPaginationModel, page: newPaginationModel.page + 1})} 
+                    sx={{
+                        width: "100%",
+                        "& .MuiDataGrid-main": {
+                            px: "1em",
+                            paddingBottom: "0.3em"
+                        },
+                        "& *": {
+                            fontSize: "14px",
+                        }
+                    }}
                 />
             </Box>
         </Box>

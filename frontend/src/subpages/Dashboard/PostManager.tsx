@@ -338,4 +338,3 @@ const PostManager: React.FC<any> = () => {
 }
 
 export default PostManager
-
