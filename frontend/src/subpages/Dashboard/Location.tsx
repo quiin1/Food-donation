@@ -14,7 +14,7 @@ import ActionForm from '../../components/Dashboard/CRUDPost/ActionForm';
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../../redux/selectors';
 import ActionInfoInputs from '../../components/Dashboard/CRUDPost/ActionInfoInputs';
-import { postCreatePost, deletePost, updatePost, getPosts, getAllPosts } from '../../api';
+import { postCreatePost, deletePost, updatePost, getPosts } from '../../api';
 import 'firebase/compat/firestore';
 import { storage } from '../../App';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";

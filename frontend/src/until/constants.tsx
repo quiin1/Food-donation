@@ -1,3 +1,4 @@
+import news from '../assets/dashboard/sidebar/news.svg'
 import view from '../assets/dashboard/sidebar/view.svg'
 import document from '../assets/dashboard/sidebar/fi-sr-document-signed.svg'
 import location from '../assets/dashboard/sidebar/fi-sr-location-alt.svg'
@@ -35,5 +36,10 @@ export const listNavItems = [
       title: "Payment record",
       img: money,
       path: "/payment-record"
-    }
+    },
+    {
+      title: "Feeds",
+      img: news,
+      path: "/feeds"
+    },
   ]

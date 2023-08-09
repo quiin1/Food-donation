@@ -38,35 +38,35 @@ type Response = {
     message?: string
 }
 
-export async function getAllPosts(setRows: Function, setLoading: Function) {
-    try {
-        const token = Cookies.get('access_token')
-        await axiosInstance.get(api.GET_POSTS, {
-                headers: {
-                    Authorization: `Bearer ${token}` // Thêm token vào header Authorization
-                }
-            }).then(({data}) => {
-                // console.log("response getAllPosts", data)
-                let newRows: any[] = []
-                data.posts.forEach((item: any) => {
-                    const newRow = {
-                        _id: item._id,
-                        id: item.id,
-                        img: item.img || titleImage,
-                        title: item.title,
-                        releaseDate: item.releaseDate,
-                        view: 200,
-                        status: 'Online'
-                    }
-                    newRows.push(newRow)
-                })
-                setRows(newRows)
-                setLoading(false)
-            })
-    } catch (error) {
-        console.log("error", error)
-    }
-}
+// export async function getAllPosts(setRows: Function, setLoading: Function) {
+//     try {
+//         const token = Cookies.get('access_token')
+//         await axiosInstance.get(api.GET_POSTS, {
+//                 headers: {
+//                     Authorization: `Bearer ${token}` // Thêm token vào header Authorization
+//                 }
+//             }).then(({data}) => {
+//                 // console.log("response getAllPosts", data)
+//                 let newRows: any[] = []
+//                 data.posts.forEach((item: any) => {
+//                     const newRow = {
+//                         _id: item._id,
+//                         id: item.id,
+//                         img: item.img || titleImage,
+//                         title: item.title,
+//                         releaseDate: item.releaseDate,
+//                         view: 200,
+//                         status: 'Online'
+//                     }
+//                     newRows.push(newRow)
+//                 })
+//                 setRows(newRows)
+//                 setLoading(false)
+//             })
+//     } catch (error) {
+//         console.log("error", error)
+//     }
+// }
 
 export async function getPosts(params: any, setRows: Function, setTotalRows: Function, setLoading: Function) {
     try {
