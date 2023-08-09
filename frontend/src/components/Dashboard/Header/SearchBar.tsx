@@ -12,7 +12,7 @@ const SearchBar: React.FC = () => {
   const placeholder = useSelector(searchPlaceholderSelector)
 
   return (
-    <Box className="searchBar" ml="1em" sx={{ width: "25em" }}>
+    <Box className="searchBar" ml="1em" sx={{ width: {xs: "15em", sm: "25em"} }}>
         <OutlinedInput
           sx={{
             padding: "0 1.2em",

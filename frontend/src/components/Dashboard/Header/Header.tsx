@@ -33,11 +33,13 @@ const Header: React.FC = () => {
 
     return (
         <Box className="navTop" bgcolor="#FCFCFD" sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            border: "1px solid #F4F5F6",
-            padding: ".5em",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                border: "1px solid #F4F5F6",
+                padding: ".5em",
+                // position: "fixed",
+                // zIndex: "10"
             }}>
             <SearchBar/>
             <MyAvatar handleLogout={handleLogout}/>

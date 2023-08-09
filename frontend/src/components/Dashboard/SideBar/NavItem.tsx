@@ -15,7 +15,7 @@ const NavItem: React.FC<NavItemProps> = (props) => {
         disablePadding 
         onClick={props.onClick} 
         sx={{
-            padding: "8px 16px",
+            padding: "8px",
             ".chosen": {
                 color: "#2BA84A",
                 backgroundColor: "#D5EEDB",
@@ -34,14 +34,18 @@ const NavItem: React.FC<NavItemProps> = (props) => {
             } 
         }}
     >
-        <ListItemButton className={props.className} >
+        <ListItemButton 
+            className={props.className} 
+            sx={{ display: "flex", flexDirection: {xs: "column", md: "row"}}}
+        >
             <ListItemIcon>
                 {props.children}
             </ListItemIcon>
-            <ListItemText 
+            <ListItemText
                 disableTypography={true} 
                 primary={props.title} 
                 sx={{
+                    display: {xs: "none", md: "block"},
                     fontFamily: 'Inter',
                     fontWeight: '600',
                     fontSize: '.8em',

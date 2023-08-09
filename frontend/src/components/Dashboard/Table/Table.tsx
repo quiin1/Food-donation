@@ -38,7 +38,7 @@ const Table: React.FC<TableProps> = (props) => {
                 </Typography>
                 <PostButton onClick={props.handleOpenActionForm as any}>{data[pageIndex].action}</PostButton>
             </Box>
-            <Box mt="1.3em" bgcolor="white" width={{xs: "90vw", sm: "65vw", md: "75vw", lg: "80vw"}}>
+            <Box mt="1.3em" bgcolor="white" width={{xs: "70vw", sm: "70vw", md: "75vw", lg: "80vw"}}>
                 <DataGrid
                     columns={columns}
                     rows={rows}

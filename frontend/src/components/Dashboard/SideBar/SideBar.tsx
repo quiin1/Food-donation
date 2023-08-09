@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { Box, CardMedia, Typography, List } from "@mui/material"
+import { Box, CardMedia, Typography, List, Divider } from "@mui/material"
 import { palette } from '../../../theme'
 import logo from '../../../assets/logo/logo.png'
 import { listNavItems } from '../../../until/constants';
@@ -20,6 +20,7 @@ const SideBar: React.FC = () => {
             case 2:
             case 3:
             case 4:
+            case 5:
                 navigate(listNavItems[index].path)
                 break
             default:
@@ -30,15 +31,18 @@ const SideBar: React.FC = () => {
 
     return (
         <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}
-            display={{xs: "none", sm: "block"}}
+            // display={{xs: "none", sm: "block"}}
         >
-            <Box display="flex" mt="1em" justifyContent={"center"}>
+            <Box display="flex" mt="1em" justifyContent={"center"} alignItems={"center"}
+                // sx={{flexDirection: {xs: "column", md: "row"}}}
+            >
                 <CardMedia component="img" src={logo} sx={{ width: "45px" }} />
                 <Typography sx={{
                     fontFamily: "Inter",
                     fontWeight: "800",
                     fontSize: "1.2em",
-                    color: palette.green
+                    color: palette.green,
+                    display: {xs: "none", md: "block"},
                 }} ml=".4em">Startnow</Typography>
             </Box>
             <List sx={{ margin: "2em 0"}}>
@@ -47,7 +51,7 @@ const SideBar: React.FC = () => {
                         onClick={() => handleChangeSubpage(item.title, index)}
                         className={subpage === item.path ? "chosen" : ""}
                     >
-                    <CardMedia sx={{width: "22px"}} component="img" src={item.img}/>
+                        <CardMedia sx={{width: "22px"}} component="img" src={item.img}/>
                     </NavItem>
                 ))}
             </List>
