@@ -32,6 +32,11 @@ const SideBar: React.FC = () => {
     return (
         <Box className="navLeft" flex={1} height="100vh" bgcolor="#FCFCFD" borderRight={"1px solid #F4F5F6"}
             // display={{xs: "none", sm: "block"}}
+            sx={{
+                position: "fixed",
+                zIndex: "10",
+                width: "16%"
+            }}
         >
             <Box display="flex" mt="1em" justifyContent={"center"} alignItems={"center"}
                 // sx={{flexDirection: {xs: "column", md: "row"}}}

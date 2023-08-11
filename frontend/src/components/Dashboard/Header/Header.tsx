@@ -37,9 +37,11 @@ const Header: React.FC = () => {
                 alignItems: "center",
                 justifyContent: "space-between",
                 border: "1px solid #F4F5F6",
-                padding: ".5em",
-                // position: "fixed",
-                // zIndex: "10"
+                padding: ".5em 1em .5em .5em",
+                position: "fixed",
+                zIndex: "10",
+                width: "84%",
+                right: 0
             }}>
             <SearchBar/>
             <MyAvatar handleLogout={handleLogout}/>
