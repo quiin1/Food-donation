@@ -68,9 +68,9 @@ type Response = {
 //     }
 // }
 
-export async function getPosts(params: any, setRows: Function, setTotalRows: Function, setLoading: Function) {
+export async function getPosts(params: any, setRows: Function, setTotalRows?: Function | any, setLoading?: Function | any, setHasNextPage?: Function | any, isNewsFeed?: Boolean) {
     try {
-        setLoading(true)
+        if (setLoading) setLoading(true)
         const token = Cookies.get('access_token')
         await axiosInstance.get(api.GET_POSTS, {
             headers: {
@@ -78,7 +78,7 @@ export async function getPosts(params: any, setRows: Function, setTotalRows: Fun
             },
             params,
         }).then(({data}) => {
-            // console.log("response getPosts", data)
+            console.log("response getPosts", data)
 
             let newRows: any[] = []
             data.posts.forEach((item: any) => {
@@ -93,9 +93,10 @@ export async function getPosts(params: any, setRows: Function, setTotalRows: Fun
                 }
                 newRows.push(newRow)
             })
-            setRows(newRows)
-            setTotalRows(data.count)
-            setLoading(false)
+            isNewsFeed ? setRows((prev: any) => [...prev, ...newRows]) : setRows(newRows)
+            if (setTotalRows) setTotalRows(data.count)
+            if (setLoading) setLoading(false)
+            if (setHasNextPage) setHasNextPage(Boolean(data.posts.length))
         })
     } catch (error) {
         console.log("error", error)
