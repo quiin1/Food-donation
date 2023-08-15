@@ -1,4 +1,5 @@
-import news from '../assets/dashboard/sidebar/news.svg'
+import news from '../assets/dashboard/sidebar/fi-rr-layout-fluid.svg'
+import users from '../assets/dashboard/sidebar/fi-rr-user.svg'
 import view from '../assets/dashboard/sidebar/view.svg'
 import document from '../assets/dashboard/sidebar/fi-sr-document-signed.svg'
 import location from '../assets/dashboard/sidebar/fi-sr-location-alt.svg'
@@ -15,31 +16,43 @@ export const listNavItems = [
     {
       title: "Overview",
       img: view,
-      path: "/dashboard"
+      path: "/dashboard",
+      role: "admin",
     },
     {
       title: "Post manager",
       img: document,
-      path: "/post-manager"
+      path: "/post-manager",
+      role: "post-manager",
     },
     {
       title: "Location",
       img: location,
-      path: "/location"
+      path: "/location",
+      role: "location"
     },
     {
       title: "Reward",
       img: reward,
-      path: "/reward"
+      path: "/reward",
+      role: "reward"
     },
     {
       title: "Payment record",
       img: money,
-      path: "/payment-record"
+      path: "/payment-record",
+      role: "payment-record"
     },
     {
-      title: "Feeds",
+      title: "NewsFeed",
       img: news,
-      path: "/feeds"
+      path: "/newsfeed",
+      role: "post-manager"
+    },
+    {
+      title: "Users Management",
+      img: users,
+      path: "/users-management",
+      role: "admin"
     },
   ]

@@ -11,6 +11,7 @@ import Location from './subpages/Dashboard/Location';
 import Reward from './subpages/Dashboard/Reward';
 import PaymentRecord from './subpages/Dashboard/PaymentRecord';
 import NewsFeed from './subpages/Dashboard/NewsFeed';
+import UsersManagement from './subpages/Dashboard/UsersManagement';
 
 import firebase from "firebase/compat/app";
 import 'firebase/compat/firestore';
@@ -42,7 +43,8 @@ const App: React.FC = () => {
           <Route path="/location" element={<Location/>}/>
           <Route path="/reward" element={<Reward/>}/>
           <Route path="/payment-record" element={<PaymentRecord/>}/>
-          <Route path="/feeds" element={<NewsFeed/>}/>
+          <Route path="/newsfeed" element={<NewsFeed/>}/>
+          <Route path="/users-management" element={<UsersManagement/>}/>
           <Route path="*" element={<div>Page Not Found</div>}/>
         </Routes>
       </BrowserRouter>

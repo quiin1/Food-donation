@@ -103,10 +103,9 @@ const PaymentRecord: React.FC = () => {
         },
         {
             field: 'actions',
+            headerName: 'ACTIONS',
             type: 'actions',
             align: 'right',
-            // flex: 1,
-            // minWidth: 10,
             getActions: (params: { id: any; }) => [
                 <GridActionsCellItem
                     icon={<DeleteIcon/>}
@@ -120,9 +119,6 @@ const PaymentRecord: React.FC = () => {
             ],
         },
     ]
-    // const [rows, setRows] = useState([
-    //     { id: 9256821912, img: titleImage, event: 'By food for kids', moneyUsed: '300', usedDate: '15:46.673 02/08/2022', status: 'Paid'},
-    // ])
 
     const [rows, setRows] = useState<any>([])
 

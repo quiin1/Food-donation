@@ -13,14 +13,16 @@ const SideBar: React.FC = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const subpage = location.pathname
+    const role = localStorage.getItem('role')
 
     function handleChangeSubpage(title: string, index: number) {
-        switch (index) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
+        switch (title) {
+            case "Post manager":
+            case "Location":
+            case "Reward":
+            case "Payment record":
+            case "NewsFeed":
+            case "Users Management":
                 navigate(listNavItems[index].path)
                 break
             default:
@@ -52,6 +54,7 @@ const SideBar: React.FC = () => {
             </Box>
             <List sx={{ margin: "2em 0"}}>
                 {listNavItems.map((item, index) => (
+                    (role === "admin" || role === item.role) &&
                     <NavItem id={index} key={index} title={item.title} 
                         onClick={() => handleChangeSubpage(item.title, index)}
                         className={subpage === item.path ? "chosen" : ""}

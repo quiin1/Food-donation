@@ -20,7 +20,6 @@ type Response = {
     message?: string
 }
 
-
 @Injectable()
 export class PostService {
     constructor(

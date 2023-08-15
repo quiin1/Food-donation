@@ -1,12 +1,20 @@
-import { Body, Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Put, Body, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
+import { AuthGuard } from '@nestjs/passport';
 
-@Controller('user')
+@Controller('users')
+@UseGuards(AuthGuard('jwt'))
 export class UserController {
     constructor(private userService: UserService){}
 
     @Get()
-    getUser(@Body() req): any {
-        return this.userService.getUser(req)
+    async getUsers(@Body() req: any): Promise<any> {
+        return this.userService.getUsers(req)
     }
+
+    @Put(':userId')
+    async updateUserById(@Body() user: any, @Param('userId') id: string): Promise<any> {
+        return this.userService.updateUserById(user, id)
+    }
+
 }

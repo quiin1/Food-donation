@@ -93,6 +93,7 @@ const PostManager: React.FC<any> = () => {
         },
         {
             field: 'actions',
+            headerName: 'ACTIONS',
             type: 'actions',
             align: 'right',
             getActions: (params: { id: number; }) => [
@@ -323,15 +324,15 @@ const PostManager: React.FC<any> = () => {
                     setTitle={setTitle}
                 />
             </ActionForm>
-                <Table
-                    columns={columns as any}
-                    rows={rows}
-                    handleOpenActionForm={() => setOpenActionForm(true)}
-                    loading={loading}
-                    totalRows={totalRows}
-                    paginationModel={{ page: paginationModel.page - 1, pageSize: paginationModel.pageSize }}
-                    setPaginationModel={setPaginationModel}
-                />
+            <Table
+                columns={columns as any}
+                rows={rows}
+                handleOpenActionForm={() => setOpenActionForm(true)}
+                loading={loading}
+                totalRows={totalRows}
+                paginationModel={{ page: paginationModel.page - 1, pageSize: paginationModel.pageSize }}
+                setPaginationModel={setPaginationModel}
+            />
         </Dashboard>
     )
 }

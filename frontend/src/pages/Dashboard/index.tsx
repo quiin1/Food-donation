@@ -26,8 +26,8 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
     <Box display={"flex"}>
       <SideBar/>
       <Box flex={5}>
-        <Header/>
-        <Box className="contentContainer" bgcolor="#F4F5F6" padding="2em" marginLeft="16%" marginTop="64px" >
+        <Header />
+        <Box className="contentContainer" bgcolor="#F4F5F6" padding="2em" marginLeft="16%" marginTop="7.9vh" style={{ minHeight: "92vh" }}>
           {children || <Overview/>}
         </Box>
       </Box>

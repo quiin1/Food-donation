@@ -16,6 +16,7 @@ interface TableProps {
     totalRows: number
     paginationModel: GridPaginationModel
     setPaginationModel: Function
+    processRowUpdate?: any
 }
 
 const Table: React.FC<TableProps> = (props) => {
@@ -48,7 +49,7 @@ const Table: React.FC<TableProps> = (props) => {
                     pageSizeOptions={[5, 8, 10, 25]}
                     paginationMode="server"
                     loading={props.loading}
-                    rowCount={props.totalRows}
+                    // rowCount={props.totalRows}
                     paginationModel={props.paginationModel}
                     onPaginationModelChange={(newPaginationModel) => props.setPaginationModel({...newPaginationModel, page: newPaginationModel.page + 1})} 
                     sx={{
@@ -61,6 +62,7 @@ const Table: React.FC<TableProps> = (props) => {
                             fontSize: "14px",
                         }
                     }}
+                    processRowUpdate={props.processRowUpdate}
                 />
             </Box>
         </Box>

@@ -77,10 +77,9 @@ const Reward: React.FC = () => {
         },
         {
             field: 'actions',
+            headerName: 'ACTIONS',
             type: 'actions',
             align: 'right',
-            // flex: 1,
-            // minWidth: 10,
             getActions: (params: { id: number; }) => [
                 <GridActionsCellItem
                     icon={<DeleteIcon/>}
@@ -94,9 +93,6 @@ const Reward: React.FC = () => {
             ],
         },
     ]
-    // const [rows, setRows] = useState([
-    //     { id: 9256821912, img: titleImage, voucherInfo: 'VOUCHER 50%', expiredDate: '15:46.673 02/08/2022', activedDate: '15:46.673 02/08/2022', status: 'Active' },
-    // ])
 
     const [rows, setRows] = useState<any>([])
 

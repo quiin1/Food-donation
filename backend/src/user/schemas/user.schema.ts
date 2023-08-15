@@ -10,6 +10,9 @@ export class User extends Document {
 
   @Prop({ required: [true, 'Password must be required']})
   password: string;
+
+  @Prop({ default: "post-manager"})
+  role: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

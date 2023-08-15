@@ -40,8 +40,9 @@ const Header: React.FC = () => {
                 padding: ".5em 1em .5em .5em",
                 position: "fixed",
                 zIndex: "10",
+                right: 0,
                 width: "84%",
-                right: 0
+                height: "8vh"
             }}>
             <SearchBar/>
             <MyAvatar handleLogout={handleLogout}/>

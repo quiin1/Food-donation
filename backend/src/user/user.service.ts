@@ -4,6 +4,22 @@ import { User } from './schemas/user.schema';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 
+interface Data {
+}
+
+interface PostData extends Data {
+    posts: any,
+    page?: number,
+    pageLimit?: number,
+    totalRows?: number
+}
+
+type Response = {
+    error?: string,
+    data?: Data,
+    message?: string
+}
+
 @Injectable()
 export class UserService {
     constructor(
@@ -12,27 +28,28 @@ export class UserService {
         private jwtService: JwtService
     ){}
 
-    getUser(request: any): any {
-        console.log(request)
-        return request
-        // Lấy Access Token từ header hoặc query params (tùy thuộc cách bạn gửi token lên backend)
-        const token = request.headers.authorization || request.data.token;
-
-        // Khóa bí mật (secret key) dùng để giải mã, nó cần giống như khóa bí mật bạn sử dụng để ký Access Token
-        const secretKey = 'your_secret_key';
-
+    async getUsers(req: any): Promise<any> {
+        const total = await this.userModel.countDocuments().exec()
         try {
-            // Giải mã Access Token
-            const decodedToken = this.jwtService.verify(token);
-
-            // Sau khi giải mã thành công, decodedToken sẽ chứa thông tin trong Access Token
-            // Ví dụ: decodedToken.userId, decodedToken.username, ...
-
-            return decodedToken; // Trả về thông tin đã giải mã
+            const users = await this.userModel.find({})
+            return {
+                data: {
+                    users,
+                    total
+                }
+            }
         } catch (error) {
-            // Xử lý lỗi nếu có
-            console.error('Invalid token:', error.message);
-            return { error: 'Invalid token' };
+            console.log("error at getUsers service")
+        }
+    }
+
+    async updateUserById(user: User, id: string): Promise<Response> {
+        const updatedPost = await this.userModel.findByIdAndUpdate(id, user, { 
+            new: true,
+            runValidators: true,
+        })
+        return {
+            data: {updatedPost}
         }
     }
 }

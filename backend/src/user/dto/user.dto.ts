@@ -10,4 +10,7 @@ export class UserDto extends BaseDto {
     @Expose()
     @IsNotEmpty()
     password: string;
+    
+    @Expose()
+    role: string;
 }

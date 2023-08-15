@@ -77,6 +77,7 @@ const Location: React.FC = () => {
         },
         {
             field: 'actions',
+            headerName: 'ACTIONS',
             type: 'actions',
             align: 'right',
             getActions: (params: any) => [
@@ -92,9 +93,6 @@ const Location: React.FC = () => {
             ],
         },
     ]
-    // const [rows, setRows] = useState([
-    //     { id: 9256821912, img: titleImage, address: '66b Regent St, Redfern NSW 2016', location: 'Hamilton', addedDate: '15:46.673 02/08/2022', status: 'Active' },
-    // ])
 
     const [rows, setRows] = useState<any>([])
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import Dashboard from '../../pages/Dashboard'
 import { getPosts } from '../../api'
-import { Box, Fab, List, Zoom, useScrollTrigger } from '@mui/material'
+import { Box, CircularProgress, Fab, Grid, List, Skeleton, Zoom, useScrollTrigger } from '@mui/material'
 import Post from '../../components/Dashboard/NewsFeed/Post'
 import { KeyboardArrowUp } from '@mui/icons-material'
 
@@ -11,8 +11,9 @@ const NewsFeed: React.FC = () => {
     pageSize: 20
   })
   const [posts, setPosts] = useState([])
+  const [totalPosts, setTotalPosts] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const [hasNextPage, setHasNextPage] = useState(false)
+  const [hasNextPage, setHasNextPage] = useState(true)
 
   const intObserver = useRef<any>()
   const lastPostRef = useCallback((post: any) => {
@@ -31,15 +32,24 @@ const NewsFeed: React.FC = () => {
   }, [isLoading, hasNextPage])
 
   useEffect(() => {
-    getPosts(paginationModel, setPosts, null, setIsLoading, setHasNextPage, true)
+    if (hasNextPage) {
+      getPosts(paginationModel, setPosts, setTotalPosts, setIsLoading, setHasNextPage, true)
+    }
   }, [paginationModel])
   
   const content = posts.map((post: any, i) => {
     if (posts.length === i + 1) {
-      return <Post ref={lastPostRef as any} key={post.id} post={post} />
+      return (
+        <Post ref={lastPostRef as any} key={post.id} post={post} />
+      )
     }
     return <Post key={post.id} post={post} />
   })
+
+  // const loadingContent = Array(totalPosts - posts.length).fill(true).map((item, index) => {
+  //   <Skeleton key={index} variant="rounded" animation="wave" width={500} height={118}>
+  //   </Skeleton>
+  // })
 
   // Use `window` instead of `body` as `document` will be `undefined` when the
   // hooks first runs. By default, useScrollTrigger will attach itself to `window`.
@@ -54,9 +64,14 @@ const NewsFeed: React.FC = () => {
   
   return (
     <Dashboard>
-      {isLoading && <p className='center'>Loading More Posts</p>}
+      {isLoading && 
+        <Grid container justifyContent="center" alignItems="center" style={{ height: "70vh" }}>
+          <CircularProgress className="flex align-center justify-center"/>
+        </Grid>
+      }
       <List style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 35 }}>
         {content}
+        {/* {isLoading && hasNextPage && loadingContent as  any} */}
       </List>
       <Zoom in={trigger}>
         <Box
