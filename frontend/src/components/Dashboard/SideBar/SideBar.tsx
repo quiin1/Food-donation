@@ -1,5 +1,5 @@
-import React from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, CardMedia, Typography, List, Divider } from "@mui/material"
 import { palette } from '../../../theme'
 import logo from '../../../assets/logo/logo.png'
@@ -7,13 +7,14 @@ import { listNavItems } from '../../../until/constants';
 import NavItem from './NavItem'
 import dashboardSlice from '../../../redux/dashboardSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { roleSelector } from '../../../redux/selectors';
 
 const SideBar: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation()
     const subpage = location.pathname
-    const role = localStorage.getItem('role')
+    const role = useSelector(roleSelector)
 
     function handleChangeSubpage(title: string, index: number) {
         switch (title) {
@@ -54,7 +55,7 @@ const SideBar: React.FC = () => {
             </Box>
             <List sx={{ margin: "2em 0"}}>
                 {listNavItems.map((item, index) => (
-                    (role === "admin" || role === item.role) &&
+                    (role?.includes("admin") || role?.includes(item.role)) &&
                     <NavItem id={index} key={index} title={item.title} 
                         onClick={() => handleChangeSubpage(item.title, index)}
                         className={subpage === item.path ? "chosen" : ""}

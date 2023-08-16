@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
-import { Alert, AlertProps, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar } from '@mui/material'
-import { GridActionsCellItem, GridRowModel } from '@mui/x-data-grid'
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { Alert, AlertProps, Autocomplete, Box, Checkbox, Snackbar, TextField, darken, lighten, styled } from '@mui/material'
+import { GridActionsCellItem } from '@mui/x-data-grid'
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import SaveIcon from '@mui/icons-material/Save';
+import { palette } from '../../theme'
 
 import Dashboard from '../../pages/Dashboard'
 import Table from '../../components/Dashboard/Table/Table'
 
 import { getUsers, updateUser } from '../../api'
 
-function computeMutation(newRow: GridRowModel, oldRow: GridRowModel) {
-    if (newRow.role !== oldRow.role) {
-      return `Role from '${oldRow.role}' to '${newRow.role}'`;
-    }
-    return null;
-  }
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+const GroupHeader = styled('div')(({ theme }) => ({
+    // position: 'sticky',
+    top: '-8px',
+    padding: '4px 10px',
+    color: theme.palette.primary.main,
+    backgroundColor:
+      theme.palette.mode === 'light'
+        ? lighten(theme.palette.primary.light, 0.85)
+        : darken(theme.palette.primary.main, 0.8),
+}));
 
+const GroupItems = styled('ul')({
+padding: 0,
+});
+  
 const UsersManagement: React.FC = () => {
     const columns = [
         {
@@ -50,45 +60,82 @@ const UsersManagement: React.FC = () => {
         {
             field: 'role',
             headerName: 'USER ROLE',
-            width: 200,
-            editable: true,
-            type: 'singleSelect',
-            valueOptions: ['', 'admin', 'post-manager', 'location', 'reward', 'payment-record'],
-            renderCell: (params: any) => {
+            width: 390,
+            renderCell: (params1: any) => {
                 return (
-                    <Box sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'space-between'
-                    }}>
-                        <Box
-                            bgcolor={params.value === 'admin' ? "#D5EEDB" : "#FFF4BC"}
-                            padding="8px 16px"
-                            color="#30993B"
-                            borderRadius="20px"
-                            mr="2em"
-                        >
-                            {params.value}
-                        </Box>
-                    </Box>
+                    <Autocomplete
+                        multiple
+                        id="checkboxes-tags-demo"
+                        options={['admin', 'post-manager', 'location', 'reward', 'payment-record']}
+                        value={params1.value}
+                        disableCloseOnSelect
+                        getOptionLabel={(option) => option}
+                        renderOption={(props, option, { selected }) => (
+                            <li {...props}>
+                                <Checkbox
+                                    icon={icon}
+                                    checkedIcon={checkedIcon}
+                                    style={{ marginRight: 8 }}
+                                    checked={selected}
+                                />
+                                {option}
+                            </li>
+                        )}
+                        style={{ width: 500, height: 'auto' }}
+                        groupBy={(option) => option === 'admin' ? 'admin' : 'user'}
+                        renderInput={(params) => (
+                            <TextField {...params} placeholder='Role'/>
+                        )}
+                        renderGroup={(params) => (
+                            <li key={params.key}>
+                                <GroupHeader>{params.group}</GroupHeader>
+                                <GroupItems>{params.children}</GroupItems>
+                            </li>
+                        )}
+                        onChange={(e, newRoles) => {
+                            console.log("New", newRoles)
+                            handleChangeRole(params1.id, newRoles)
+                        }}
+                    />
                 )
             }
         },
+        // {
+        //     field: 'role',
+        //     headerName: 'USER ROLE',
+        //     width: 450,
+        //     editable: true,
+        //     type: 'multi-select',
+        //     valueOptions: ['admin', 'post-manager', 'location', 'reward', 'payment-record'],
+        //     renderCell: (params: any) => {
+        //         return (
+        //             <Autocomplete
+        //                 multiple
+        //                 fullWidth
+        //                 size="medium"
+        //                 options={[
+        //                     'admin', 
+        //                     'post-manager', 
+        //                     'location', 
+        //                     'reward', 
+        //                     'payment-record'
+        //                 ]}
+        //                 renderInput={(params) => <TextField {...params} variant="standard" />}
+        //                 onChange={(e, nv) => console.log("New", nv)}
+        //             />
+        //         )
+        //     }
+        // },
         {
             field: 'actions',
             headerName: 'ACTIONS',
             type: 'actions',
             align: 'right',
-            getActions: (params: { id: number; }) => [
+            getActions: (params: { id: string }) => [
                 <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                    // onClick={() => {setOpenConfirmDelete(true); setIdToDelete(params.id)}}
-                />,
-                <GridActionsCellItem
-                    icon={<EditIcon sx={{ color: "#84818A", width: ".87em" }} />}
-                    label="Edit"
-                    // onClick={() => handleEdit(params.id)}
+                    icon={<SaveIcon sx={{ color: "#84818A", width: "1em", ":hover": {color: palette.green} }} />}
+                    label="Save"
+                    onClick={() => handleUpdateRole(params.id)}
                 />,
             ],
         },
@@ -105,91 +152,49 @@ const UsersManagement: React.FC = () => {
         getUsers(paginationModel, setRows, setTotalRows, setLoading)
     }, [paginationModel])
 
-    
-    const noButtonRef = React.useRef<HTMLButtonElement>(null);
-    const [promiseArguments, setPromiseArguments] = React.useState<any>(null);
     const [snackbar, setSnackbar] = React.useState<Pick<
         AlertProps,
         'children' | 'severity'
     > | null>(null);
-
     const handleCloseSnackbar = () => setSnackbar(null);
 
-    const processRowUpdate = React.useCallback(
-        (newRow: GridRowModel, oldRow: GridRowModel) =>
-          new Promise<GridRowModel>((resolve, reject) => {
-            const mutation = computeMutation(newRow, oldRow);
-            if (mutation) {
-              // Save the arguments to resolve or reject the promise later
-              setPromiseArguments({ resolve, reject, newRow, oldRow });
-            } else {
-              resolve(oldRow); // Nothing was changed
+    const handleChangeRole = (id: string, newRoles: any) => {
+        const indexToUpdate = rows.findIndex((item: any) => item.id === id)
+        if (indexToUpdate >= 0 && indexToUpdate < rows.length) {
+            /**
+             * front-end
+             */
+            const updatedRow = {...rows[indexToUpdate], role: newRoles}
+            
+            const newRows = rows.map((item: any, index: number) =>
+                index === indexToUpdate ? updatedRow : item
+            )
+            setRows(newRows)
+        } else {
+            console.log('Invalid index');
+        }
+    }
+
+    const handleUpdateRole = (id: string) => {
+        const indexToUpdate = rows.findIndex((item: any) => item.id === id)
+        if (indexToUpdate >= 0 && indexToUpdate < rows.length) {
+            /**
+             * front-end
+             */
+            try {
+                console.log(rows[indexToUpdate])
+                updateUser(rows[indexToUpdate].id, rows[indexToUpdate])
+                setSnackbar({ children: 'User successfully saved', severity: 'success' });
+            } catch (error) {
+                setSnackbar({ children: "Role can't be empty", severity: 'error' });
             }
-          }),
-        [],
-    );
-
-    const handleNo = () => {
-        const { oldRow, resolve } = promiseArguments;
-        resolve(oldRow); // Resolve with the old row to not update the internal state
-        setPromiseArguments(null);
-      };
-    
-      const handleYes = async () => {
-        const { newRow, oldRow, reject, resolve } = promiseArguments;
-    
-        try {
-          // Make the HTTP request to save in the backend
-          console.log(newRow)
-          const response = updateUser(newRow.id, newRow);
-          setSnackbar({ children: 'User successfully saved', severity: 'success' });
-          resolve(response);
-          setPromiseArguments(null);
-        } catch (error) {
-          setSnackbar({ children: "Role can't be empty", severity: 'error' });
-          reject(oldRow);
-          setPromiseArguments(null);
+        } else {
+            console.log('Invalid index');
         }
-    };
-
-    const handleEntered = () => {
-        // The `autoFocus` is not used because, if used, the same Enter that saves
-        // the cell triggers "No". Instead, we manually focus the "No" button once
-        // the dialog is fully open.
-        // noButtonRef.current?.focus();
-    };
-
-    const renderConfirmDialog = () => {
-        if (!promiseArguments) {
-            return null;
-        }
-
-        const { newRow, oldRow } = promiseArguments;
-        const mutation = computeMutation(newRow, oldRow);
-
-        return (
-            <Dialog
-            maxWidth="xs"
-            TransitionProps={{ onEntered: handleEntered }}
-            open={!!promiseArguments}
-            >
-            <DialogTitle>Are you sure?</DialogTitle>
-            <DialogContent dividers>
-                {`Pressing 'Yes' will change ${mutation}.`}
-            </DialogContent>
-            <DialogActions>
-                <Button ref={noButtonRef} onClick={handleNo}>
-                No
-                </Button>
-                <Button onClick={handleYes}>Yes</Button>
-            </DialogActions>
-            </Dialog>
-        );
-    };
+    }
 
     return (
         <Dashboard>
-            {renderConfirmDialog()}
             {!!snackbar && (
                 <Snackbar open onClose={handleCloseSnackbar} autoHideDuration={6000}>
                     <Alert {...snackbar} onClose={handleCloseSnackbar} />
@@ -203,7 +208,6 @@ const UsersManagement: React.FC = () => {
                 totalRows={totalRows}
                 paginationModel={{ page: paginationModel.page - 1, pageSize: paginationModel.pageSize }}
                 setPaginationModel={setPaginationModel}
-                processRowUpdate={processRowUpdate}
             />
         </Dashboard>
     )

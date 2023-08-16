@@ -8,6 +8,7 @@ import { LOGOUT } from '../../../until/constants';
 
 import SearchBar from './SearchBar';
 import MyAvatar from './MyAvatar';
+import loginSlice from '../../../redux/loginSlice';
 
 const Header: React.FC = () => {
     const dispatch = useDispatch()
@@ -29,6 +30,7 @@ const Header: React.FC = () => {
          * remove current username in localStorage 
          * */
         localStorage.removeItem("username")
+        dispatch(loginSlice.actions.removeRole())
     }
 
     return (

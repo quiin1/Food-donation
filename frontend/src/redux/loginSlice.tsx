@@ -8,7 +8,8 @@ interface Account {
 
 interface LoginState {
     status: string
-    accounts: Account[]
+    accounts: Account[],
+    role: string[]
 }
 
 // const accountsFromLocalStorage = localStorage.getItem('accounts');
@@ -22,7 +23,8 @@ const initialAccounts: Account[] =
     ];
 const initialState: LoginState = {
     status: login.LOGIN,
-    accounts: initialAccounts
+    accounts: initialAccounts,
+    role: ['post-manager']
 }
 
 export default createSlice({
@@ -36,6 +38,12 @@ export default createSlice({
         signUp: (state, action) => {
             state.accounts.push(action.payload)
             // localStorage.setItem('accounts', JSON.stringify(state.accounts))
+        },
+        setRole: (state, action) => {
+            state.role = action.payload
+        },
+        removeRole: (state) => {
+            state.role = ['post-manager']
         }
     }
 })

@@ -2,6 +2,7 @@ import { createSelector } from "@reduxjs/toolkit"
 
 export const accountsSelector = ((state: { login: { accounts: any } }) => state.login.accounts)
 export const statusLoginSelector = ((state: { login: { status: any } }) => state.login.status)
+export const roleSelector = ((state: { login: { role: any } }) => state.login.role)
 
 export const dataSelector = ((state: { dashboard: { data: any } }) => state.dashboard.data)
 export const authenticatedSelector = ((state: { dashboard: { authenticated: any } }) => state.dashboard.authenticated)

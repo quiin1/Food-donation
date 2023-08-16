@@ -7,9 +7,10 @@ import { LOGIN_SUCCESSFULLY } from '../../until/constants'
 import { SignInButton } from '../StyleComponents/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountsSelector } from '../../redux/selectors'
-import axios, { api } from '../../api'
+import { api } from '../../api'
 import Cookies from 'js-cookie';
 import axiosInstance from '../../api';
+import loginSlice from '../../redux/loginSlice';
 
 const Login: React.FC = () => {
     const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const Login: React.FC = () => {
                      * save current username in localStorage 
                      * */
                     localStorage.setItem("username", capitalizeFirstLetter(username))
-                    localStorage.setItem("role", data.role)
+                    dispatch(loginSlice.actions.setRole(data.role))
                 })
         } catch (error) {
             console.log("error", error)

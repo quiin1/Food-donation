@@ -44,12 +44,12 @@ export class UserService {
     }
 
     async updateUserById(user: User, id: string): Promise<Response> {
-        const updatedPost = await this.userModel.findByIdAndUpdate(id, user, { 
+        const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { 
             new: true,
             runValidators: true,
         })
         return {
-            data: {updatedPost}
+            data: {updatedUser}
         }
     }
 }
