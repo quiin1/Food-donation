@@ -30,6 +30,7 @@ const Header: React.FC = () => {
          * remove current username in localStorage 
          * */
         localStorage.removeItem("username")
+        localStorage.removeItem("role")
         dispatch(loginSlice.actions.removeRole())
     }
 

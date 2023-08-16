@@ -53,6 +53,7 @@ const Login: React.FC = () => {
                      * save current username in localStorage 
                      * */
                     localStorage.setItem("username", capitalizeFirstLetter(username))
+                    localStorage.setItem("role", JSON.stringify(data.role))
                     dispatch(loginSlice.actions.setRole(data.role))
                 })
         } catch (error) {

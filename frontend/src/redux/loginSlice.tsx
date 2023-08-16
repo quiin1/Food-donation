@@ -9,7 +9,7 @@ interface Account {
 interface LoginState {
     status: string
     accounts: Account[],
-    role: string[]
+    role: any
 }
 
 // const accountsFromLocalStorage = localStorage.getItem('accounts');
@@ -24,7 +24,7 @@ const initialAccounts: Account[] =
 const initialState: LoginState = {
     status: login.LOGIN,
     accounts: initialAccounts,
-    role: ['post-manager']
+    role: localStorage.getItem('role') || ['post-manager']
 }
 
 export default createSlice({

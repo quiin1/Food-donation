@@ -94,22 +94,6 @@ const data = [
         state: 'Users Management',
         title: 'Users Management',
         action: '+ New user',
-        actionForm: {
-            title: 'Add new user',    
-            subtitles: ["User's information", 'Media'],
-            inputs: [
-                {label: 'Title', type: 'text', width: '100%'}, 
-                {label: 'Location', type: 'select', width: '50%', optionList: ["Sydney", "San Francisco"]}, 
-                {label: 'Address', type: 'select', width: '50%', optionList: ["Crawford Room, Mortlock ....", "San Francisco"]}, 
-                {label: 'Description', type: 'description', width: '100%'}
-            ], 
-            button: 'Create new user',
-            success: {
-                title: 'Create successfully',
-                content: 'New user created successfully',
-                button: 'Back to users management'
-            }
-        }
     },
 ]
 
