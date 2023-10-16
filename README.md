@@ -6,11 +6,11 @@
   
 Start project with 2 terminal:
 ```
-cd ./front-end
+cd ./frontend
 npm run start
 ```
 
 ```
-cd ./back-end
+cd ./backend
 npm run dev
 ```
