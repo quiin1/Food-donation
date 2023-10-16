@@ -4,9 +4,13 @@
 * Back-end: NestJS
 * Database: MongoDB Cloud
   
-Start project:
+Start project with 2 terminal:
+```
 cd ./front-end
 npm run start
+```
 
+```
 cd ./back-end
 npm run dev
+```
