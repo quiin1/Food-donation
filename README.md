@@ -4,3 +4,9 @@
 * Back-end: NestJS
 * Database: MongoDB Cloud
   
+Start project:
+cd ./front-end
+npm run start
+
+cd ./back-end
+npm run dev
