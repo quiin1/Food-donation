@@ -19,8 +19,8 @@
   - Phát triển thêm giao diện trang New Feeds và Admin
 
 - Một số hình ảnh website:
-<img src="images/sign_up.png" width="200"/>
-<img src="images/log_in.png" width="200"/>
+<img src="images/sign_up.png" />
+<img src="images/log_in.png" />
 *Giao diện đăng ký, đăng nhập*
 
 ![Admin Dashboad](images/dashboard.png)
@@ -28,8 +28,8 @@
   - Giao diện Admin bao gồm 7 trang: Overview, Post manager, Location, Reward, Payment record, NewsFeed, User Management
   - Giao diện người dùng khác bao gồm các trang NewsFeed và trang tương ứng với vai trò của người dùng đó
 
-<img src="images/dashboard_ipadScreen.png" width="200"/>
-<img src="images/dashboard_iphoneSEscreen.png" width="200"/>
+<img src="images/dashboard_ipadScreen.png" />
+<img src="images/dashboard_iphoneSEscreen.png" />
 *Thiết kế giao diện website responsive cho các màn hình nhỏ hơn như ipad, di động*
 
 ## Getting Started
