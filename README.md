@@ -4,18 +4,16 @@
   - Front-end: Typescript, Material UI
   - Back-end: NestJS
   - Database: MongoDB Cloud
-<table style="width: 100%; table-layout: fixed;">
-  <tr>
-    <td style="width: 50%; text-align: center;">
-      <img src="images/db_users.jpg" alt="db_users" style="width: 100%;"/>
-      <p><em>Cấu trúc dữ liệu users</em></p>
-    </td>
-    <td style="width: 50%; text-align: center;">
-      <img src="images/db_posts.jpg" alt="db_posts" style="width: 100%;"/>
-      <p><em>Cấu trúc dữ liệu posts</em></p>
-    </td>
-  </tr>
-</table>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/db_users.jpg" alt="Image 1" style="width: 100%; max-width: 50%;">
+    <p><em>Cấu trúc dữ liệu users</em></p>
+  </div>
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/db_posts.jpg" alt="Image 2" style="width: 100%; max-width: 50%;">
+    <p><em>Cấu trúc dữ liệu posts</em></p>
+  </div>
+</div>
 
 - Design: [link to Figma](https://www.figma.com/design/44Gs3a2a4ung1crYIBmM23/Food-Donation?node-id=264-12178&t=FGJ9xiuYWDo3bnJz-1)
   - Phát triển thêm giao diện trang New Feeds và Admin
