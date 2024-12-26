@@ -6,11 +6,11 @@
   - Database: MongoDB Cloud
 <div style="display: flex; justify-content: space-between; align-items: center;">
   <div style="flex: 1; text-align: center; padding: 10px;">
-    <img src="images/db_users.jpg" alt="Image 1" style="width: 100%; max-width: 50%;">
+    <img src="images/db_users.png" alt="Image 1" style="width: 100%; max-width: 50%;">
     <p><em>Cấu trúc dữ liệu users</em></p>
   </div>
   <div style="flex: 1; text-align: center; padding: 10px;">
-    <img src="images/db_posts.jpg" alt="Image 2" style="width: 100%; max-width: 50%;">
+    <img src="images/db_posts.png" alt="Image 2" style="width: 100%; max-width: 50%;">
     <p><em>Cấu trúc dữ liệu posts</em></p>
   </div>
 </div>
