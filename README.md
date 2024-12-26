@@ -1,16 +1,29 @@
 ## Food-donation
 Ứng dụng web kết nối các nhà hảo tâm và người cần nhận sự hỗ trợ từ cộng đồng
 - Dự án cá nhân
-* Front-end: Typescript, Material UI
-* Back-end: NestJS
-* Database: MongoDB Cloud
+  - Front-end: Typescript, Material UI
+  - Back-end: NestJS
+  - Database: MongoDB Cloud
+<img src="images/db_users.png" width="200"/>
+<img src="images/db_posts.png" width="200"/>
+*Cấu trúc dữ liệu users và posts*
 
 - Design: [link to Figma](https://www.figma.com/design/44Gs3a2a4ung1crYIBmM23/Food-Donation?node-id=264-12178&t=FGJ9xiuYWDo3bnJz-1)
-  + Phát triển thêm giao diện trang New Feeds và Admin
+  - Phát triển thêm giao diện trang New Feeds và Admin
+
 - Một số hình ảnh website:
-![Đăng ký](images/sign_up.png)
-![Đăng nhập](images/log_in.png)
+<img src="images/sign_up.png" width="200"/>
+<img src="images/log_in.png" width="200"/>
+*Giao diện đăng ký, đăng nhập*
+
 ![Admin Dashboad](images/dashboard.png)
+*Giao diện dashboard khi admin đăng nhập thành công*
+  - Giao diện Admin bao gồm 7 trang: Overview, Post manager, Location, Reward, Payment record, NewsFeed, User Management
+  - Giao diện người dùng khác bao gồm các trang NewsFeed và trang tương ứng với vai trò của người dùng đó
+
+<img src="images/dashboard_ipadScreen.png" width="200"/>
+<img src="images/dashboard_iphoneSEscreen.png" width="200"/>
+*Thiết kế giao diện website responsive cho các màn hình nhỏ hơn như ipad, di động*
 
 ## Getting Started
 Start project with 2 terminal:
