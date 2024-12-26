@@ -10,7 +10,7 @@
     <p><em>Cấu trúc dữ liệu users</em></p>
   </div>
   <div style="flex: 1; text-align: center; padding: 10px;">
-    <img src="images/db_posts.png" alt="Image 2" style="width: 100%; max-width: 50%;">
+    <img src="images/db_posts.png" alt="Image 2" style="width: 100%; max-width: 50%;" />
     <p><em>Cấu trúc dữ liệu posts</em></p>
   </div>
 </div>
@@ -19,18 +19,36 @@
   - Phát triển thêm giao diện trang New Feeds và Admin
 
 - Một số hình ảnh website:
-<img src="images/sign_up.png" />
-<img src="images/log_in.png" />
-*Giao diện đăng ký, đăng nhập*
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/sign_up.png" alt="Image 1" style="width: 100%; max-width: 50%;" />
+    <p><em>Giao diện đăng ký</em></p>
+  </div>
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/log_in.png" alt="Image 2" style="width: 100%; max-width: 50%;" />
+    <p><em>Giao diện đăng nhập</em></p>
+  </div>
+</div>
 
-![Admin Dashboad](images/dashboard.png)
-*Giao diện dashboard khi admin đăng nhập thành công*
-  - Giao diện Admin bao gồm 7 trang: Overview, Post manager, Location, Reward, Payment record, NewsFeed, User Management
-  - Giao diện người dùng khác bao gồm các trang NewsFeed và trang tương ứng với vai trò của người dùng đó
+<div>
+    <img src="images/dashboard.png" alt="Image 1" />
+    <p>
+      <em>Giao diện dashboard khi admin đăng nhập thành công</em>
+      <em>+ Giao diện Admin bao gồm 7 trang: Overview, Post manager, Location, Reward, Payment record, NewsFeed, User Management</em>
+      <em>+ Giao diện người dùng khác bao gồm các trang NewsFeed và trang tương ứng với vai trò của người dùng đó</em>
+    </p>
+</div>
 
-<img src="images/dashboard_ipadScreen.png" />
-<img src="images/dashboard_iphoneSEscreen.png" />
-*Thiết kế giao diện website responsive cho các màn hình nhỏ hơn như ipad, di động*
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/dashboard_ipadScreen.png" alt="Image 1" style="width: 100%; max-width: 50%;" />
+    <p><em>Giao diện Dashboard khi dùng thiết bị Ipad</em></p>
+  </div>
+  <div style="flex: 1; text-align: center; padding: 10px;">
+    <img src="images/dashboard_iphoneSEscreen.png" alt="Image 2" style="width: 100%; max-width: 50%;" />
+    <p><em>Giao diện Dashboard khi dùng thiết bị Iphone SE</em></p>
+  </div>
+</div>
 
 ## Getting Started
 Start project with 2 terminal:
